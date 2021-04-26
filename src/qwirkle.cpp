@@ -68,11 +68,11 @@ void showCredits() {
    std::cout<<"Name: Tony Peter Baker"<<std::endl;
    std::cout<<"Student ID: s3622250"<<std::endl;
    std::cout<<"Email: s3622250@student.rmit.edu.au"<<std::endl;
-   std::cout<<"------------------------------"<<std::endl;
+   std::cout<<"------------------------------\n"<<std::endl;
    menu();
 }
 
 void quit(){
   std::cout << "Goodbye!" << '\n';
-  return EXIT_SUCCESS;
+  exit(0);
 }
