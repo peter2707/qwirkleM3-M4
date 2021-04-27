@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# qwirkle executable linux
+qwirkle
