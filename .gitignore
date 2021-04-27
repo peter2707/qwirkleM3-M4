@@ -4,7 +4,7 @@
 # Compiled Object files
 *.slo
 *.lo
-*.o
+src/*.o
 *.obj
 
 # Precompiled Headers
@@ -32,4 +32,4 @@
 *.app
 
 # qwirkle executable linux
-qwirkle
+src/qwirkle
