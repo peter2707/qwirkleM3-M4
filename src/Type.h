@@ -1,3 +1,6 @@
+#ifndef ASSIGN2_TYPE_H
+#define ASSIGN2_TYPE_H
+
 // Define a Colour type
 typedef char Colour;
 
@@ -9,3 +12,5 @@ typedef char Row;
 
 // Define Col
 typedef int Col;
+
+#endif // ASSIGN2_TYPE_H
