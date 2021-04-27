@@ -13,4 +13,6 @@ typedef char Row;
 // Define Col
 typedef int Col;
 
+#define     BOARD_SIZE      26
+
 #endif // ASSIGN2_TYPE_H
