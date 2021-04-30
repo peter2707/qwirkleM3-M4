@@ -13,7 +13,7 @@ typedef char Row;
 // Define Col
 typedef int Col;
 
-// Board Max Size
+// Define Board Max Size
 #define     BOARD_SIZE      26
 
 #endif // ASSIGN2_TYPE_H
