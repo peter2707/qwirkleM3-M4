@@ -33,3 +33,7 @@ src/*.o
 
 # qwirkle executable linux
 src/qwirkle
+
+
+# .vscode ignore
+.vscode/
