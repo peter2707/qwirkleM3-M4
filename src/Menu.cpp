@@ -81,6 +81,7 @@ void Menu::quit(){
 }
 
 bool Menu::checkPlayerName(std::string name){
+    bool check = false;
     if (!name.empty()){
         int count = 0;
         for(int i = 0; i < name.length(); i++){
@@ -89,11 +90,12 @@ bool Menu::checkPlayerName(std::string name){
             }
         }
         if (count == name.length()){
-            return true;
+            check = true;
         }else {
-            return false;
+            check = false;
         }
     }else {
-        return false;
+        check = false;
     }
+    return check;
 }
