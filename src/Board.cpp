@@ -20,7 +20,7 @@ void Board::printBoard()
             {
                 Tile* curTile = this->board.at(k);
                 Row row = curTile->row;
-                int col = curTile->col;
+                Col col = curTile->col;
                 if(getRow(row) == i && col == j)
                 {
                     std::cout << curTile->shape << curTile->colour << std::endl;
@@ -32,5 +32,5 @@ void Board::printBoard()
 
 int Board::getRow(Row row)
 {
-
+    return 0;
 }
