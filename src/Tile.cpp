@@ -1,6 +1,14 @@
 
 #include "Tile.h"
 
+Tile::Tile(const Tile &tile)
+{
+    this->col = tile.col;
+    this->row = tile.row;
+    this->colour = tile.colour;
+    this->shape = tile.shape;
+}
+
 Tile::Tile(Colour colour, Shape shape)
 {
     this->colour = colour;
