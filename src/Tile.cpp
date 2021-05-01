@@ -1,4 +1,25 @@
 
 #include "Tile.h"
 
-// Empty... for now?
+Tile::Tile(const Tile &tile)
+{
+    this->col = tile.col;
+    this->row = tile.row;
+    this->colour = tile.colour;
+    this->shape = tile.shape;
+}
+
+Tile::Tile(Colour colour, Shape shape)
+{
+    this->colour = colour;
+    this->shape = shape;
+}
+
+Tile::~Tile(){}
+
+void Tile::setPosition(Row row, Col col)
+{
+    this->col = col;
+    this->row = row;
+}
+

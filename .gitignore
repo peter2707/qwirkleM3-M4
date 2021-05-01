@@ -4,7 +4,7 @@
 # Compiled Object files
 *.slo
 *.lo
-*.o
+src/*.o
 *.obj
 
 # Precompiled Headers
@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# qwirkle executable linux
+src/qwirkle
+
+
+# .vscode ignore
+.vscode/
+>>>>>>> d7063831aefc92fb0ef6738d0a8461a65b6b60cb
