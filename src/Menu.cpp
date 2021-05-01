@@ -11,8 +11,7 @@ void Menu::mainMenu() {
    std::cout << "1. New Game" << std::endl;
    std::cout << "2. Load Game" << std::endl;
    std::cout << "3. Show Credits" << std::endl;
-   std::cout << "4. Quit" << std::endl;
-   std::cout << "> ";
+   std::cout << "4. Quit" << std::endl << "> ";
    std::cin >> menuOption;
    std::cout << std::endl;
    if (menuOption == 1) {
@@ -40,6 +39,7 @@ void Menu::newGame() {
         std::cin >> playerTwoName;
         if (checkPlayerName(playerTwoName) == true){
             std::cout<<"Let's Play..."<<std::endl;
+            //Game Play
         }else{
             std::cout<<"Sorry, Invalid Player Two's name"<<std::endl;
         }
@@ -49,8 +49,11 @@ void Menu::newGame() {
 }
 
 void Menu::loadGame() {
-    std::cout << "Load Game" << std::endl;
+    std::string filename;
+    std::cout << "Enter the filename to load a game" << std::endl << "> ";
+    std::cin >> filename;
 }
+
 
 void Menu::showCredits() {
     std::cout<<"------------------------------"<<std::endl;
