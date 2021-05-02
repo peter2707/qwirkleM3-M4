@@ -16,4 +16,7 @@ typedef int Col;
 // Define Board Max Size
 #define     BOARD_SIZE      26
 
+// Define player size
+#define     PLAYERS         2
+
 #endif // ASSIGN2_TYPE_H
