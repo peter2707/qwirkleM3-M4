@@ -86,8 +86,8 @@ void Menu::quit(){
 bool Menu::checkPlayerName(std::string name){
     bool check = false;
     if (!name.empty()){
-        int count = 0;
-        for(int i = 0; i < name.length(); i++){
+        uint64_t count = 0;
+        for(uint64_t i = 0; i < name.length(); i++){
             if(isupper(name[i]) == true){
                 ++count;
             }
