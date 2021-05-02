@@ -37,4 +37,4 @@ src/qwirkle
 
 # .vscode ignore
 .vscode/
->>>>>>> d7063831aefc92fb0ef6738d0a8461a65b6b60cb
+.DS_Store
