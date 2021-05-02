@@ -33,8 +33,14 @@ src/*.o
 
 # qwirkle executable linux
 src/qwirkle
-
+*/qwirkle
 
 # .vscode ignore
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+src/.vscode/
 .DS_Store
