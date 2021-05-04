@@ -14,10 +14,10 @@ public:
    
    int size();
 
-   Tile* get(int index);
+    std::shared_ptr<Tile> get(int index);
 
-   void addFront(Tile* data);
-   void addBack(Tile* data);
+   void addFront(std::shared_ptr<Tile> data);
+   void addBack(std::shared_ptr<Tile> data);
 
 
    void removeFront();
@@ -28,7 +28,7 @@ public:
 
 
 private:
-   Node* head;
+    std::shared_ptr<Node> head;
 };
 
 #endif // ASSIGN2_LINKEDLIST_H

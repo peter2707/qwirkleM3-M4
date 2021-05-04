@@ -8,8 +8,7 @@
 int main(void) {
    std::cout << "Welcome To Qwirkle!" << std::endl;
    LinkedList* playerhand = new LinkedList();
-
-
+   
    delete playerhand;
 
    Menu* menu = new Menu();
