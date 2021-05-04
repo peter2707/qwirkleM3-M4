@@ -1,8 +1,12 @@
 #include "Engine.h"
 
-Engine::Engine(){}
+Engine::Engine(){
 
-Engine::~Engine(){}
+}
+
+Engine::~Engine(){
+
+}
 
 void Engine::startGame(Player playerList[], int numPlayer)
 {
@@ -12,10 +16,15 @@ void Engine::startGame(Player playerList[], int numPlayer)
 
 void Engine::shuffleBag()
 {
-
-}
-
-void Engine::loadGame(Board bord, Player playerList[])
-{
     
 }
+
+// void Engine::loadGame(Board bord, Player playerList[])
+// {
+    
+// }
+
+void Engine::loadGame(std::string filename){
+    std::cout<< "Hi"<<filename<<std::endl;
+}
+

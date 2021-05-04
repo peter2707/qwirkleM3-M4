@@ -17,6 +17,7 @@ private:
     string playerName;
     int score;
 public:
+    Player();
     Player(string playerName);
     ~Player();
     string getPlayerName();

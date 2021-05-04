@@ -1,5 +1,5 @@
 
-#ifndef ASSIGN2_BORAD_H
+#ifndef ASSIGN2_BOARD_H
 #define ASSIGN2_BOARD_H
 
 #include <iostream>
@@ -21,7 +21,7 @@ class Board
         int getLength();
 
     private:
-        vector<shared_ptr<Tile>> board;
+        vector< shared_ptr<Tile> > board;
         int getRow(Row row);
 
 };

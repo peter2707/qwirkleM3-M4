@@ -1,7 +1,15 @@
 #include "Menu.h"
-#include "Engine.h"
 
-Engine* e;
+#define NEWGAME 1
+#define LOADGAME 2
+#define SHOWCREDIT 3
+#define QUIT 4
+
+Engine* eg = new Engine();
+
+Menu::Menu(){
+
+}
 
 Menu::~Menu() {
     
@@ -9,25 +17,32 @@ Menu::~Menu() {
 
 
 void Menu::mainMenu() {
-   int menuOption;
-   std::cout << "--------Menu--------" << std::endl;
-   std::cout << "1. New Game" << std::endl;
-   std::cout << "2. Load Game" << std::endl;
-   std::cout << "3. Show Credits" << std::endl;
-   std::cout << "4. Quit" << std::endl << "> ";
-   std::cin >> menuOption;
-   std::cout << std::endl;
-   if (menuOption == 1) {
-      newGame();
-   } else if (menuOption == 2) {
-      loadGame();
-   } else if (menuOption == 3) {
-      showCredits();
-   } else if (menuOption == 4) {
-      quit();
-   } else {
-      std::cout<<"Sorry, invalid option..."<<std::endl;
-   }
+    int menuOption;
+    std::cout << "--------Menu--------\n"
+                << "1. New Game\n"
+                << "2. Load Game\n"
+                << "3. Show Credits\n"
+                << "4. Quit\n> ";
+    std::cin >> menuOption;
+    if (std::cin.fail()) {
+        std::cin.clear(); 
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout<<"Please enter a number..."<<std::endl;
+        mainMenu();
+    }else{
+        if (menuOption == NEWGAME) {
+        newGame();
+        } else if (menuOption == LOADGAME) {
+            loadGame();
+        } else if (menuOption == SHOWCREDIT) {
+            showCredits();
+        } else if (menuOption == QUIT) {
+            quit();
+        } else {
+            std::cout<<"Sorry, invalid option..."<<std::endl;
+            mainMenu();
+        }
+    }
 }
 
 void Menu::newGame() {
@@ -45,45 +60,55 @@ void Menu::newGame() {
             //Game Play
         }else{
             std::cout<<"Sorry, Invalid Player Two's name"<<std::endl;
+            mainMenu();
         }
     }else{
         std::cout<<"Sorry, Invalid Player One's name"<<std::endl;
+        mainMenu();
     }
 }
 
 void Menu::loadGame() {
     std::string filename;
-    std::ifstream loadFile;
-    std::cout << "Enter the filename to load a game" << std::endl << "> ";
-    std::cin >> filename;
+    bool validFile = false;
 
-    if(filename == "save"){
-        loadFile.open("save_game/"+filename);
-        loadFile.close();
-    }
+    while(!validFile){
+     std::cout << "Enter a file name to load from\n >";
+     std::cin >> filename;
+     std::ifstream in;
+     in.open(filename);
+
+     if(in.fail()){
+       std::cout << "Please enter a correct file name" << std::endl;
+     } else{
+       validFile = true;
+     }
+     in.close();
+  }
+    eg->loadGame(filename);
 }
 
 
 void Menu::showCredits() {
-    std::cout<<"------------------------------"<<std::endl;
-    std::cout<<"----------Team-MAST-----------"<<std::endl;
-    std::cout<<"------------------------------"<<std::endl;
-    std::cout<<"Name: Monkolsophearith Prum"<<std::endl;
-    std::cout<<"Student ID: s3848409"<<std::endl;
-    std::cout<<"Email: s3848409@student.rmit.edu.au"<<std::endl;
-    std::cout<<"------------------------------"<<std::endl;
-    std::cout<<"Name: Anmol Kumar"<<std::endl;
-    std::cout<<"Student ID: s3545259"<<std::endl;
-    std::cout<<"Email: s3545259@student.rmit.edu.au"<<std::endl;
-    std::cout<<"------------------------------"<<std::endl;
-    std::cout<<"Name: Sokleng Lim"<<std::endl;
-    std::cout<<"Student ID: s3813756"<<std::endl;
-    std::cout<<"Email: s3813756@student.rmit.edu.au"<<std::endl;
-    std::cout<<"------------------------------"<<std::endl;
-    std::cout<<"Name: Tony Peter Baker"<<std::endl;
-    std::cout<<"Student ID: s3622250"<<std::endl;
-    std::cout<<"Email: s3622250@student.rmit.edu.au"<<std::endl;
-    std::cout<<"------------------------------\n"<<std::endl;
+    std::cout<<"------------------------------\n"
+             <<"----------Team-MAST-----------\n"
+             <<"------------------------------\n"
+             <<"Name: Monkolsophearith Prum\n"
+             <<"Student ID: s3848409\n"
+             <<"Email: s3848409@student.rmit.edu.au\n" 
+             <<"------------------------------\n" 
+             <<"Name: Anmol Kumar\n"
+             <<"Student ID: s3545259\n" 
+             <<"Email: s3545259@student.rmit.edu.au\n" 
+             <<"------------------------------\n" 
+             <<"Name: Sokleng Lim\n"
+             <<"Student ID: s3813756\n" 
+             <<"Email: s3813756@student.rmit.edu.au\n" 
+             <<"------------------------------\n" 
+             <<"Name: Tony Peter Baker\n" 
+             <<"Student ID: s3622250\n" 
+             <<"Email: s3622250@student.rmit.edu.au\n" 
+             <<"------------------------------\n"<<std::endl;
     mainMenu();
 }
 

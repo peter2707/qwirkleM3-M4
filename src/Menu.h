@@ -1,12 +1,15 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef ASSIGN2_MENU_H
+#define ASSIGN2_MENU_H
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include "Engine.h"
 
 class Menu {
 
 public:
 
+    Menu();
     /* Deconstructor */
     ~Menu();
 
@@ -23,4 +26,4 @@ public:
 private:
 
 };
-#endif // MENU_H
+#endif // ASSIGN2_MENU_H
