@@ -15,6 +15,7 @@ public:
     Engine();
     ~Engine();
     void startGame(Player playerList[], int numPlayer);
+    // void loadGame(Board board, Player playerList[]);
     void loadGame(std::string filename);
     void playTile(Tile tile);
 

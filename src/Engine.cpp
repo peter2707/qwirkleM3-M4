@@ -16,7 +16,7 @@ void Engine::startGame(Player playerList[], int numPlayer)
 
 void Engine::shuffleBag()
 {
-    
+
 }
 
 // void Engine::loadGame(Board bord, Player playerList[])
@@ -25,6 +25,6 @@ void Engine::shuffleBag()
 // }
 
 void Engine::loadGame(std::string filename){
-    std::cout<< "Hi"<<filename<<std::endl;
+    std::cout<< "File name: "<<filename<<std::endl;
 }
 

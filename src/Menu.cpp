@@ -5,7 +5,7 @@
 #define SHOWCREDIT 3
 #define QUIT 4
 
-Engine* eg = new Engine();
+Engine* e = new Engine();
 
 Menu::Menu(){
 
@@ -85,7 +85,7 @@ void Menu::loadGame() {
      }
      in.close();
   }
-    eg->loadGame(filename);
+    e->loadGame(filename);
 }
 
 
