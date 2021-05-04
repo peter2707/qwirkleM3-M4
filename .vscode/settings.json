@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "*.php": "php",
-        "memory": "cpp",
-        "xstring": "cpp"
-    }
-}
