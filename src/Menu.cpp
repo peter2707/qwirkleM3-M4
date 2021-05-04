@@ -7,13 +7,9 @@
 
 Engine* e = new Engine();
 
-Menu::Menu(){
+Menu::Menu(){}
 
-}
-
-Menu::~Menu() {
-    
-}
+Menu::~Menu() {}
 
 
 void Menu::mainMenu() {
@@ -55,12 +51,17 @@ void Menu::newGame() {
     if (checkPlayerName(playerOneName) == true){
         std::cout<<"Enter a name for Player 2 (Uppercase characters only!)"<<std::endl;
         std::cin >> playerTwoName;
-        if (checkPlayerName(playerTwoName) == true){
-            std::cout<<"Let's Play..."<<std::endl;
-            //Game Play
-        }else{
-            std::cout<<"Sorry, Invalid Player Two's name"<<std::endl;
+        if (playerTwoName == playerOneName){
+            std::cout<<"Sorry, this name is already chosen"<<std::endl;
             mainMenu();
+        }else{
+            if (checkPlayerName(playerTwoName) == true){
+                std::cout<<"Let's Play..."<<std::endl;
+                //Game Play
+            }else{
+                std::cout<<"Sorry, Invalid Player Two's name"<<std::endl;
+                mainMenu();
+            }
         }
     }else{
         std::cout<<"Sorry, Invalid Player One's name"<<std::endl;

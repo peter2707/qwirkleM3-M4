@@ -8,13 +8,17 @@
 class Menu {
 
 public:
-
+    /* constructor */
     Menu();
+
     /* Deconstructor */
     ~Menu();
 
     /* Game Menu */
     void mainMenu();
+
+private:
+    /* Menu functions */
     void newGame();
     void loadGame();
     void showCredits();
@@ -22,8 +26,6 @@ public:
 
     /* Functions */
     bool checkPlayerName(std::string name);
-
-private:
 
 };
 #endif // ASSIGN2_MENU_H
