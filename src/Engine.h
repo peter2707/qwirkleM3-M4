@@ -6,6 +6,7 @@
 #include "LinkedList.h" 
 #include "Board.h"
 #include "Player.h"
+#include <string>
 
 class Engine
 {
@@ -19,7 +20,7 @@ public:
     Engine();
     ~Engine();
     void startGame(Player playerList[], int numPlayer);
-    void loadGame(Board bord, Player playerList[]);
+    void loadGame(std::string filename);
     void playTile(Tile tile);
 };
 
