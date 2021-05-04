@@ -1,4 +1,7 @@
 #include "Menu.h"
+#include "Engine.h"
+
+Engine* e;
 
 Menu::~Menu() {
     
@@ -50,8 +53,14 @@ void Menu::newGame() {
 
 void Menu::loadGame() {
     std::string filename;
+    std::ifstream loadFile;
     std::cout << "Enter the filename to load a game" << std::endl << "> ";
     std::cin >> filename;
+
+    if(filename == "save"){
+        loadFile.open("save_game/"+filename);
+        loadFile.close();
+    }
 }
 
 
