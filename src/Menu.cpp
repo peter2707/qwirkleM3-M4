@@ -14,7 +14,7 @@ Menu::~Menu() {}
 
 void Menu::mainMenu() {
     int menuOption;
-    std::cout << "--------Menu--------\n"
+    std::cout   << "--------Menu--------\n"
                 << "1. New Game\n"
                 << "2. Load Game\n"
                 << "3. Show Credits\n"
@@ -91,25 +91,25 @@ void Menu::loadGame() {
 
 
 void Menu::showCredits() {
-    std::cout<<"------------------------------\n"
-             <<"----------Team-MAST-----------\n"
-             <<"------------------------------\n"
+    std::cout<<"------------------------------------\n"
+             <<"-------------Team-MAST--------------\n"
+             <<"------------------------------------\n"
              <<"Name: Monkolsophearith Prum\n"
              <<"Student ID: s3848409\n"
              <<"Email: s3848409@student.rmit.edu.au\n" 
-             <<"------------------------------\n" 
+             <<"------------------------------------\n" 
              <<"Name: Anmol Kumar\n"
              <<"Student ID: s3545259\n" 
              <<"Email: s3545259@student.rmit.edu.au\n" 
-             <<"------------------------------\n" 
+             <<"------------------------------------\n" 
              <<"Name: Sokleng Lim\n"
              <<"Student ID: s3813756\n" 
              <<"Email: s3813756@student.rmit.edu.au\n" 
-             <<"------------------------------\n" 
+             <<"------------------------------------\n" 
              <<"Name: Tony Peter Baker\n" 
              <<"Student ID: s3622250\n" 
              <<"Email: s3622250@student.rmit.edu.au\n" 
-             <<"------------------------------\n"<<std::endl;
+             <<"------------------------------------\n"<<std::endl;
     mainMenu();
 }
 

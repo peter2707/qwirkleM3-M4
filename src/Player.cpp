@@ -4,7 +4,6 @@ Player::Player()
 {
 }
 
-
 Player::Player(string playerName)
 {
 }
