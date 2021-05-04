@@ -77,7 +77,7 @@ void Menu::loadGame() {
      std::cout << "Enter a file name to load from\n >";
      std::cin >> filename;
      std::ifstream in;
-     in.open(filename);
+     in.open("save_game/" +filename);
 
      if(in.fail()){
        std::cout << "Please enter a correct file name" << std::endl;
