@@ -19,5 +19,5 @@ void Player::setPlayerHand()
 
 string Player::printHandSave()
 {
-    
+    return "";
 }
