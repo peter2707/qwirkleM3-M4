@@ -6,6 +6,7 @@
 #include <vector>
 #include "Tile.h"
 #include <memory>
+#include <string>
 
 using std::vector;
 using std::shared_ptr;
