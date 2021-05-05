@@ -18,7 +18,21 @@ void Engine::shuffleBag()
 {
 
 }
+void Engine::saveGame(string fileName)
+{
+    std::ofstream write;
+    write.open(fileName);
 
+    // save player name, score and hand
+    for(int i = 0; i < PLAYERS; i++)
+    {
+        write << players[i]->getName() << std::endl;
+        write << players[i]->getScore() << std::endl;
+        write << players[i]->getHand() << std::endl;
+    }
+
+
+}
 void Engine::loadGame(string fileName)
 {
     string line;

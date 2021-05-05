@@ -25,7 +25,7 @@ public:
 
 private:
     Board* board;
-    Player players[PLAYERS];
+    Player* players[PLAYERS];
     shared_ptr<LinkedList> bag;
 
     void shuffleBag();
