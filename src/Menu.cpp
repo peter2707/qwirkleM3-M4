@@ -6,6 +6,7 @@
 #define QUIT 4
 
 Engine* e = new Engine();
+Board* b = new Board();
 
 Menu::Menu(){}
 
@@ -58,6 +59,7 @@ void Menu::newGame() {
             if (checkPlayerName(playerTwoName) == true){
                 std::cout<<"Let's Play..."<<std::endl;
                 //Game Play
+                b->printBoard();
             }else{
                 std::cout<<"Sorry, Invalid Player Two's name"<<std::endl;
                 mainMenu();

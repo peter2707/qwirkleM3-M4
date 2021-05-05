@@ -25,6 +25,8 @@ public:
     void addScore(int score);
     shared_ptr<LinkedList> getHand();
     string printHandSave();
+    string getName();
+    int getScore();
 };
 
 #endif // ASSIGN2_PLAYER_H

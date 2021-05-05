@@ -20,6 +20,7 @@ public:
     void startGame(Player playerList[], int numPlayer);
     // void loadGame(Board board, Player playerList[]);
     void playTile(Tile tile);
+    void saveGame(string fileName);
     void loadGame(string fileName);
 
 private:

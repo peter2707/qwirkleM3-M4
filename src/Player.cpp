@@ -21,3 +21,12 @@ string Player::printHandSave()
 {
     return "";
 }
+
+string Player::getName()
+{
+    return playerName;
+}
+
+int Player::getScore(){
+    return score;
+}

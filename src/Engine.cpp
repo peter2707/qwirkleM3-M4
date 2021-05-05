@@ -22,7 +22,7 @@ void Engine::shuffleBag()
 void Engine::loadGame(string fileName)
 {
     string line;
-    std::ifstream file(fileName);
+    std::ifstream file("save_game/"+fileName);
 
     if(file.is_open())
     {
