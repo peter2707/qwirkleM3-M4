@@ -1,8 +1,12 @@
 #include "Engine.h"
 
-Engine::Engine(){}
+Engine::Engine(){
 
-Engine::~Engine(){}
+}
+
+Engine::~Engine(){
+
+}
 
 void Engine::startGame(Player playerList[], int numPlayer)
 {
@@ -80,3 +84,4 @@ void Engine::loadGame(string fileName)
         std::cout << "Failed to load " << fileName << std::endl;
     }
 }
+

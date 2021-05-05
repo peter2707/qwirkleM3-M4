@@ -14,5 +14,5 @@ Player::~Player()
 
 void Player::setPlayerHand()
 {
-    
+
 }

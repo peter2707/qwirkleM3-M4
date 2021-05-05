@@ -1,6 +1,6 @@
 
-#ifndef ASSIGN1_TILECODES_H
-#define ASSIGN1_TILECODES_H
+#ifndef ASSIGN2_TILECODES_H
+#define ASSIGN2_TILECODES_H
 
 // Colours
 #define RED    'R'
