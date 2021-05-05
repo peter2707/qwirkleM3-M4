@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include "Engine.h"
+#include "Board.h"
 
 class Menu {
 
