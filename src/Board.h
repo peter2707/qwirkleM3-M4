@@ -9,6 +9,7 @@
 
 using std::vector;
 using std::shared_ptr;
+using std::string;
 
 class Board
 {
@@ -20,6 +21,7 @@ class Board
         void addTile(shared_ptr<Tile> tile);
         void printBoard();
         int getLength();
+        string printBoardSave();
 
     private:
         vector< shared_ptr<Tile> > board;

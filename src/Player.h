@@ -24,6 +24,7 @@ public:
     ~Player();
     void addScore(int score);
     shared_ptr<LinkedList> getHand();
+    string printHandSave();
 };
 
 #endif // ASSIGN2_PLAYER_H

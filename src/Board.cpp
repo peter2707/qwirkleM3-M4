@@ -5,10 +5,10 @@ Board::Board()
 
 }
 
-Board::Board(std::vector<std::shared_ptr<Tile>> board, int boardRow, int boardCol)
-{
+// Board::Board(std::vector<std::shared_ptr<Tile>> board, int boardRow, int boardCol)
+// {
 
-}
+// }
 
 Board::~Board(){}
 
@@ -56,7 +56,29 @@ void Board::printBoard()
     }
 }
 
-int Board::getRow(Row row)
+string Board::printBoardSave()
 {
-    return 0;
-}
+    string board;
+    for(uint32_t i = 0; i < this->board.size(); i++)
+    {
+        shared_ptr<Tile> tile = this->board.at(i);
+        if(i == (this->board.size() - 1))
+        {
+            board+= tile->colour;
+            board+= std::to_string(tile->shape);
+            board+= "@";
+            board+= tile->row;
+            board+= std::to_string(tile->col);
+        }
+        else
+        {   
+            board+= tile->colour;
+            board+= std::to_string(tile->shape);
+            board+= "@";
+            board+= tile->row;
+            board+= std::to_string(tile->col);
+            board+= ", ";
+        }
+    }
+    return board;
+}   
