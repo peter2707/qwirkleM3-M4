@@ -41,6 +41,7 @@ void Engine::saveGame(string fileName)
     // save currentPlayer turn
     write << CURRENT_PLAYER << std::endl;
 
+    write.close();
 }
 void Engine::loadGame(string fileName)
 {
