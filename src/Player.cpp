@@ -22,6 +22,11 @@ string Player::printHandSave()
     return "";
 }
 
+shared_ptr<LinkedList> Player::getHand()
+{
+    return hand;
+}
+
 string Player::getName()
 {
     return playerName;
