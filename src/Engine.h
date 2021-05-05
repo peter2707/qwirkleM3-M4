@@ -4,14 +4,17 @@
 
 #include "Type.h"
 #include "LinkedList.h" 
-#include "Board.h"
-#include "Player.h"
+#include "Board.cpp"
+#include "Player.cpp"
+#include <fstream>
+#include <string>
+#include <sstream>
 
 class Engine
 {
 private:
     Board* board;
-    Player players[PLAYERS];
+    Player* players[PLAYERS];
     shared_ptr<LinkedList> bag;
 
     void shuffleBag();
@@ -21,6 +24,7 @@ public:
     void startGame(Player playerList[], int numPlayer);
     void loadGame(Board bord, Player playerList[]);
     void playTile(Tile tile);
+    void loadGame(string fileName);
 };
 
 #endif // ASSIGN2_ENGINE_H

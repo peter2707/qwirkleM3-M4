@@ -14,15 +14,15 @@ class Player
 {
 private:
     shared_ptr<LinkedList> hand;
+    
+public:
     string playerName;
     int score;
-public:
+    void setPlayerHand();
     Player();
     Player(string playerName);
     ~Player();
-    string getPlayerName();
-    int getScore();
-    void addScore();
+    void addScore(int score);
     shared_ptr<LinkedList> getHand();
 };
 

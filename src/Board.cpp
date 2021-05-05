@@ -1,6 +1,14 @@
 #include "Board.h"
 
-Board::Board(){}
+Board::Board()
+{
+
+}
+
+Board::Board(std::vector<std::shared_ptr<Tile>> board, int boardRow, int boardCol)
+{
+
+}
 
 Board::~Board(){}
 
@@ -18,17 +26,17 @@ void Board::printBoard()
 {
     char row = 'A';
     printf("%2c", ' ');
-    for(int j = 0; j < BOARD_SIZE; j++)
+    for(int j = 0; j < boardRow; j++)
     {
         printf("%3d", j);
     }
     std::cout << std::endl;
     printf("%2c%s\n", ' ',std::string(79,'-').c_str());
 
-    for(int i = 0; i < BOARD_SIZE; i++)
+    for(int i = 0; i < boardRow; i++)
     {
         std::cout << row << " |";
-        for(int j = 0; j < BOARD_SIZE; j++)
+        for(int j = 0; j < boardRow; j++)
         {
             for(uint32_t k = 0; k < this->board.size(); k++)
             {
