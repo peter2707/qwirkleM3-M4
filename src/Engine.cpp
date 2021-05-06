@@ -59,9 +59,20 @@ void Engine::gameRun()
                     placeTile(players[i], tile, location);
                 }
             }
+            // Quites game when user types quite. Needs to be implimented
             if(std::regex_match(option, std::regex("^(quite|exit)$")))
             {
                 
+            }
+            // Saves the game based on the save file user puts in
+            if(std::regex_match(option, std::regex("^(save) ([a-z0-9]+)$")))
+            {
+                std::smatch match;
+                if(std::regex_search(option, match, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z][0-25])$")))
+                {
+                    string filename = match.str(REGEX_SAVE);
+                    saveGame(filename);
+                }
             }
         }
     }
