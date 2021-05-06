@@ -32,15 +32,16 @@ void Engine::saveGame(string fileName)
     }
 
     // save board size
-
+    write << board->getLength() << std::endl;
     // save board state
 
     // save tiles in bag
     write << bag << std::endl;
 
     // save currentPlayer turn
+    write << CURRENT_PLAYER << std::endl;
 
-
+    write.close();
 }
 void Engine::loadGame(string fileName)
 {
