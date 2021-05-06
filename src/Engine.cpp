@@ -59,6 +59,10 @@ void Engine::gameRun()
                     placeTile(players[i], tile, location);
                 }
             }
+            if(std::regex_match(option, std::regex("^(quite|exit)$")))
+            {
+                
+            }
         }
     }
 }
