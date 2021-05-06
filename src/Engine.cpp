@@ -34,7 +34,7 @@ void Engine::saveGame(string fileName)
     // save board size
     write << board->getLength() << std::endl;
     // save board state
-
+    write << board->printBoardSave() << std::endl;
     // save tiles in bag
     write << bag << std::endl;
 
