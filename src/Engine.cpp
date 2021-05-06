@@ -8,16 +8,66 @@ Engine::~Engine(){
 
 }
 
-void Engine::startGame(Player playerList[], int numPlayer)
+void Engine::startGame(Player* playerList[], int numPlayer)
 {
-    // this->players[0] = playerList[0];
-    // this->players[1] = playerList[1];
+    this->players[0] = playerList[0];
+    this->players[1] = playerList[1];
+    shuffleBag();
+    giveTiles();
+}
+
+void Engine::giveTiles()
+{
+
 }
 
 void Engine::shuffleBag()
 {
 
 }
+
+void Engine::gameRun()
+{
+    // Future will be until bag is empty or someone types in close or exit
+    while(true)
+    {
+        for(int i = 0; i < PLAYERS; i++)
+        {
+            // Prints the board
+            this->board->printBoard();
+            string option;
+            
+            // Sets the current player name so when we save it will store the current player
+            this->currentPlayer = players[i]->getName();
+            
+            // Prints out the current player and their hand
+            std::cout << "Player " << this->currentPlayer << " Place tile on the board" << std::endl;
+            std::cout << players[i]->getHand() << std::endl;
+
+            //Waits for player to input their option
+            std::cout << "> ";
+            std::getline(std::cin, option);
+            
+            // Regex isn't fun, but it helps with checking user input and splitting the option
+            if(std::regex_match(option, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z][0-25])$")))
+            {
+                std::smatch match;
+                if(std::regex_search(option, match, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z][0-25])$")))
+                {
+                    string tile = match.str(REGEX_TILE); 
+                    string location = match.str(REGEX_POSI);
+                    placeTile(players[i], tile, location);
+                }
+            }
+        }
+    }
+}
+
+void Engine::placeTile(Player* curPlayer, string tilePlaced, string location)
+{
+
+}
+
 void Engine::saveGame(string fileName)
 {
     std::ofstream write;
@@ -26,9 +76,9 @@ void Engine::saveGame(string fileName)
     // save player name, score and hand
     for(int i = 0; i < PLAYERS; i++)
     {
-        write << players[i]->getName() << std::endl;
-        write << players[i]->getScore() << std::endl;
-        write << players[i]->getHand() << std::endl;
+        write << this->players[i]->getName() << std::endl;
+        write << this->players[i]->getScore() << std::endl;
+        write << this->players[i]->getHand() << std::endl;
     }
 
     // save board size
@@ -39,7 +89,7 @@ void Engine::saveGame(string fileName)
     write << bag << std::endl;
 
     // save currentPlayer turn
-    write << CURRENT_PLAYER << std::endl;
+    write << this->currentPlayer << std::endl;
 
     write.close();
 }

@@ -20,6 +20,10 @@ typedef int Col;
 // Define player size
 #define     PLAYERS         2
 
+#define     REGEX_TILE      2
+#define     REGEX_POSI      4
+
+
 #define     PLAYER1         0
 #define     PLAYER1_SCORE   1
 #define     PLAYER1_HAND    2
