@@ -26,6 +26,7 @@ public:
     void playTile(Tile tile);
     void saveGame(string fileName);
     void loadGame(string fileName);
+    void gameRun();
     
 private:
     // Board
@@ -44,10 +45,10 @@ private:
     void giveTiles();
 
     // Runs the game until there is no more tiles in the bag or users quit the game
-    void gameRun();
+    
 
     // Place tile to boards
-    void placeTile(Player* curPlayer, string tilePlaced, string location);
+    bool placeTile(/*Player* curPlayer,*/ string tilePlaced, string location);
 };
 
 #endif // ASSIGN2_ENGINE_H
