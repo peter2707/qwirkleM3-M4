@@ -82,7 +82,7 @@ void Menu::loadGame() {
      in.open("save_game/" +filename);
 
      if(in.fail()){
-       std::cout << "Please enter a correct file name" << std::endl;
+       std::cout << "Please enter a correct file name\n >";
      } else{
        validFile = true;
      }

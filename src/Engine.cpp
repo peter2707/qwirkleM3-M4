@@ -59,8 +59,8 @@ void Engine::gameRun()
                     placeTile(players[i], tile, location);
                 }
             }
-            // Quites game when user types quite. Needs to be implimented
-            if(std::regex_match(option, std::regex("^(quite|exit)$")))
+            // Quits game when user types quit. Needs to be implimented
+            if(std::regex_match(option, std::regex("^(quit|exit)$")))
             {
                 
             }
