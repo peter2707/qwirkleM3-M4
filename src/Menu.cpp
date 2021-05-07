@@ -94,18 +94,21 @@ void Menu::loadGame() {
     bool validFile = false;
 
     while(!validFile){
-     std::cout << "Enter a file name to load from\n >";
-     std::cin >> filename;
-     std::ifstream in;
-     in.open("save_game/" +filename);
-
-     if(in.fail()){
-       std::cout << "Please enter a correct file name\n >";
-     } else{
-       validFile = true;
-     }
-     in.close();
-  }
+        std::ifstream in;
+        std::cout << "Enter a file name to load from\n> ";
+        std::cin >> filename;
+        if (std::cin.eof()) {
+            quit();
+        }else{
+            in.open("save_game/" +filename);
+            if(in.fail()){
+                std::cout << "Please enter a correct file name..." << std::endl;
+            } else{
+                validFile = true;
+            }
+            in.close();
+        }
+    }
     e->loadGame(filename);
 }
 
