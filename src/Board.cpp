@@ -72,7 +72,6 @@ bool Board::placeTile(shared_ptr<Tile> tile)
     bool placed = false;
     if(this->board.empty())
     {
-        std::cout << "Test\n";
         addTile(tile);
         expandBoard(tile->row, tile->col);
         //player->addScore(1);

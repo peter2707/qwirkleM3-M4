@@ -53,14 +53,18 @@ void Engine::gameRun()
                 std::getline(std::cin, option);
                 
                 // Regex isn't fun, but it helps with checking user input and splitting the option
-                if(std::regex_match(option, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z][0-25])$")))
+                if(std::regex_match(option, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
                 {
                     std::smatch match;
-                    if(std::regex_search(option, match, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z][0-25])$")))
+                    if(std::regex_search(option, match, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
                     {
+                        
                         string tile = match.str(REGEX_TILE); 
-                        string location = match.str(REGEX_POSI);
-                        endturn = placeTile(/*players[i],*/ tile, location);
+                        Row row = match.str(REGEX_ROW)[0];
+                        std::stringstream temp(match.str(REGEX_COL));
+                        Col col;
+                        temp >> col;
+                        endturn = placeTile(/*players[i],*/ tile, row, col);
                     }
                 }
                 // Quits game when user types quit. Needs to be implimented
@@ -83,7 +87,7 @@ void Engine::gameRun()
     }
 }
 
-bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, string location)
+bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col col)
 {
     bool success = false;
     // Check if tile is in player bag
@@ -91,13 +95,10 @@ bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, string location
 
     // Create shared_ptr for placing tile on board
 
-    // // Minus the char of the col with the char 0 gives you a workable int
     std::cout << tilePlaced << "\n";
     shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
-    tilePtr->row = location[0];
-
-    // // Minus the char of the col with the char 0 gives you a workable int
-    tilePtr->col = (location[1] - '0');
+    tilePtr->row = row;
+    tilePtr->col = col;
 
     // place on board
     success = board->placeTile(tilePtr);
@@ -106,7 +107,7 @@ bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, string location
     
     if(!success)
     {
-        std::cout << "Failed to place tile " << tilePlaced << " at " << location << "\n";
+        std::cout << "Failed to place tile " << tilePlaced << " at " << row << col << "\n";
     }
     return success;
 }

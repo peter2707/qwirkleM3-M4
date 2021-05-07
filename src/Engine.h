@@ -48,7 +48,7 @@ private:
     
 
     // Place tile to boards
-    bool placeTile(/*Player* curPlayer,*/ string tilePlaced, string location);
+    bool placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col col);
 };
 
 #endif // ASSIGN2_ENGINE_H
