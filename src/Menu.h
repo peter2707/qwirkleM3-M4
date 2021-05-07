@@ -19,6 +19,9 @@ public:
     void mainMenu();
 
 private:
+    std::string playerOneName;
+    std::string playerTwoName;
+    
     /* Menu functions */
     void newGame();
     void loadGame();
