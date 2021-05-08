@@ -5,9 +5,6 @@
 #define SHOWCREDIT 3
 #define QUIT 4
 
-Engine* e = new Engine();
-Board* b = new Board();
-
 Menu::Menu(){}
 
 Menu::~Menu() {}
@@ -30,6 +27,9 @@ void Menu::mainMenu() {
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::cout<<"Please enter a number...\n> ";
                 std::cin >> menuOption;
+                if (std::cin.eof()) {
+                    quit();
+                }
             }
             if (menuOption == NEWGAME) {
                 newGame();

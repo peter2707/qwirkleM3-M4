@@ -19,6 +19,9 @@ public:
     void mainMenu();
 
 private:
+    Engine* e = new Engine();
+    Board* b = new Board();
+
     std::string playerOneName;
     std::string playerTwoName;
     
