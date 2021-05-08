@@ -7,11 +7,28 @@
 class LinkedList {
 public:
 
+
    LinkedList();
    ~LinkedList();
+   LinkedList(LinkedList& other);
+   
+   int size();
+
+    std::shared_ptr<Tile> get(int index);
+
+   void addFront(std::shared_ptr<Tile> data);
+   void addBack(std::shared_ptr<Tile> data);
+
+
+   void removeFront();
+   void removeBack();
+   void removeIndex(int index);
+
+   void clear();
+
 
 private:
-   Node* head;
+    std::shared_ptr<Node> head;
 };
 
 #endif // ASSIGN2_LINKEDLIST_H
