@@ -18,7 +18,7 @@ private:
 public:
     string playerName;
     int score;
-    void setPlayerHand(shared_ptr<LinkedList> playerHand);
+    void setPlayerHand();
     Player();
     Player(string playerName);
     ~Player();
