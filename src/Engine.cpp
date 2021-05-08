@@ -23,7 +23,24 @@ void Engine::giveTiles()
 
 void Engine::shuffleBag()
 {
-
+    std::random_device engine;
+    std::map<int, char> colorMap = {{0, RED}, {1, ORANGE}, {2, YELLOW}, {3, GREEN}, {4, BLUE}, {5, PURPLE}};
+    std::map<int, int> shapeMap = {{0, CIRCLE}, {1, STAR_4}, {2, DIAMOND}, {3, SQUARE}, {4, STAR_6}, {5, CLOVER}};
+    for (unsigned int x = 0; x < colorMap.size(); x++){
+        for (unsigned int y = 0; y < shapeMap.size(); y++){
+            for (unsigned int z = 0; z < NUM_OF_EACH_TILE; z++){
+                // bag.addBack(new Tile(colourMap[x], shapeMap[y]));
+            }
+        }
+    }
+    int index = 0;
+    for (int i = 0; i < MAX_NUM_OF_TILE; i++)
+    {
+        std::uniform_int_distribution<int> uniform_dist(0, MAX_NUM_OF_TILE - 1 - i);
+        index = uniform_dist(engine);
+        // bag.addBack(new Tile(*(bag.getTileAt(index))));
+        // bag.deleteAt(index);
+    }
 }
 
 void Engine::gameRun()
