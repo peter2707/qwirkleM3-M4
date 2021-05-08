@@ -18,7 +18,16 @@ void Engine::startGame(Player* playerList[], int numPlayer)
 
 void Engine::giveTiles()
 {
+    // Loop to give tiles to all players
+    for(int i=0; i < PLAYERS; i++){
 
+        shared_ptr<LinkedList> giveTiles;
+        for(int i=0; i < START_SIZE; i++){
+            shared_ptr<Tile> t = bag->removeFront();
+            giveTiles->addBack(t);
+        }
+        players[i]->setPlayerHand(giveTiles);
+    }
 }
 
 void Engine::shuffleBag()
