@@ -12,9 +12,9 @@ Player::~Player()
 {
 }
 
-void Player::setPlayerHand()
+void Player::setPlayerHand(shared_ptr<LinkedList> playerHand)
 {
-
+    this->hand = playerHand;
 }
 
 string Player::printHandSave()
