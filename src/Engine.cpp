@@ -40,12 +40,12 @@ void Engine::gameRun()
                 this->board->printBoard();
                 
                 
-                // // Sets the current player name so when we save it will store the current player
-                // this->currentPlayer = players[i]->getName();
+                // Sets the current player name so when we save it will store the current player
+                this->currentPlayer = players[i]->getName();
                 
-                // // Prints out the current player and their hand
-                // std::cout << "Player " << this->currentPlayer << " Place tile on the board" << std::endl;
-                // std::cout << players[i]->getHand() << std::endl;
+                // Prints out the current player and their hand
+                std::cout << "Player " << this->currentPlayer << " Place tile on the board" << std::endl;
+                std::cout << players[i]->getHand() << std::endl;
 
                 //Waits for player to input their option
                 string option;
