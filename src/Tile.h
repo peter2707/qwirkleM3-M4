@@ -5,7 +5,7 @@
 
 class Tile {
 public:
-   
+   Tile();
    Tile(Colour colour, Shape shape);
    Tile(const Tile &tile);
    ~Tile();

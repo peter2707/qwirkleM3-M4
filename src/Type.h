@@ -22,7 +22,8 @@ typedef int Col;
 
 #define     REGEX_SAVE      2
 #define     REGEX_TILE      2
-#define     REGEX_POSI      4
+#define     REGEX_ROW       4
+#define     REGEX_COL       5
 
 
 #define     PLAYER1         0

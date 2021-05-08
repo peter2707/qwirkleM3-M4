@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 Engine::Engine(){
-
+    this->board = new Board();
 }
 
 Engine::~Engine(){
@@ -33,54 +33,83 @@ void Engine::gameRun()
     {
         for(int i = 0; i < PLAYERS; i++)
         {
-            // Prints the board
-            this->board->printBoard();
-            string option;
-            
-            // Sets the current player name so when we save it will store the current player
-            this->currentPlayer = players[i]->getName();
-            
-            // Prints out the current player and their hand
-            std::cout << "Player " << this->currentPlayer << " Place tile on the board" << std::endl;
-            std::cout << players[i]->getHand() << std::endl;
-
-            //Waits for player to input their option
-            std::cout << "> ";
-            std::getline(std::cin, option);
-            
-            // Regex isn't fun, but it helps with checking user input and splitting the option
-            if(std::regex_match(option, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z][0-25])$")))
+            bool endturn = false;
+            while(!endturn)
             {
-                std::smatch match;
-                if(std::regex_search(option, match, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z][0-25])$")))
-                {
-                    string tile = match.str(REGEX_TILE); 
-                    string location = match.str(REGEX_POSI);
-                    placeTile(players[i], tile, location);
-                }
-            }
-            // Quits game when user types quit. Needs to be implimented
-            if(std::regex_match(option, std::regex("^(quit|exit)$")))
-            {
+                // // Prints the board
+                this->board->printBoard();
                 
-            }
-            // Saves the game based on the save file user puts in
-            if(std::regex_match(option, std::regex("^(save) ([a-z0-9]+)$")))
-            {
-                std::smatch match;
-                if(std::regex_search(option, match, std::regex("^(save) ([a-z0-9]+)$")))
+                
+                // Sets the current player name so when we save it will store the current player
+                this->currentPlayer = players[i]->getName();
+                
+                // Prints out the current player and their hand
+                std::cout << "Player " << this->currentPlayer << " Place tile on the board" << std::endl;
+                std::cout << players[i]->getHand() << std::endl;
+
+                //Waits for player to input their option
+                string option;
+                std::cout << "> ";
+                std::getline(std::cin, option);
+                
+                // Regex isn't fun, but it helps with checking user input and splitting the option
+                if(std::regex_match(option, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
                 {
-                    string filename = match.str(REGEX_SAVE);
-                    saveGame(filename);
+                    std::smatch match;
+                    if(std::regex_search(option, match, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
+                    {
+                        
+                        string tile = match.str(REGEX_TILE); 
+                        Row row = match.str(REGEX_ROW)[0];
+                        std::stringstream temp(match.str(REGEX_COL));
+                        Col col;
+                        temp >> col;
+                        endturn = placeTile(/*players[i],*/ tile, row, col);
+                    }
+                }
+                // Quits game when user types quit. Needs to be implimented
+                if(std::regex_match(option, std::regex("^(quit|exit)$")))
+                {
+                    
+                }
+                // Saves the game based on the save file user puts in
+                if(std::regex_match(option, std::regex("^(save) ([a-z0-9]+)$")))
+                {
+                    std::smatch match;
+                    if(std::regex_search(option, match, std::regex("^(save) ([a-z0-9]+)$")))
+                    {
+                        string filename = match.str(REGEX_SAVE);
+                        saveGame(filename);
+                    }
                 }
             }
         }
     }
 }
 
-void Engine::placeTile(Player* curPlayer, string tilePlaced, string location)
+bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col col)
 {
+    bool success = false;
+    // Check if tile is in player bag
+    // TO BE DONE
 
+    // Create shared_ptr for placing tile on board
+
+    std::cout << tilePlaced << "\n";
+    shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
+    tilePtr->row = row;
+    tilePtr->col = col;
+
+    // place on board
+    success = board->placeTile(tilePtr);
+
+    // If tile failed to place
+    
+    if(!success)
+    {
+        std::cout << "Failed to place tile " << tilePlaced << " at " << row << col << "\n";
+    }
+    return success;
 }
 
 void Engine::saveGame(string fileName)
