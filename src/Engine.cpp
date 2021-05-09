@@ -14,6 +14,7 @@ void Engine::startGame(Player* playerList[], int numPlayer)
     this->players[0] = playerList[0];
     this->players[1] = playerList[1];
     initialiseBag();
+    randomiseBag();
     giveTiles();
     gameRun();
 }
@@ -47,6 +48,25 @@ void Engine::initialiseBag()
         }
     }
 }
+
+void Engine::randomiseBag(){
+    
+    std::random_device engine;
+
+    for (int i = 0; i < MAX_NUM_OF_TILE * 2; i++)
+    {
+        srand(time(NULL));
+        int ran = rand() % MAX_NUM_OF_TILE;
+        std::uniform_int_distribution<int> uniform_dist(0, ran - 1);
+        ran = uniform_dist(engine);
+        std::shared_ptr<Tile> tile = std::make_shared<Tile>(*bag->get(ran));
+        bag->addBack(tile);
+        bag->removeIndex(ran);
+    }
+
+}
+
+
 
 void Engine::gameRun()
 {
@@ -113,8 +133,17 @@ void Engine::gameRun()
 bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col col)
 {
     bool success = false;
-    // Check if tile is in player bag
-    // TO BE DONE
+    // // Check if tile is in player bag
+  
+    // if (players[0]->getHand()->checkTile(tilePlaced)){
+    //     success = true;
+    //     std::cout << "this exists inside the bag" << std::endl;
+
+    // }else {
+    //     std::cout << "this doesnt exist inside the bag" << std::endl;
+    // }
+
+
 
     // Create shared_ptr for placing tile on board
 

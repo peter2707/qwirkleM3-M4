@@ -18,8 +18,8 @@
 #include <vector>
 #include <map>
 
-#define NUM_OF_EACH_TILE 2
-#define MAX_NUM_OF_TILE 72
+#define NUM_OF_EACH_TILE 3
+#define MAX_NUM_OF_TILE 108
 
 using std::string;
 
@@ -34,6 +34,7 @@ public:
     void saveGame(string fileName);
     void loadGame(string fileName);
     void gameRun();
+    void randomiseBag();
     
 private:
     // Board
