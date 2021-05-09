@@ -51,7 +51,6 @@ void Menu::mainMenu() {
 
 void Menu::newGame() {
     std::cout << "Starting a new game...\n" << std::endl;
-    
     for(int i=0; i < PLAYERS; i++){
         std::cout << "Enter a name for Player "<< i+1 <<" (Uppercase characters only!)\n> ";
         std::cin >> playerName;
