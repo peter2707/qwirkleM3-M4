@@ -3,9 +3,14 @@
 
 Player::Player(string playerName)
 {
+    this->playerName = playerName;
+    this->score = 0;
 }
 
-Player::Player(){}
+Player::Player(){
+    this->playerName = nullptr;
+    this->score = 0;
+}
 
 
 Player::~Player()
