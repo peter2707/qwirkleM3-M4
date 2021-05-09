@@ -14,6 +14,7 @@ void Engine::startGame(Player* playerList[], int numPlayer)
     this->players[1] = playerList[1];
     shuffleBag();
     giveTiles();
+    gameRun();
 }
 
 void Engine::giveTiles()

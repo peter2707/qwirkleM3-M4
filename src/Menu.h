@@ -22,8 +22,8 @@ private:
     Engine* e = new Engine();
     Board* b = new Board();
 
-    std::string playerOneName;
-    std::string playerTwoName;
+    std::string playerName;
+    Player* players[];
     
     /* Menu functions */
     void newGame();
