@@ -50,10 +50,33 @@ void Menu::mainMenu() {
 
 void Menu::newGame() {
     std::cout << "Starting a new game...\n" << std::endl;
+
     for(int i=0; i < PLAYERS; i++){
         std::cout << "Enter a name for Player "<<i+1<<" (Uppercase characters only!)\n> ";
         std::cin >> playerName;
-        this->players[i] = new Player(playerName);
+
+        bool check = false;
+        while(check != true){
+            if(checkPlayerName(playerName) != true){
+                std::cout << "Invalid Name" << std::endl;
+                std::cout << "Enter a name for Player "<<i+1<<" (Uppercase characters only!)\n> ";
+                std::cin >> playerName;
+            }else{
+                this->players[i] = new Player(playerName);
+                if(i>0){
+                    if(this->players[i]->getName() == this->players[i-1]->getName()){
+                        std::cout << "Invalid Name" << std::endl;
+                        std::cout << "Enter a name for Player "<<i+1<<" (Uppercase characters only!)\n> ";
+                        std::cin >> playerName;
+                        this->players[i] = new Player(playerName);
+                    } else {
+                        check = true;
+                    }
+                } else {
+                    check = true;
+                }
+            }
+        }
     }
     e->startGame(players, PLAYERS);
     
