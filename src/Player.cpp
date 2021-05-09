@@ -27,9 +27,15 @@ string Player::printHandSave()
     return "";
 }
 
-shared_ptr<LinkedList> Player::getHand()
+string Player::getHand()
 {
-    return hand;
+    string printHand = "";
+
+    for(int i = 0; i < hand->size(); i++) {
+        printHand = printHand + hand->get(i)->colour + std::to_string(hand->get(i)->shape) + " ";
+    }
+
+    return printHand;
 }
 
 string Player::getName()

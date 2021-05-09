@@ -78,14 +78,16 @@ void LinkedList::addBack(std::shared_ptr<Tile> data){
 
 }
 
-void LinkedList::removeFront(){
+std::shared_ptr<Tile> LinkedList::removeFront(){
+	std::shared_ptr<Tile> removedTile;
     if(head != nullptr){
-        head = head->next;
-
+		removedTile = head->tile;
+    	head = head->next;
     }else{
         throw std::runtime_error("Nothing to remove");
     }
 
+    return removedTile;
 }
 void LinkedList::removeBack(){
     
