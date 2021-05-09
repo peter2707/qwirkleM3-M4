@@ -21,10 +21,10 @@ void Engine::giveTiles()
     // Loop to give tiles to all players
     for(int i=0; i < PLAYERS; i++){
 
-        shared_ptr<LinkedList> giveTiles ;
+        shared_ptr<LinkedList> giveTiles = std::make_shared<LinkedList>();
         for(int i=0; i < START_SIZE; i++){
-            shared_ptr<Tile> t;
-            giveTiles->addBack(t);
+            shared_ptr<Tile> tiles;
+            giveTiles->addBack(tiles);
         }
         players[i]->setPlayerHand(giveTiles);
     }

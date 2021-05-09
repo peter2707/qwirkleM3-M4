@@ -74,7 +74,7 @@ void Menu::newGame() {
                         if (checkPlayerName(playerTwoName) == true){
                             std::cout<<"Let's Play..."<<std::endl;
                             //Game Play
-                            b->printBoard();
+                            
                         }else{
                             std::cout<<"Sorry, Invalid Player Two's name\n> ";
                             continue;
