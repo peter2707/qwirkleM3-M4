@@ -46,7 +46,7 @@ private:
     string currentPlayer;
 
     // Shuffles game tilebag at the start of the game
-    void shuffleBag();
+    void initialiseBag();
 
     // Gives tiles to players until their bag is full
     void giveTiles();
