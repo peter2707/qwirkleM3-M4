@@ -3,18 +3,23 @@
 
 Player::Player(string playerName)
 {
+    this->playerName = playerName;
+    this->score = 0;
 }
 
-Player::Player(){}
+Player::Player(){
+    this->playerName = nullptr;
+    this->score = 0;
+}
 
 
 Player::~Player()
 {
 }
 
-void Player::setPlayerHand()
+void Player::setPlayerHand(shared_ptr<LinkedList> playerHand)
 {
-
+    this->hand = playerHand;
 }
 
 string Player::printHandSave()
