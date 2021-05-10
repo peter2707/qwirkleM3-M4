@@ -143,3 +143,7 @@ string Board::printBoardSave()
     }
     return board;
 }   
+
+int Board::calculatePoints(int row, int col){
+    
+}
