@@ -208,6 +208,7 @@ int Board::calculatePoints(int boardRow, int boardCol){
         tempCol = boardCol;
     }
 
+
     if (score >= 6){
         score+= 6;
         std::cout << "Qwirkle!!!" << std::endl;
