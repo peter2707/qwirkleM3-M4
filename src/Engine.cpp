@@ -45,25 +45,9 @@ void Engine::initialiseBag()
             }
         }
     }
-    shuffleBag();
-
-}
-
-void Engine::shuffleBag()
-{
-    std::random_device engine;
-    int index = 0;
-    for (int i = 0; i < MAX_NUM_OF_TILE; i++){
-        std::uniform_int_distribution<int> uniform_dist(0, MAX_NUM_OF_TILE - 1 - i);
-        index = uniform_dist(engine);
-        std::shared_ptr<Tile> newTile = bag->get(index);
-        bag->addBack(newTile);
-        bag->removeIndex(index);
-    }
 }
 
 void Engine::randomiseBag(){
-    
     std::random_device engine;
 
     for (int i = 0; i < MAX_NUM_OF_TILE * 2; i++)
@@ -76,9 +60,7 @@ void Engine::randomiseBag(){
         bag->addBack(tile);
         bag->removeIndex(ran);
     }
-
 }
-
 
 
 void Engine::gameRun()
