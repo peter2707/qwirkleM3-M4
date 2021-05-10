@@ -23,7 +23,7 @@ private:
     Board* b = new Board();
 
     std::string playerName;
-    Player* players[];
+    Player* players[PLAYERS];
     
     /* Menu functions */
     void newGame();

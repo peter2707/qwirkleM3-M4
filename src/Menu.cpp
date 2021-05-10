@@ -11,6 +11,7 @@ Menu::~Menu() {}
 
 
 void Menu::mainMenu() {
+
     int menuOption;
     std::cout   << "--------Menu--------\n"
                 << "1. New Game\n"
@@ -25,7 +26,7 @@ void Menu::mainMenu() {
             while (std::cin.fail()) {
                 std::cin.clear(); 
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout<<"Please enter a number...\n> ";
+                std::cout << "Please enter a number...\n> ";
                 std::cin >> menuOption;
                 if (std::cin.eof()) {
                     quit();
@@ -149,11 +150,8 @@ bool Menu::checkPlayerName(std::string name){
         }
         if (count == name.length()){
             check = true;
-        }else {
-            check = false;
         }
-    }else {
-        check = false;
     }
+    
     return check;
 }

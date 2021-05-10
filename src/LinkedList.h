@@ -20,7 +20,7 @@ public:
    void addBack(std::shared_ptr<Tile> data);
 
 
-   void removeFront();
+   std::shared_ptr<Tile> removeFront();
    void removeBack();
    void removeIndex(int index);
 
