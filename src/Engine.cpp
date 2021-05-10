@@ -14,6 +14,7 @@ void Engine::startGame(Player* playerList[], int numPlayer)
     this->players[0] = playerList[0];
     this->players[1] = playerList[1];
     initialiseBag();
+    randomiseBag();
     giveTiles();
     gameRun();
 }
@@ -61,6 +62,25 @@ void Engine::shuffleBag()
     }
 }
 
+void Engine::randomiseBag(){
+    
+    std::random_device engine;
+
+    for (int i = 0; i < MAX_NUM_OF_TILE * 2; i++)
+    {
+        srand(time(NULL));
+        int ran = rand() % MAX_NUM_OF_TILE;
+        std::uniform_int_distribution<int> uniform_dist(0, ran - 1);
+        ran = uniform_dist(engine);
+        std::shared_ptr<Tile> tile = std::make_shared<Tile>(*bag->get(ran));
+        bag->addBack(tile);
+        bag->removeIndex(ran);
+    }
+
+}
+
+
+
 void Engine::gameRun()
 {
     // Future will be until bag is empty or someone types in close or exit
@@ -75,12 +95,13 @@ void Engine::gameRun()
                 this->board->printBoard();
                 
                 // Sets the current player name so when we save it will store the current player
-                this->currentPlayer = players[i]->getName();
+                this->currentPlayer = players[i];
+                
                 
                 // Prints out the current player and their hand
-                std::cout << "Player " << this->currentPlayer << " Place tile on the board" << std::endl;
+                std::cout << "Player " << this->currentPlayer->getName() << " Place tile on the board" << std::endl;
                 std::cout << "Your hand is: " << std::endl;
-                std::cout << players[i]->getHand() << std::endl;
+                std::cout << this->currentPlayer->getHandString() << std::endl;
 
                 //Waits for player to input their option
                 string option;
@@ -99,9 +120,19 @@ void Engine::gameRun()
                         std::stringstream temp(match.str(REGEX_COL));
                         Col col;
                         temp >> col;
-                        endturn = placeTile(/*players[i],*/ tile, row, col);
+                        endturn = placeTile(this->currentPlayer, tile, row, col);
                     }
                 }
+                if(std::regex_match(option, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$"))){
+                    std::smatch match;
+                    if(std::regex_search(option, match, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$")))
+                    {                       
+                        string tile = match.str(REGEX_TILE); 
+                        endturn = replaceTile(this->currentPlayer, tile);
+                    }
+
+                }
+                
                 // Quits game when user types quit. Needs to be implimented
                 if(std::regex_match(option, std::regex("^(quit|exit)$")))
                 {
@@ -122,21 +153,48 @@ void Engine::gameRun()
     }
 }
 
-bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col col)
+bool Engine::replaceTile(Player* curPlayer, std::string tilePlaced){
+    bool success = false;
+    int index = curPlayer->getHand()->checkTile(tilePlaced);
+
+    if (index != -1){
+        bag->addBack(curPlayer->getHand()->get(index));
+        curPlayer->getHand()->removeIndex(index);
+        curPlayer->getHand()->addBack(bag->removeFront());
+        success = true;
+        std::cout << "Tile successfully replaced" << std::endl;
+    }
+    else{
+        std::cout << "You do not have that tile" << std::endl;
+    }
+    return success;
+}
+
+
+
+
+
+
+bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col col)
 {
     bool success = false;
     // Check if tile is in player bag
-    // TO BE DONE
-
-    // Create shared_ptr for placing tile on board
-
-    std::cout << tilePlaced << "\n";
-    shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
-    tilePtr->row = row;
-    tilePtr->col = col;
-
-    // place on board
-    success = board->placeTile(tilePtr);
+    int index = curPlayer->getHand()->checkTile(tilePlaced);
+    if (index != -1){
+        
+        std::cout << tilePlaced << "\n";
+        shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
+        tilePtr->row = row;
+        tilePtr->col = col;
+        success = board->placeTile(tilePtr);
+        
+        curPlayer->getHand()->removeIndex(index);
+        curPlayer->getHand()->addBack(bag->removeFront());
+        
+    }
+     else{
+        std::cout << "You do not have that tile" << std::endl;
+    }
 
     // If tile failed to place
     

@@ -1,8 +1,9 @@
 
 #ifndef ASSIGN2_LINKEDLIST_H
 #define ASSIGN2_LINKEDLIST_H
-
+#include <string>
 #include "Node.h"
+using std::string; 
 
 class LinkedList {
 public:
@@ -23,6 +24,7 @@ public:
    std::shared_ptr<Tile> removeFront();
    void removeBack();
    void removeIndex(int index);
+   int checkTile(string inputTile);
 
    void clear();
 

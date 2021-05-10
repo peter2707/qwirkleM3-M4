@@ -135,6 +135,32 @@ void LinkedList::removeIndex(int index){
     }
 }
 
+
+int LinkedList::checkTile(string inputTile){
+  int tileIndex = -1;
+  int index = 0;
+    
+    if(head != nullptr){
+        std::shared_ptr<Node> current = head;
+        std::shared_ptr<Node> prev = nullptr;
+
+        while(current->next != nullptr){
+          if(current->tile->colour + std::to_string(current->tile->shape) == inputTile){
+            tileIndex = index;
+
+          }
+            prev = current;
+            current = current->next;
+            index++;
+
+        }
+
+    }
+
+  return tileIndex;
+  
+}
+
 void LinkedList::clear(){
   head = nullptr;
 }
