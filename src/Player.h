@@ -24,7 +24,7 @@ public:
     ~Player();
     void addScore(int score);
     void setName(string playerName);
-    shared_ptr<LinkedList> getHand();
+    string getHand();
     string printHandSave();
     string getName();
     int getScore();

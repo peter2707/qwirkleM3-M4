@@ -25,6 +25,7 @@ class Board
         int getLength();
         string printBoardSave();
         bool placeTile(shared_ptr<Tile> tile);
+        int calculatePoints(int row, int col);
 
     private:
         vector<shared_ptr<Tile>> board;
