@@ -27,7 +27,7 @@ string Player::printHandSave()
     return "";
 }
 
-string Player::getHand()
+string Player::getHandString()
 {
     string printHand = "";
 

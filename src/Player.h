@@ -23,7 +23,7 @@ public:
     Player(string playerName);
     ~Player();
     void addScore(int score);
-    string getHand();
+    string getHandString();
     string printHandSave();
     string getName();
     int getScore();
