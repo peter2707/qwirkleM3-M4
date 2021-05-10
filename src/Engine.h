@@ -44,7 +44,7 @@ private:
     // Bag
     shared_ptr<LinkedList> bag;
     // Current Player
-    string currentPlayer;
+    Player* currentPlayer;
 
     // Shuffles game tilebag at the start of the game
     void initialiseBag();
@@ -56,7 +56,7 @@ private:
     
 
     // Place tile to boards
-    bool placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col col);
+    bool placeTile(Player* curPlayer, string tilePlaced, Row row, Col col);
 };
 
 #endif // ASSIGN2_ENGINE_H

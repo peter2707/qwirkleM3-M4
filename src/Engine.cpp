@@ -81,12 +81,13 @@ void Engine::gameRun()
                 
                 
                 // Sets the current player name so when we save it will store the current player
-                this->currentPlayer = players[i]->getName();
+                this->currentPlayer = players[i];
+                
                 
                 // Prints out the current player and their hand
-                std::cout << "Player " << this->currentPlayer << " Place tile on the board" << std::endl;
+                std::cout << "Player " << this->currentPlayer->getName() << " Place tile on the board" << std::endl;
                 std::cout << "Your hand is: " << std::endl;
-                std::cout << players[i]->getHandString() << std::endl;
+                std::cout << this->currentPlayer->getHandString() << std::endl;
 
                 //Waits for player to input their option
                 string option;
@@ -105,7 +106,7 @@ void Engine::gameRun()
                         std::stringstream temp(match.str(REGEX_COL));
                         Col col;
                         temp >> col;
-                        endturn = placeTile(/*players[i],*/ tile, row, col);
+                        endturn = placeTile(this->currentPlayer, tile, row, col);
                     }
                 }
                 // Quits game when user types quit. Needs to be implimented
@@ -128,11 +129,12 @@ void Engine::gameRun()
     }
 }
 
-bool Engine::placeTile(/*Player* curPlayer,*/ std::string tilePlaced, Row row, Col col)
+bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col col)
 {
     bool success = false;
     // Check if tile is in player bag
-    if (players[0]->getHand()->checkTile(tilePlaced)){
+    
+    if (curPlayer->getHand()->checkTile(tilePlaced)){
         
         std::cout << tilePlaced << "\n";
         shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
