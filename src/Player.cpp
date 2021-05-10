@@ -43,6 +43,10 @@ string Player::getName()
     return playerName;
 }
 
+void Player::setName(string name){
+    this->playerName = name;
+}
+
 int Player::getScore(){
     return score;
 }

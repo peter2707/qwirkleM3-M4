@@ -23,7 +23,8 @@ public:
     Player(string playerName);
     ~Player();
     void addScore(int score);
-    string getHand();
+    void setName(string playerName);
+    shared_ptr<LinkedList> getHand();
     string printHandSave();
     string getName();
     int getScore();
