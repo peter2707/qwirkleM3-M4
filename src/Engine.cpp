@@ -109,6 +109,16 @@ void Engine::gameRun()
                         endturn = placeTile(this->currentPlayer, tile, row, col);
                     }
                 }
+                if(std::regex_match(option, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$"))){
+                    std::smatch match;
+                    if(std::regex_search(option, match, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$")))
+                    {                       
+                        string tile = match.str(REGEX_TILE); 
+                        endturn = replaceTile(this->currentPlayer, tile);
+                    }
+
+                }
+                
                 // Quits game when user types quit. Needs to be implimented
                 if(std::regex_match(option, std::regex("^(quit|exit)$")))
                 {
@@ -129,6 +139,28 @@ void Engine::gameRun()
     }
 }
 
+bool Engine::replaceTile(Player* curPlayer, std::string tilePlaced){
+    bool success = false;
+    int index = curPlayer->getHand()->checkTile(tilePlaced);
+
+    if (index != -1){
+        bag->addBack(curPlayer->getHand()->get(index));
+        curPlayer->getHand()->removeIndex(index);
+        curPlayer->getHand()->addBack(bag->removeFront());
+        success = true;
+        std::cout << "Tile successfully replaced" << std::endl;
+    }
+    else{
+        std::cout << "You do not have that tile" << std::endl;
+    }
+    return success;
+}
+
+
+
+
+
+
 bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col col)
 {
     bool success = false;
@@ -144,7 +176,6 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
         
         curPlayer->getHand()->removeIndex(index);
         curPlayer->getHand()->addBack(bag->removeFront());
-        std::cout << bag->size() << std::endl;
         
     }
      else{

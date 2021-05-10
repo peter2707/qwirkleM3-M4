@@ -54,6 +54,7 @@ private:
 
     // Runs the game until there is no more tiles in the bag or users quit the game
     
+    bool replaceTile(Player* curPlayer, std::string tilePlaced);
 
     // Place tile to boards
     bool placeTile(Player* curPlayer, string tilePlaced, Row row, Col col);
