@@ -34,8 +34,6 @@ void Engine::giveTiles()
 
 void Engine::initialiseBag()
 {
-    std::random_device engine;
-
     std::map<int, char> colorMap = {{0, RED}, {1, ORANGE}, {2, YELLOW}, {3, GREEN}, {4, BLUE}, {5, PURPLE}};
     std::map<int, int> shapeMap = {{0, CIRCLE}, {1, STAR_4}, {2, DIAMOND}, {3, SQUARE}, {4, STAR_6}, {5, CLOVER}};
 
@@ -88,7 +86,7 @@ void Engine::gameRun()
                 // Prints out the current player and their hand
                 std::cout << "Player " << this->currentPlayer << " Place tile on the board" << std::endl;
                 std::cout << "Your hand is: " << std::endl;
-                std::cout << players[i]->getHand() << std::endl;
+                std::cout << players[i]->getHandString() << std::endl;
 
                 //Waits for player to input their option
                 string option;
