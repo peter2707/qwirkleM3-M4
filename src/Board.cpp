@@ -144,6 +144,49 @@ string Board::printBoardSave()
     return board;
 }   
 
-int Board::calculatePoints(int row, int col){
-    return 0;
+int Board::calculatePoints(int boardRow, int boardCol){
+    int score = 1;
+    int tempRow = boardRow;
+    int tempCol = boardCol;
+    
+    //check up + right
+    if (boardRow <= BOARD_SIZE && boardCol >= 1) {
+        while (array[tempRow + 1][tempCol - 1]->colour == ' ' &&  array[tempRow + 1][tempCol - 1]->shape == 0) {
+            score++;
+            tempRow = tempRow + 1;
+            tempCol = tempCol - 1;
+            if (tempRow >= BOARD_SIZE - 1 || tempCol < 1) {
+                break;
+            }
+        }
+
+        tempRow = boardRow;
+        tempCol = boardCol;
+    }
+    
+    //check up + left
+    if (boardRow >= 1 && boardCol >= 1) {
+        while (array[tempRow - 1][tempCol - 1]->colour == ' ' &&  array[tempRow - 1][tempCol - 1]->shape == 0) {
+            score++;
+            tempRow = tempRow - 1;
+            tempCol = tempCol - 1;
+            if (tempRow < 1 || tempCol < 1) {
+                break;
+            }
+        }
+
+        tempRow = boardRow;
+        tempCol = boardCol;
+    }
+
+    //down right
+    //down left
+
+    if (score >= 6){
+        score+= 6;
+        std::cout << "Qwirkle!!!" << std::endl;
+    }
+    std::cout << "You got: " << score << " points" << std::endl;
+
+    return score;
 }
