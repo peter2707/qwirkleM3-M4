@@ -45,12 +45,10 @@ void Menu::mainMenu() {
             }
         }
     }while(menuOption != NEWGAME || menuOption != LOADGAME || menuOption != SHOWCREDIT || menuOption != QUIT);
-    
 }
 
 void Menu::newGame() {
     std::cout << "Starting a new game...\n" << std::endl;
-
     for(int i=0; i < PLAYERS; i++){
         bool check = false;
         std::cout << "Enter a name for Player "<<i+1<<" (Uppercase characters only!)\n> ";
@@ -86,9 +84,6 @@ void Menu::newGame() {
         }
     }
     e->startGame(players, PLAYERS);
-    
-   
-
 }
 
 void Menu::loadGame() {
