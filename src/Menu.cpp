@@ -85,9 +85,6 @@ void Menu::newGame() {
             }
         }
     }
-    for(int i=0; i < PLAYERS; i++){
-        std::cout<<"Name: " << players[i]->getName()<<std::endl;
-    }
     e->startGame(players, PLAYERS);
     
    
