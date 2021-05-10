@@ -24,7 +24,7 @@ public:
    std::shared_ptr<Tile> removeFront();
    void removeBack();
    void removeIndex(int index);
-   bool checkTile(string inputTile);
+   int checkTile(string inputTile);
 
    void clear();
 

@@ -133,15 +133,19 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
 {
     bool success = false;
     // Check if tile is in player bag
-    
-    if (curPlayer->getHand()->checkTile(tilePlaced)){
+    int index = curPlayer->getHand()->checkTile(tilePlaced);
+    if (index != -1){
         
         std::cout << tilePlaced << "\n";
         shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
         tilePtr->row = row;
         tilePtr->col = col;
-       success = board->placeTile(tilePtr);
-
+        success = board->placeTile(tilePtr);
+        
+        curPlayer->getHand()->removeIndex(index);
+        curPlayer->getHand()->addBack(bag->removeFront());
+        std::cout << bag->size() << std::endl;
+        
     }
      else{
         std::cout << "You do not have that tile" << std::endl;
