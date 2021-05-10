@@ -45,6 +45,21 @@ void Engine::initialiseBag()
             }
         }
     }
+    shuffleBag();
+
+}
+
+void Engine::shuffleBag()
+{
+    std::random_device engine;
+    int index = 0;
+    for (int i = 0; i < MAX_NUM_OF_TILE; i++){
+        std::uniform_int_distribution<int> uniform_dist(0, MAX_NUM_OF_TILE - 1 - i);
+        index = uniform_dist(engine);
+        std::shared_ptr<Tile> newTile = bag->get(index);
+        bag->addBack(newTile);
+        bag->removeIndex(index);
+    }
 }
 
 void Engine::randomiseBag(){
@@ -78,7 +93,6 @@ void Engine::gameRun()
             {
                 // // Prints the board
                 this->board->printBoard();
-                
                 
                 // Sets the current player name so when we save it will store the current player
                 this->currentPlayer = players[i];
