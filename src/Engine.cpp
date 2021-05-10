@@ -130,11 +130,10 @@ void Engine::gameRun()
     }
 }
 
-bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col col)
+bool Engine::placeTile(/*Player* curPlayer,*/ std::string tilePlaced, Row row, Col col)
 {
     bool success = false;
     // // Check if tile is in player bag
-  
     // if (players[0]->getHand()->checkTile(tilePlaced)){
     //     success = true;
     //     std::cout << "this exists inside the bag" << std::endl;
@@ -143,6 +142,15 @@ bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col co
     //     std::cout << "this doesnt exist inside the bag" << std::endl;
     // }
 
+
+    // for (int i = 0; i < players[0]->getHand()->size(); i++){
+
+        
+    // }
+
+    // if(players[0]->getHandString().find(tilePlaced)){
+    //     std::cout << "Found" << std::endl;
+    // }
 
 
     // Create shared_ptr for placing tile on board

@@ -144,9 +144,8 @@ bool LinkedList::checkTile(string inputTile){
         std::shared_ptr<Node> prev = nullptr;
 
         while(current->next != nullptr){
-          std::string data = "";
-          data = current->tile->colour + std::to_string(current->tile->shape);
-          if(data == inputTile){
+          //data = std::to_string(current->tile->colour) + std::to_string(current->tile->shape);
+          if(current->tile->colour + std::to_string(current->tile->shape) == inputTile){
             tileExists = true;
 
           }
