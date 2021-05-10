@@ -52,31 +52,41 @@ void Menu::newGame() {
     std::cout << "Starting a new game...\n" << std::endl;
 
     for(int i=0; i < PLAYERS; i++){
+        bool check = false;
         std::cout << "Enter a name for Player "<<i+1<<" (Uppercase characters only!)\n> ";
         std::cin >> playerName;
-
-        bool check = false;
-        while(check != true){
-            if(checkPlayerName(playerName) != true){
-                std::cout << "Invalid Name" << std::endl;
-                std::cout << "Enter a name for Player "<<i+1<<" (Uppercase characters only!)\n> ";
-                std::cin >> playerName;
-            }else{
-                this->players[i] = new Player(playerName);
-                if(i>0){
-                    if(this->players[i]->getName() == this->players[i-1]->getName()){
-                        std::cout << "Invalid Name" << std::endl;
-                        std::cout << "Enter a name for Player "<<i+1<<" (Uppercase characters only!)\n> ";
-                        std::cin >> playerName;
-                        this->players[i] = new Player(playerName);
+        if (std::cin.eof()) {
+            quit();
+        }else{
+            while(check != true){
+                if(checkPlayerName(playerName) != true){
+                    std::cout<<"Sorry, Invalid Player's name\n> ";
+                    std::cin >> playerName;
+                    if (std::cin.eof()) {
+                        quit();
+                    }
+                }else{
+                    this->players[i] = new Player(playerName);
+                    if(i>0){
+                        if(this->players[i]->getName() == this->players[i-1]->getName()){
+                            std::cout<<"Sorry, this name is already taken...\n> ";
+                            std::cin >> playerName;
+                            if (std::cin.eof()) {
+                                quit();
+                            }
+                            this->players[i] = new Player(playerName);
+                        } else {
+                            check = true;
+                        }
                     } else {
                         check = true;
                     }
-                } else {
-                    check = true;
                 }
             }
         }
+    }
+    for(int i=0; i < PLAYERS; i++){
+        std::cout<<"Name: " << players[i]->getName()<<std::endl;
     }
     e->startGame(players, PLAYERS);
     
