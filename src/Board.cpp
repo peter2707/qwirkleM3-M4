@@ -145,5 +145,5 @@ string Board::printBoardSave()
 }   
 
 int Board::calculatePoints(int row, int col){
-    
+    return 0;
 }
