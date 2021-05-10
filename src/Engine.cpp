@@ -33,8 +33,6 @@ void Engine::giveTiles()
 
 void Engine::initialiseBag()
 {
-    std::random_device engine;
-
     std::map<int, char> colorMap = {{0, RED}, {1, ORANGE}, {2, YELLOW}, {3, GREEN}, {4, BLUE}, {5, PURPLE}};
     std::map<int, int> shapeMap = {{0, CIRCLE}, {1, STAR_4}, {2, DIAMOND}, {3, SQUARE}, {4, STAR_6}, {5, CLOVER}};
 
@@ -45,6 +43,21 @@ void Engine::initialiseBag()
                 bag->addBack(tile);
             }
         }
+    }
+    shuffleBag();
+
+}
+
+void Engine::shuffleBag()
+{
+    std::random_device engine;
+    int index = 0;
+    for (int i = 0; i < MAX_NUM_OF_TILE; i++){
+        std::uniform_int_distribution<int> uniform_dist(0, MAX_NUM_OF_TILE - 1 - i);
+        index = uniform_dist(engine);
+        std::shared_ptr<Tile> newTile = bag->get(index);
+        bag->addBack(newTile);
+        bag->removeIndex(index);
     }
 }
 
@@ -60,7 +73,6 @@ void Engine::gameRun()
             {
                 // // Prints the board
                 this->board->printBoard();
-                
                 
                 // Sets the current player name so when we save it will store the current player
                 this->currentPlayer = players[i]->getName();

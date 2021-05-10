@@ -51,6 +51,9 @@ private:
     // Gives tiles to players until their bag is full
     void giveTiles();
 
+
+    void shuffleBag();
+
     // Runs the game until there is no more tiles in the bag or users quit the game
     
 
