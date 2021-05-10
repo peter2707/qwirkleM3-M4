@@ -23,6 +23,7 @@ public:
     Player(string playerName);
     ~Player();
     void addScore(int score);
+    std::shared_ptr<LinkedList> getHand();
     string getHandString();
     string printHandSave();
     string getName();

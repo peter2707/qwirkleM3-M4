@@ -27,6 +27,11 @@ string Player::printHandSave()
     return "";
 }
 
+std::shared_ptr<LinkedList> Player::getHand(){
+
+    return hand;
+}
+
 string Player::getHandString()
 {
     string printHand = "";

@@ -131,35 +131,19 @@ void Engine::gameRun()
 bool Engine::placeTile(/*Player* curPlayer,*/ std::string tilePlaced, Row row, Col col)
 {
     bool success = false;
-    // // Check if tile is in player bag
-    // if (players[0]->getHand()->checkTile(tilePlaced)){
-    //     success = true;
-    //     std::cout << "this exists inside the bag" << std::endl;
-
-    // }else {
-    //     std::cout << "this doesnt exist inside the bag" << std::endl;
-    // }
-
-
-    // for (int i = 0; i < players[0]->getHand()->size(); i++){
-
+    // Check if tile is in player bag
+    if (players[0]->getHand()->checkTile(tilePlaced)){
         
-    // }
+        std::cout << tilePlaced << "\n";
+        shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
+        tilePtr->row = row;
+        tilePtr->col = col;
+       success = board->placeTile(tilePtr);
 
-    // if(players[0]->getHandString().find(tilePlaced)){
-    //     std::cout << "Found" << std::endl;
-    // }
-
-
-    // Create shared_ptr for placing tile on board
-
-    std::cout << tilePlaced << "\n";
-    shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
-    tilePtr->row = row;
-    tilePtr->col = col;
-
-    // place on board
-    success = board->placeTile(tilePtr);
+    }
+     else{
+        std::cout << "You do not have that tile" << std::endl;
+    }
 
     // If tile failed to place
     
