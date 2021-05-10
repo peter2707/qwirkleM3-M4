@@ -149,12 +149,11 @@ int Board::calculatePoints(int boardRow, int boardCol){
     int tempRow = boardRow;
     int tempCol = boardCol;
     
-    //check up + right
+    //check right
     if (boardRow <= BOARD_SIZE && boardCol >= 1) {
-        while (array[tempRow + 1][tempCol - 1]->colour == ' ' &&  array[tempRow + 1][tempCol - 1]->shape == 0) {
+        while (array[tempRow][tempCol + 1]->colour == ' ' &&  array[tempRow][tempCol + 1]->shape == 0) {
             score++;
-            tempRow = tempRow + 1;
-            tempCol = tempCol - 1;
+            tempCol = tempCol + 1;
             if (tempRow >= BOARD_SIZE - 1 || tempCol < 1) {
                 break;
             }
@@ -164,9 +163,9 @@ int Board::calculatePoints(int boardRow, int boardCol){
         tempCol = boardCol;
     }
     
-    //check up + left
+    //check left
     if (boardRow >= 1 && boardCol >= 1) {
-        while (array[tempRow - 1][tempCol - 1]->colour == ' ' &&  array[tempRow - 1][tempCol - 1]->shape == 0) {
+        while (array[tempRow][tempCol - 1]->colour == ' ' &&  array[tempRow][tempCol + 1]->shape == 0) {
             score++;
             tempRow = tempRow - 1;
             tempCol = tempCol - 1;
@@ -179,8 +178,36 @@ int Board::calculatePoints(int boardRow, int boardCol){
         tempCol = boardCol;
     }
 
-    //down right
-    //down left
+    //check down
+    if (boardRow >= BOARD_SIZE && boardCol <= BOARD_SIZE) {
+        while (array[tempRow - 1][tempCol]->colour == ' ' &&  array[tempRow - 1][tempCol - 1]->shape == 0) {
+            score++;
+            tempRow = tempRow + 1;
+            tempCol = tempCol + 1;
+            if (tempRow >= BOARD_SIZE - 1 || tempCol >= BOARD_SIZE - 1) {
+                break;
+            }
+        }
+
+        tempRow = boardRow;
+        tempCol = boardCol;
+    }
+
+    //check up
+    if (boardRow >= 1 && boardCol <= BOARD_SIZE) {
+        while (array[tempRow + 1][tempCol]->colour == ' ' &&  array[tempRow - 1][tempCol - 1]->shape == 0) {
+            score++;
+            tempRow = tempRow - 1;
+            tempCol = tempCol - 1;
+            if (tempRow < 1 || tempCol < 1) {
+                break;
+            }
+        }
+
+        tempRow = boardRow;
+        tempCol = boardCol;
+    }
+
 
     if (score >= 6){
         score+= 6;
