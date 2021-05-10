@@ -72,7 +72,7 @@ void Menu::newGame() {
                             if (std::cin.eof()) {
                                 quit();
                             }
-                            this->players[i] = new Player(playerName);
+                            this->players[i]->setName(playerName);
                         } else {
                             check = true;
                         }
