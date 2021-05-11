@@ -17,6 +17,7 @@ public:
    Col col;
 
    void setPosition(Row row, Col col);
+   bool empty();
 };
 
 #endif // ASSIGN2_TILE_H

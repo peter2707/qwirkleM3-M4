@@ -138,6 +138,10 @@ bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col co
     // place on board
     success = board->placeTile(tilePtr);
 
+    int score = board->calculatePoints(row-65, col);
+    std::cout << "Position: " << row - 65 << " "<< col << std::endl;
+    std::cout << "Score: " << score << std::endl;
+
     // If tile failed to place
     
     if(!success)
@@ -161,14 +165,22 @@ void Engine::saveGame(string fileName)
     }
 
     // save board size
-    write << board->getLength() << std::endl;
+    write << board->getNewRow() << "," << board->getNewCol() <<std::endl;
     // save board state
-    write << board->printBoardSave() << std::endl;
+    if(board->printBoardSave().empty())
+        write << "[No board records.]" << std::endl;
+    else 
+        write << board->printBoardSave() << std::endl;
     // save tiles in bag
-    write << bag << std::endl;
+    for(int i = 0; i < bag->size() ; i++){
+        if(i==bag->size()-1)
+            write << bag->get(i)->colour << bag->get(i)->shape;
+        else
+            write << bag->get(i)->colour << bag->get(i)->shape << ",";
+    }
 
     // save currentPlayer turn
-    write << this->currentPlayer << std::endl;
+    write << std::endl << this->currentPlayer ;
 
     write.close();
 }
