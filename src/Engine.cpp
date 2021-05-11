@@ -135,7 +135,12 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
     bool success = false;
     // Check if tile is in player bag
     int index = curPlayer->getHand()->checkTile(tilePlaced);
-    if (index != -1){
+
+    int rowCheck = (row - 'A');
+    // Checks if coordinates entered is not greater than the current board size
+    if(!col > this->board->getNewCol() && !row > this->board->getNewRow())
+    {
+        if (index != -1){
         
         std::cout << tilePlaced << "\n";
         shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
@@ -147,11 +152,15 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
         curPlayer->getHand()->addBack(bag->removeFront());
         std::cout << bag->size() << std::endl;
         
+        }
+        else{
+            std::cout << "You do not have that tile" << std::endl;
+        }
     }
-     else{
-        std::cout << "You do not have that tile" << std::endl;
+    else
+    {
+        std::cout << "Coordinates entered is out of the board size\n";
     }
-
     // If tile failed to place
     
     if(!success)
