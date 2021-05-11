@@ -166,68 +166,7 @@ string Board::printBoardSave()
 }   
 
 int Board::calculatePoints(int boardRow, int boardCol){
-    int score = 1;
-    // int tempRow = boardRow;
-    // int tempCol = boardCol;
+    int score = 0;
     
-
-    //check right
-    // if (boardRow <= BOARD_SIZE && boardCol <= BOARD_SIZE) {
-    //     while (array[tempRow][tempCol + 1]->colour != ' ') {
-    //         score++;
-    //         tempCol = tempCol + 1;
-    //         if(tempRow < 1 || tempCol >= BOARD_SIZE - 1){
-    //             break;
-    //         }
-
-    //     }
-    //     tempRow = boardRow;
-    //     tempCol = boardCol;
-    // }
-    
-    // //check left
-    // if (boardRow >= 1 && boardCol >= 1) {
-    //     while (array[tempRow][tempCol - 1]->colour != ' ' &&  array[tempRow][tempCol + 1]->shape != -1) {
-    //         score++;
-    //         tempCol = tempCol - 1;
-
-    //     }
-
-    //     tempRow = boardRow;
-    //     tempCol = boardCol;
-    // }
-
-    // //check down
-    // if (boardRow >= 1 && boardCol >= 1) {
-    //     while (array[tempRow - 1][tempCol]->colour != ' ' &&  array[tempRow - 1][tempCol - 1]->shape != -1) {
-    //         score++;
-    //         tempRow = tempRow - 1;
-
-    //     }
-
-    //     tempRow = boardRow;
-    //     tempCol = boardCol;
-    // }
-
-    // //check up
-    // if (boardRow >=1 && boardCol >= 1) {
-    //     while (array[tempRow + 1][tempCol]->colour != ' ' &&  array[tempRow - 1][tempCol - 1]->shape == -1) {
-    //         score++;
-    //         tempRow = tempRow + 1;
-
-    //     }
-
-    //     tempRow = boardRow;
-    //     tempCol = boardCol;
-    // }
-
-
-    // if (score >= 6){
-    //     score+= 6;
-    //     std::cout << "Qwirkle!!!" << std::endl;
-    // }
-    //std::cout << "You got: " << score << " points" << std::endl;
-
-    score++;
     return score;
 }

@@ -138,10 +138,6 @@ bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col co
     // place on board
     success = board->placeTile(tilePtr);
 
-    int score = board->calculatePoints(row-65, col);
-    std::cout << "Position: " << row - 65 << " "<< col << std::endl;
-    std::cout << "Score: " << score << std::endl;
-
     // If tile failed to place
     
     if(!success)
