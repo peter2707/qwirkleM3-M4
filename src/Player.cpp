@@ -55,3 +55,7 @@ void Player::setName(string name){
 int Player::getScore(){
     return score;
 }
+
+void Player::addScore(int score){
+    this->score = score;
+}
