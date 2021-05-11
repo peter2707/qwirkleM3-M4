@@ -138,7 +138,7 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
 
     int rowCheck = (row - 'A');
     // Checks if coordinates entered is not greater than the current board size
-    if(!(col > this->board->getNewCol()) && !(rowCheck > this->board->getNewRow()))
+    if(!(col > this->board->boardCol) && !(rowCheck > this->board->boardRow))
     {
         if (index != -1){
         
@@ -189,11 +189,11 @@ void Engine::saveGame(string fileName)
     {
         write << this->players[i]->getName() << std::endl;
         write << this->players[i]->getScore() << std::endl;
-        write << this->players[i]->getHand() << std::endl;
+        write << this->players[i]->getHandString() << std::endl;
     }
 
     // save board size
-    write << board->getNewRow() << "," << board->getNewCol() <<std::endl;
+    write << board->boardRow << "," << board->boardCol <<std::endl;
     // save board state
     if(board->printBoardSave().empty())
         write << "[No board records.]" << std::endl;
@@ -208,7 +208,7 @@ void Engine::saveGame(string fileName)
     }
 
     // save currentPlayer turn
-    write << this->currentPlayer ;
+    write << this->currentPlayer->getName();
 
     write.close();
 }
