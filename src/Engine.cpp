@@ -138,7 +138,7 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
 
     int rowCheck = (row - 'A');
     // Checks if coordinates entered is not greater than the current board size
-    if(!col > this->board->getNewCol() && !row > this->board->getNewRow())
+    if(!(col > this->board->getNewCol()) && !(rowCheck > this->board->getNewRow()))
     {
         if (index != -1){
         
