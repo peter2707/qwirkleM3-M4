@@ -18,12 +18,14 @@ private:
 public:
     string playerName;
     int score;
-    void setPlayerHand();
+    void setPlayerHand(shared_ptr<LinkedList> playerHand);
     Player();
     Player(string playerName);
     ~Player();
     void addScore(int score);
-    shared_ptr<LinkedList> getHand();
+    std::shared_ptr<LinkedList> getHand();
+    string getHandString();
+    void setName(string playerName);
     string printHandSave();
     string getName();
     int getScore();

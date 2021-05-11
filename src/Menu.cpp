@@ -5,15 +5,17 @@
 #define SHOWCREDIT 3
 #define QUIT 4
 
-Engine* e = new Engine();
-Board* b = new Board();
+
 
 Menu::Menu(){}
 
 Menu::~Menu() {}
 
 
+
+
 void Menu::mainMenu() {
+
     int menuOption;
     std::cout   << "--------Menu--------\n"
                 << "1. New Game\n"
@@ -28,8 +30,11 @@ void Menu::mainMenu() {
             while (std::cin.fail()) {
                 std::cin.clear(); 
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout<<"Please enter a number...\n> ";
+                std::cout << "Please enter a number...\n> ";
                 std::cin >> menuOption;
+                if (std::cin.eof()) {
+                    quit();
+                }
             }
             if (menuOption == NEWGAME) {
                 newGame();
@@ -45,48 +50,45 @@ void Menu::mainMenu() {
             }
         }
     }while(menuOption != NEWGAME || menuOption != LOADGAME || menuOption != SHOWCREDIT || menuOption != QUIT);
-    
 }
 
 void Menu::newGame() {
     std::cout << "Starting a new game...\n" << std::endl;
-    std::cout << "Enter a name for Player 1 (Uppercase characters only!)\n> ";
-    do {
-        std::cin >> playerOneName;
+    for(int i=0; i < PLAYERS; i++){
+        bool check = false;
+        std::cout << "Enter a name for Player "<<i+1<<" (Uppercase characters only!)\n> ";
+        std::cin >> playerName;
         if (std::cin.eof()) {
             quit();
         }else{
-            if (checkPlayerName(playerOneName) == true){
-                std::cout<<"Enter a name for Player 2 (Uppercase characters only!)\n> ";
-                do {
-                    std::cin >> playerTwoName;
+            while(check != true){
+                if(checkPlayerName(playerName) != true){
+                    std::cout<<"Sorry, Invalid Player's name\n> ";
+                    std::cin >> playerName;
                     if (std::cin.eof()) {
                         quit();
-                    }else{
-                        while (playerTwoName == playerOneName){
+                    }
+                }else{
+                    this->players[i] = new Player(playerName);
+                    if(i>0){
+                        if(this->players[i]->getName() == this->players[i-1]->getName()){
                             std::cout<<"Sorry, this name is already taken...\n> ";
-                            std::cin.clear();
-                            std::cin >> playerTwoName;
+                            std::cin >> playerName;
                             if (std::cin.eof()) {
                                 quit();
                             }
+                            this->players[i]->setName(playerName);
+                        } else {
+                            check = true;
                         }
-                        if (checkPlayerName(playerTwoName) == true){
-                            std::cout<<"Let's Play..."<<std::endl;
-                            //Game Play
-                            b->printBoard();
-                        }else{
-                            std::cout<<"Sorry, Invalid Player Two's name\n> ";
-                            continue;
-                        }
+                    } else {
+                        check = true;
                     }
-                }while(checkPlayerName(playerTwoName) != true);
-            }else{
-                std::cout<<"Sorry, Invalid Player One's name\n> ";
-                continue;
+                }
             }
         }
-    }while(checkPlayerName(playerOneName) != true);
+    }
+    e->startGame(players, PLAYERS);
 }
 
 void Menu::loadGame() {
@@ -144,19 +146,24 @@ void Menu::quit(){
 bool Menu::checkPlayerName(std::string name){
     bool check = false;
     if (!name.empty()){
+        
         uint64_t count = 0;
         for(uint64_t i = 0; i < name.length(); i++){
-            if(isupper(name[i]) == true){
+            if(isCapital(name[i]) == true){
                 ++count;
             }
         }
         if (count == name.length()){
             check = true;
-        }else {
-            check = false;
         }
-    }else {
-        check = false;
     }
     return check;
+}
+
+
+bool Menu::isCapital(char x)
+{
+    bool cap = false;
+    if (x >='A' && x <= 'Z')    cap = true;
+    return cap;
 }

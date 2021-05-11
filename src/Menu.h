@@ -19,14 +19,18 @@ public:
     void mainMenu();
 
 private:
-    std::string playerOneName;
-    std::string playerTwoName;
+    Engine* e = new Engine();
+    Board* b = new Board();
+
+    std::string playerName;
+    Player* players[PLAYERS];
     
     /* Menu functions */
     void newGame();
     void loadGame();
     void showCredits();
     void quit();
+    bool isCapital(char x);
 
     /* Functions */
     bool checkPlayerName(std::string name);

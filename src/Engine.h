@@ -8,11 +8,18 @@
 #include "LinkedList.h" 
 #include "Board.h"
 #include "Player.h"
+#include "TileCodes.h"
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <regex>
 #include <climits>
+#include <random>
+#include <vector>
+#include <map>
+
+#define NUM_OF_EACH_TILE 3
+#define MAX_NUM_OF_TILE 108
 
 using std::string;
 
@@ -27,6 +34,7 @@ public:
     void saveGame(string fileName);
     void loadGame(string fileName);
     void gameRun();
+    void randomiseBag();
     
 private:
     // Board
@@ -36,19 +44,23 @@ private:
     // Bag
     shared_ptr<LinkedList> bag;
     // Current Player
-    string currentPlayer;
+    Player* currentPlayer;
 
     // Shuffles game tilebag at the start of the game
-    void shuffleBag();
+    void initialiseBag();
 
     // Gives tiles to players until their bag is full
     void giveTiles();
 
+
+    void shuffleBag();
+
     // Runs the game until there is no more tiles in the bag or users quit the game
     
+    bool replaceTile(Player* curPlayer, std::string tilePlaced);
 
     // Place tile to boards
-    bool placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col col);
+    bool placeTile(Player* curPlayer, string tilePlaced, Row row, Col col);
 };
 
 #endif // ASSIGN2_ENGINE_H

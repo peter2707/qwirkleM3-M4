@@ -10,21 +10,61 @@ Engine::~Engine(){
 
 void Engine::startGame(Player* playerList[], int numPlayer)
 {
+    bag = std::make_shared<LinkedList>();
     this->players[0] = playerList[0];
     this->players[1] = playerList[1];
-    shuffleBag();
+    initialiseBag();
+    randomiseBag();
     giveTiles();
+    gameRun();
 }
 
 void Engine::giveTiles()
 {
-
+    // Loop to give tiles to all players
+    for(int i = 0; i < PLAYERS; i++){
+        shared_ptr<LinkedList> giveTiles = std::make_shared<LinkedList>();
+        for(int i=0; i < START_SIZE; i++){
+            shared_ptr<Tile> t = bag->removeFront();
+            giveTiles->addBack(t);
+        }
+        players[i]->setPlayerHand(giveTiles);
+    }
 }
 
-void Engine::shuffleBag()
+void Engine::initialiseBag()
 {
+    std::map<int, char> colorMap = {{0, RED}, {1, ORANGE}, {2, YELLOW}, {3, GREEN}, {4, BLUE}, {5, PURPLE}};
+    std::map<int, int> shapeMap = {{0, CIRCLE}, {1, STAR_4}, {2, DIAMOND}, {3, SQUARE}, {4, STAR_6}, {5, CLOVER}};
+
+    for (unsigned int x = 0; x < colorMap.size(); x++){
+        for (unsigned int y = 0; y < shapeMap.size(); y++){
+            for (unsigned int z = 0; z < NUM_OF_EACH_TILE; z++){
+                std::shared_ptr<Tile> tile = std::make_shared<Tile>(colorMap[x], shapeMap[y]);
+                bag->addBack(tile);
+            }
+        }
+    }
+}
+
+void Engine::randomiseBag(){
+    
+    std::random_device engine;
+
+    for (int i = 0; i < MAX_NUM_OF_TILE * 2; i++)
+    {
+        srand(time(NULL));
+        int ran = rand() % MAX_NUM_OF_TILE;
+        std::uniform_int_distribution<int> uniform_dist(0, ran - 1);
+        ran = uniform_dist(engine);
+        std::shared_ptr<Tile> tile = std::make_shared<Tile>(*bag->get(ran));
+        bag->addBack(tile);
+        bag->removeIndex(ran);
+    }
 
 }
+
+
 
 void Engine::gameRun()
 {
@@ -43,12 +83,13 @@ void Engine::gameRun()
                 
                 
                 // Sets the current player name so when we save it will store the current player
-                this->currentPlayer = players[playerNo];
+                this->currentPlayer = players[i];
                 
                 
                 // Prints out the current player and their hand
-                std::cout << "Player " << this->currentPlayer << " Place tile on the board" << std::endl;
-                std::cout << players[i]->getHand() << std::endl;
+                std::cout << "Player " << this->currentPlayer->getName() << " Place tile on the board" << std::endl;
+                std::cout << "Your hand is: " << std::endl;
+                std::cout << this->currentPlayer->getHandString() << std::endl;
 
                 //Waits for player to input their option
                 string option;
@@ -67,9 +108,10 @@ void Engine::gameRun()
                         std::stringstream temp(match.str(REGEX_COL));
                         Col col;
                         temp >> col;
-                        endturn = placeTile(/*players[i],*/ tile, row, col);
+                        endturn = placeTile(this->currentPlayer, tile, row, col);
                     }
                 }
+                
                 // Quits game when user types quit. Needs to be implimented
                 if(std::regex_match(option, std::regex("^(quit|exit)$")))
                 {
@@ -95,22 +137,46 @@ void Engine::gameRun()
     } while(!exit);
 }
 
-bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col col)
+bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col col)
 {
     bool success = false;
     // Check if tile is in player bag
-    // TO BE DONE
+    int index = curPlayer->getHand()->checkTile(tilePlaced);
 
-    // Create shared_ptr for placing tile on board
+    int rowCheck = (row - 'A');
+    // Checks if coordinates entered is not greater than the current board size
+    if(!(col > this->board->getNewCol()) && !(rowCheck > this->board->getNewRow()))
+    {
+        if (index != -1){
+        
+        std::cout << tilePlaced << "\n";
+        shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
+        tilePtr->row = row;
+        tilePtr->col = col;
+        success = board->placeTile(tilePtr);
 
-    std::cout << tilePlaced << "\n";
-    shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
-    tilePtr->row = row;
-    tilePtr->col = col;
+        
+        
+        
+        curPlayer->getHand()->removeIndex(index);
+        curPlayer->getHand()->addBack(bag->removeFront());
+        std::cout << bag->size() << std::endl;
 
-    // place on board
-    success = board->placeTile(tilePtr);
-
+        // Calculate Score
+        // this should only be called when the a tile is successfully placed.
+        int score = board->calculatePoints(row, col);
+        curPlayer->addScore(curPlayer->getScore() + score);
+        std::cout << "Score: " << curPlayer->getScore()<< std::endl;
+        
+        }
+        else{
+            std::cout << "You do not have that tile" << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "Coordinates entered is out of the board size\n";
+    }
     // If tile failed to place
     
     if(!success)
@@ -134,14 +200,22 @@ void Engine::saveGame(string fileName)
     }
 
     // save board size
-    write << board->getLength() << std::endl;
+    write << board->getNewRow() << "," << board->getNewCol() <<std::endl;
     // save board state
-    write << board->printBoardSave() << std::endl;
+    if(board->printBoardSave().empty())
+        write << "[No board records.]" << std::endl;
+    else 
+        write << board->printBoardSave() << std::endl;
     // save tiles in bag
-    write << bag << std::endl;
+    for(int i = 0; i < bag->size() ; i++){
+        if(i==bag->size()-1)
+            write << bag->get(i)->colour << bag->get(i)->shape << std::endl ;
+        else
+            write << bag->get(i)->colour << bag->get(i)->shape << ",";
+    }
 
     // save currentPlayer turn
-    write << this->currentPlayer << std::endl;
+    write << this->currentPlayer ;
 
     write.close();
 }
@@ -210,4 +284,3 @@ void Engine::loadGame(string fileName)
         std::cout << "Failed to load " << fileName << std::endl;
     }
 }
-

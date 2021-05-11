@@ -82,6 +82,11 @@
         "ratio": "cpp",
         "stack": "cpp",
         "string_view": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "__tree": "cpp",
+        "map": "cpp",
+        "numeric": "cpp",
+        "random": "cpp",
+        "xtree": "cpp"
     }
 }
