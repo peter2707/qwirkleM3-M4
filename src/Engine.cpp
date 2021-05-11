@@ -184,13 +184,13 @@ void Engine::saveGame(string fileName)
     // save tiles in bag
     for(int i = 0; i < bag->size() ; i++){
         if(i==bag->size()-1)
-            write << bag->get(i)->colour << bag->get(i)->shape;
+            write << bag->get(i)->colour << bag->get(i)->shape << std::endl ;
         else
             write << bag->get(i)->colour << bag->get(i)->shape << ",";
     }
 
     // save currentPlayer turn
-    write << std::endl << this->currentPlayer ;
+    write << this->currentPlayer ;
 
     write.close();
 }
