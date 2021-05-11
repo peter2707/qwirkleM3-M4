@@ -30,6 +30,7 @@ private:
     void loadGame();
     void showCredits();
     void quit();
+    bool isCapital(char x);
 
     /* Functions */
     bool checkPlayerName(std::string name);

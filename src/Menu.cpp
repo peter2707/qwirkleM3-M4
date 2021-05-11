@@ -5,9 +5,13 @@
 #define SHOWCREDIT 3
 #define QUIT 4
 
+
+
 Menu::Menu(){}
 
 Menu::~Menu() {}
+
+
 
 
 void Menu::mainMenu() {
@@ -142,9 +146,10 @@ void Menu::quit(){
 bool Menu::checkPlayerName(std::string name){
     bool check = false;
     if (!name.empty()){
+        
         uint64_t count = 0;
         for(uint64_t i = 0; i < name.length(); i++){
-            if(isupper(name[i]) == true){
+            if(isCapital(name[i]) == true){
                 ++count;
             }
         }
@@ -152,6 +157,13 @@ bool Menu::checkPlayerName(std::string name){
             check = true;
         }
     }
-    
     return check;
+}
+
+
+bool Menu::isCapital(char x)
+{
+    bool cap = false;
+    if (x >='A' && x <= 'Z')    cap = true;
+    return cap;
 }
