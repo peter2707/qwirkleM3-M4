@@ -100,25 +100,14 @@ void Board::expandBoard(Row rowTile, Col colTile)
 
     // Expands the Col of the board
     if(colTile == (this->boardCol -1))this->boardCol++;
-
-    this->setNewRow(this->boardRow++);
-    this->setNewCol(this->boardCol++);
-}
-
-void Board::setNewRow(int newRow){
-    this->newRow = newRow;
-}
-
-void Board::setNewCol(int newCol){
-    this->newCol = newCol;
 }
 
 int Board::getNewRow(){
-    return newRow;
+    return boardRow;
 }
 
 int Board::getNewCol(){
-    return newCol;
+    return boardCol;
 }
 
 bool Board::exist(Row tileRow, Col tileCol)

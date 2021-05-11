@@ -37,7 +37,12 @@ string Player::getHandString()
     string printHand = "";
 
     for(int i = 0; i < hand->size(); i++) {
-        printHand = printHand + hand->get(i)->colour + std::to_string(hand->get(i)->shape) + " ";
+        if(i == (hand->size() - 1))
+        {
+            printHand = printHand + hand->get(i)->colour + std::to_string(hand->get(i)->shape);
+        }
+        else
+            printHand = printHand + hand->get(i)->colour + std::to_string(hand->get(i)->shape) + ",";
     }
 
     return printHand;

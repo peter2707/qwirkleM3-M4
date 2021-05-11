@@ -89,6 +89,7 @@ void Menu::newGame() {
         }
     }
     e->startGame(players, PLAYERS);
+    quit();
 }
 
 void Menu::loadGame() {

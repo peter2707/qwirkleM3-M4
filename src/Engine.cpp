@@ -83,7 +83,7 @@ void Engine::gameRun()
                 
                 
                 // Sets the current player name so when we save it will store the current player
-                this->currentPlayer = players[i];
+                this->currentPlayer = players[playerNo];
                 
                 
                 // Prints out the current player and their hand
@@ -111,10 +111,10 @@ void Engine::gameRun()
                         endturn = placeTile(this->currentPlayer, tile, row, col);
                     }
                 }
-                
                 // Quits game when user types quit. Needs to be implimented
                 if(std::regex_match(option, std::regex("^(quit|exit)$")))
                 {
+                    std::cout << "Test\n";
                     exit = true;
                     endturn = true;
                 }
@@ -196,7 +196,7 @@ void Engine::saveGame(string fileName)
     {
         write << this->players[i]->getName() << std::endl;
         write << this->players[i]->getScore() << std::endl;
-        write << this->players[i]->getHand() << std::endl;
+        write << this->players[i]->getHandString() << std::endl;
     }
 
     // save board size
@@ -215,7 +215,7 @@ void Engine::saveGame(string fileName)
     }
 
     // save currentPlayer turn
-    write << this->currentPlayer ;
+    write << this->currentPlayer->getName();
 
     write.close();
 }
