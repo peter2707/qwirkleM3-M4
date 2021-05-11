@@ -149,27 +149,32 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
     // Checks if coordinates entered is not greater than the current board size
     if(!(col > this->board->boardCol) && !(rowCheck > this->board->boardRow))
     {
-        if (index != -1){
-        
-        std::cout << tilePlaced << "\n";
-        shared_ptr<Tile> tilePtr(new Tile(tilePlaced[0], (tilePlaced[1] - '0')));
-        tilePtr->row = row;
-        tilePtr->col = col;
-        success = board->placeTile(tilePtr);
+        if (index != -1)
+        {
+            // Gets tile from players bag
+            std::cout << tilePlaced << "\n";
+            shared_ptr<Tile> tilePtr = curPlayer->getHand()->get(index);
+            // Sets the tile col and row
+            tilePtr->row = row;
+            tilePtr->col = col;
+            // Places it on the board
+            success = board->placeTile(tilePtr);
 
-        
-        
-        
-        curPlayer->getHand()->removeIndex(index);
-        curPlayer->getHand()->addBack(bag->removeFront());
-        std::cout << bag->size() << std::endl;
+            if(success)
+            {
+                // Removes tile from players hand
+                curPlayer->getHand()->removeIndex(index);
 
-        // Calculate Score
-        // this should only be called when the a tile is successfully placed.
-        int score = board->calculatePoints(row, col);
-        curPlayer->addScore(curPlayer->getScore() + score);
-        std::cout << "Score: " << curPlayer->getScore()<< std::endl;
-        
+                // Adds tile to the player bag
+                curPlayer->getHand()->addBack(bag->removeFront());
+                std::cout << bag->size() << std::endl;
+
+                // Calculate Score
+                // this should only be called when the a tile is successfully placed.
+                int score = board->calculatePoints(row, col);
+                curPlayer->addScore(curPlayer->getScore() + score);
+                std::cout << "Score: " << curPlayer->getScore()<< std::endl;
+            }
         }
         else{
             std::cout << "You do not have that tile" << std::endl;
