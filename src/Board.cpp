@@ -98,9 +98,15 @@ void Board::expandBoard(Row rowTile, Col colTile)
 
     // Expands the Col of the board
     if(colTile == (this->boardCol -1))this->boardCol++;
-
 }
 
+int Board::getNewRow(){
+    return boardRow;
+}
+
+int Board::getNewCol(){
+    return boardCol;
+}
 
 bool Board::exist(Row tileRow, Col tileCol)
 {

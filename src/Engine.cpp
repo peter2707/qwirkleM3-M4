@@ -68,20 +68,22 @@ void Engine::randomiseBag(){
 
 void Engine::gameRun()
 {
+    bool exit = false;
     // Future will be until bag is empty or someone types in close or exit
-    while(true)
+    int playerNo = 0;
+    do
     {
-        for(int i = 0; i < PLAYERS; i++)
+        bool endturn = false;
+        do 
         {
-            bool endturn = false;
-            while(!endturn)
+            if(!exit)
             {
                 // // Prints the board
                 this->board->printBoard();
                 
                 
                 // Sets the current player name so when we save it will store the current player
-                this->currentPlayer = players[i];
+                this->currentPlayer = players[playerNo];
                 
                 
                 // Prints out the current player and their hand
@@ -109,11 +111,12 @@ void Engine::gameRun()
                         endturn = placeTile(this->currentPlayer, tile, row, col);
                     }
                 }
-                
                 // Quits game when user types quit. Needs to be implimented
                 if(std::regex_match(option, std::regex("^(quit|exit)$")))
                 {
-                    
+                    std::cout << "Test\n";
+                    exit = true;
+                    endturn = true;
                 }
                 // Saves the game based on the save file user puts in
                 if(std::regex_match(option, std::regex("^(save) ([a-z0-9]+)$")))
@@ -126,8 +129,12 @@ void Engine::gameRun()
                     }
                 }
             }
-        }
-    }
+        } while(!endturn);
+        
+        if(playerNo == (PLAYERS - 1))playerNo = 0;
+        else playerNo++;
+
+    } while(!exit);
 }
 
 bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col col)
