@@ -116,7 +116,6 @@ void Engine::gameRun()
                 // Quits game when user types quit. Needs to be implimented
                 if(std::regex_match(option, std::regex("^(quit|exit)$")))
                 {
-                    std::cout << "Test\n";
                     exit = true;
                     endturn = true;
                 }
