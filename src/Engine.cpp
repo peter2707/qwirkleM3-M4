@@ -73,14 +73,15 @@ void Engine::gameRun()
     int playerNo = 0;
     do
     {
+        
         bool endturn = false;
         do 
         {
             if(!exit)
             {
+                std::cin.ignore();
                 // // Prints the board
                 this->board->printBoard();
-                
                 
                 // Sets the current player name so when we save it will store the current player
                 this->currentPlayer = players[playerNo];
@@ -95,6 +96,7 @@ void Engine::gameRun()
                 string option;
                 std::cout << "> ";
                 std::getline(std::cin, option);
+                
                 
                 // Regex isn't fun, but it helps with checking user input and splitting the option
                 if(std::regex_match(option, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
