@@ -15,7 +15,10 @@ Tile::Tile(Colour colour, Shape shape)
     this->shape = shape;
 }
 
-Tile::~Tile(){}
+Tile::~Tile(){
+    this->colour = ' ';
+    this->shape = -1;
+}
 
 void Tile::setPosition(Row row, Col col)
 {
@@ -23,3 +26,6 @@ void Tile::setPosition(Row row, Col col)
     this->row = row;
 }
 
+bool Tile::empty(){
+    return (this->colour == ' ' && this->shape==-1);
+}

@@ -4,6 +4,8 @@ Board::Board()
 {
     boardCol = 6;
     boardRow = 6;
+    newCol = 6;
+    newRow = 6;
 }
 
 // Board::Board(std::vector<std::shared_ptr<Tile>> board, int boardRow, int boardCol)
@@ -98,6 +100,25 @@ void Board::expandBoard(Row rowTile, Col colTile)
 
     // Expands the Col of the board
     if(colTile == (this->boardCol -1))this->boardCol++;
+
+    this->setNewRow(this->boardRow++);
+    this->setNewCol(this->boardCol++);
+}
+
+void Board::setNewRow(int newRow){
+    this->newRow = newRow;
+}
+
+void Board::setNewCol(int newCol){
+    this->newCol = newCol;
+}
+
+int Board::getNewRow(){
+    return newRow;
+}
+
+int Board::getNewCol(){
+    return newCol;
 }
 
 bool Board::exist(Row tileRow, Col tileCol)
@@ -145,75 +166,7 @@ string Board::printBoardSave()
 }   
 
 int Board::calculatePoints(int boardRow, int boardCol){
-    int score = 1;
-    int tempRow = boardRow;
-    int tempCol = boardCol;
+    int score = 0;
     
-    //check right
-    if (boardRow <= BOARD_SIZE && boardCol >= 1) {
-        while (array[tempRow][tempCol + 1]->colour == ' ' &&  array[tempRow][tempCol + 1]->shape == 0) {
-            score++;
-            tempCol = tempCol + 1;
-            if (tempRow >= BOARD_SIZE - 1 || tempCol < 1) {
-                break;
-            }
-        }
-
-        tempRow = boardRow;
-        tempCol = boardCol;
-    }
-    
-    //check left
-    if (boardRow >= 1 && boardCol >= 1) {
-        while (array[tempRow][tempCol - 1]->colour == ' ' &&  array[tempRow][tempCol + 1]->shape == 0) {
-            score++;
-            tempRow = tempRow - 1;
-            tempCol = tempCol - 1;
-            if (tempRow < 1 || tempCol < 1) {
-                break;
-            }
-        }
-
-        tempRow = boardRow;
-        tempCol = boardCol;
-    }
-
-    //check down
-    if (boardRow >= BOARD_SIZE && boardCol <= BOARD_SIZE) {
-        while (array[tempRow - 1][tempCol]->colour == ' ' &&  array[tempRow - 1][tempCol - 1]->shape == 0) {
-            score++;
-            tempRow = tempRow + 1;
-            tempCol = tempCol + 1;
-            if (tempRow >= BOARD_SIZE - 1 || tempCol >= BOARD_SIZE - 1) {
-                break;
-            }
-        }
-
-        tempRow = boardRow;
-        tempCol = boardCol;
-    }
-
-    //check up
-    if (boardRow >= 1 && boardCol <= BOARD_SIZE) {
-        while (array[tempRow + 1][tempCol]->colour == ' ' &&  array[tempRow - 1][tempCol - 1]->shape == 0) {
-            score++;
-            tempRow = tempRow - 1;
-            tempCol = tempCol - 1;
-            if (tempRow < 1 || tempCol < 1) {
-                break;
-            }
-        }
-
-        tempRow = boardRow;
-        tempCol = boardCol;
-    }
-
-
-    if (score >= 6){
-        score+= 6;
-        std::cout << "Qwirkle!!!" << std::endl;
-    }
-    std::cout << "You got: " << score << " points" << std::endl;
-
     return score;
 }
