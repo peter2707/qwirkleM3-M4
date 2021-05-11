@@ -28,20 +28,23 @@ void Engine::shuffleBag()
 
 void Engine::gameRun()
 {
+    bool exit = false;
     // Future will be until bag is empty or someone types in close or exit
-    while(true)
+    int playerNo = 0;
+    do
     {
-        for(int i = 0; i < PLAYERS; i++)
+        bool endturn = false;
+        do 
         {
-            bool endturn = false;
-            while(!endturn)
+            if(!exit)
             {
                 // // Prints the board
                 this->board->printBoard();
                 
                 
                 // Sets the current player name so when we save it will store the current player
-                this->currentPlayer = players[i]->getName();
+                this->currentPlayer = players[playerNo];
+                
                 
                 // Prints out the current player and their hand
                 std::cout << "Player " << this->currentPlayer << " Place tile on the board" << std::endl;
@@ -70,7 +73,8 @@ void Engine::gameRun()
                 // Quits game when user types quit. Needs to be implimented
                 if(std::regex_match(option, std::regex("^(quit|exit)$")))
                 {
-                    
+                    exit = true;
+                    endturn = true;
                 }
                 // Saves the game based on the save file user puts in
                 if(std::regex_match(option, std::regex("^(save) ([a-z0-9]+)$")))
@@ -83,8 +87,12 @@ void Engine::gameRun()
                     }
                 }
             }
-        }
-    }
+        } while(!endturn);
+        
+        if(playerNo == (PLAYERS - 1))playerNo = 0;
+        else playerNo++;
+
+    } while(!exit);
 }
 
 bool Engine::placeTile(/*Player* curPlayer,*/ string tilePlaced, Row row, Col col)
