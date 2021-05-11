@@ -95,39 +95,46 @@ void Engine::gameRun()
                 //Waits for player to input their option
                 string option;
                 std::cout << "> ";
-                std::getline(std::cin, option);
-                
-                
-                // Regex isn't fun, but it helps with checking user input and splitting the option
-                if(std::regex_match(option, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
+                // Detects if ctrl + d is pressed
+                if(std::getline(std::cin, option))
                 {
-                    std::smatch match;
-                    if(std::regex_search(option, match, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
+                    // Regex isn't fun, but it helps with checking user input and splitting the option
+                    if(std::regex_match(option, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
                     {
-                        
-                        string tile = match.str(REGEX_TILE); 
-                        Row row = match.str(REGEX_ROW)[0];
-                        std::stringstream temp(match.str(REGEX_COL));
-                        Col col;
-                        temp >> col;
-                        endturn = placeTile(this->currentPlayer, tile, row, col);
+                        std::smatch match;
+                        if(std::regex_search(option, match, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
+                        {
+                            
+                            string tile = match.str(REGEX_TILE); 
+                            Row row = match.str(REGEX_ROW)[0];
+                            std::stringstream temp(match.str(REGEX_COL));
+                            Col col;
+                            temp >> col;
+                            endturn = placeTile(this->currentPlayer, tile, row, col);
+                        }
+                    }
+                    // Quits game when user types quit. Needs to be implimented
+                    if(std::regex_match(option, std::regex("^(quit|exit)$")))
+                    {
+                        exit = true;
+                        endturn = true;
+                    }
+                    // Saves the game based on the save file user puts in
+                    if(std::regex_match(option, std::regex("^(save) ([a-z0-9]+)$")))
+                    {
+                        std::smatch match;
+                        if(std::regex_search(option, match, std::regex("^(save) ([a-z0-9]+)$")))
+                        {
+                            string filename = match.str(REGEX_SAVE);
+                            saveGame(filename);
+                        }
                     }
                 }
-                // Quits game when user types quit. Needs to be implimented
-                if(std::regex_match(option, std::regex("^(quit|exit)$")))
+                // If it is pressed will set endturn and exit
+                else
                 {
                     exit = true;
                     endturn = true;
-                }
-                // Saves the game based on the save file user puts in
-                if(std::regex_match(option, std::regex("^(save) ([a-z0-9]+)$")))
-                {
-                    std::smatch match;
-                    if(std::regex_search(option, match, std::regex("^(save) ([a-z0-9]+)$")))
-                    {
-                        string filename = match.str(REGEX_SAVE);
-                        saveGame(filename);
-                    }
                 }
             }
         } while(!endturn);
