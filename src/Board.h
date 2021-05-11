@@ -26,7 +26,7 @@ class Board
         int getLength();
         string printBoardSave();
         bool placeTile(shared_ptr<Tile> tile);
-        int calculatePoints(int row, int col);
+        int calculatePoints(Row tileRow, Col tileCol);
         int getNewRow();
         int getNewCol();
 

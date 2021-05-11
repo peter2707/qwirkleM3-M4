@@ -165,8 +165,21 @@ string Board::printBoardSave()
     return board;
 }   
 
-int Board::calculatePoints(int boardRow, int boardCol){
+int Board::calculatePoints(Row tileRow, Col tileCol){
     int score = 0;
+    for(uint32_t k = 0; k < this->board.size(); k++){
+        Row row = this->board.at(k)->row;
+        Col col = this->board.at(k)->col;
+        if(tileCol == col && tileRow == row){
+            while(exist(row, col-1) || exist(row, col+1) || exist(row-1, col) || exist(row+1, col)){
+                score++;
+            }
+            if (score == 6){
+                score +=6;
+                std::cout << "Qwirkle!!!" << std::endl;
+            }
+        }
+    }
     
     return score;
 }

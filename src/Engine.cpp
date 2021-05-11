@@ -147,10 +147,16 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
         tilePtr->row = row;
         tilePtr->col = col;
         success = board->placeTile(tilePtr);
+
+        
+        // int score = board->calculatePoints(row, col);
         
         curPlayer->getHand()->removeIndex(index);
         curPlayer->getHand()->addBack(bag->removeFront());
         std::cout << bag->size() << std::endl;
+
+
+        // std::cout << "Score: " << score << std::endl;
         
         }
         else{
