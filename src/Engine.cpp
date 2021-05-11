@@ -149,14 +149,17 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
         success = board->placeTile(tilePtr);
 
         
-        // int score = board->calculatePoints(row, col);
+        
         
         curPlayer->getHand()->removeIndex(index);
         curPlayer->getHand()->addBack(bag->removeFront());
         std::cout << bag->size() << std::endl;
 
-
-        // std::cout << "Score: " << score << std::endl;
+        // Calculate Score
+        // this should only be called when the a tile is successfully placed.
+        int score = board->calculatePoints(row, col);
+        curPlayer->addScore(curPlayer->getScore() + score);
+        std::cout << "Score: " << curPlayer->getScore()<< std::endl;
         
         }
         else{

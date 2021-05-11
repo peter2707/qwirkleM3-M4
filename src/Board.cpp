@@ -170,13 +170,75 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
     for(uint32_t k = 0; k < this->board.size(); k++){
         Row row = this->board.at(k)->row;
         Col col = this->board.at(k)->col;
+        int tempRow = row;
+        int tempCol = col;
         if(tileCol == col && tileRow == row){
-            while(exist(row, col-1) || exist(row, col+1) || exist(row-1, col) || exist(row+1, col)){
+            if(k==0){
                 score++;
             }
-            if (score == 6){
-                score +=6;
-                std::cout << "Qwirkle!!!" << std::endl;
+            // check right
+            if(exist(row, col+1) != false){
+                score++;
+                while(exist(row, col+1) != false){ 
+                    col++;
+                    score = score + 1;
+                    if(score==6){
+                        score += 6;
+                        std::cout << "QWIRKLE!!!"<< std::endl;
+                    }
+                    if(exist(row, col+1) == false){
+                        col = tempCol;
+                        break;
+                    }
+                }
+            }
+            // check left
+            if(exist(row, col-1) != false){
+                score++;
+                while(exist(row, col-1) != false){ 
+                    col--;
+                    score = score + 1;
+                    if(score==6){
+                        score += 6;
+                        std::cout << "QWIRKLE!!!"<< std::endl;
+                    }
+                    if(exist(row, col-1) == false){
+                        col = tempCol;
+                        break;
+                    }
+                }
+            }
+            // check up
+            if(exist(row+1, col) != false){
+                score++;
+                while(exist(row+1, col) != false ){ 
+                    row++;
+                    score = score + 1;
+                    if(score==6){
+                        score += 6;
+                        std::cout << "QWIRKLE!!!"<< std::endl;
+                    }
+                    if(exist(row+1, col) == false){
+                        row = tempRow;
+                        break;
+                    }
+                }
+            }
+            // check down
+            if(exist(row-1, col) != false){
+                score++;
+                while(exist(row-1, col)!= false ){ 
+                    row--;
+                    score = score + 1;
+                    if(score==6){
+                        score += 6;
+                        std::cout << "QWIRKLE!!!"<< std::endl;
+                    }
+                    if(exist(row-1, col) == false){
+                        row = tempRow;
+                        break;
+                    }
+                }
             }
         }
     }
