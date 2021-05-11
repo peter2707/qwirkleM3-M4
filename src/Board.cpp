@@ -4,8 +4,6 @@ Board::Board()
 {
     boardCol = 6;
     boardRow = 6;
-    newCol = 6;
-    newRow = 6;
 }
 
 // Board::Board(std::vector<std::shared_ptr<Tile>> board, int boardRow, int boardCol)
@@ -101,25 +99,8 @@ void Board::expandBoard(Row rowTile, Col colTile)
     // Expands the Col of the board
     if(colTile == (this->boardCol -1))this->boardCol++;
 
-    this->setNewRow(this->boardRow++);
-    this->setNewCol(this->boardCol++);
 }
 
-void Board::setNewRow(int newRow){
-    this->newRow = newRow;
-}
-
-void Board::setNewCol(int newCol){
-    this->newCol = newCol;
-}
-
-int Board::getNewRow(){
-    return newRow;
-}
-
-int Board::getNewCol(){
-    return newCol;
-}
 
 bool Board::exist(Row tileRow, Col tileCol)
 {
