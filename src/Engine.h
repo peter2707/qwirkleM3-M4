@@ -18,8 +18,8 @@
 #include <vector>
 #include <map>
 
-#define NUM_OF_EACH_TILE 1
-#define MAX_NUM_OF_TILE 16
+#define NUM_OF_EACH_TILE 3
+#define MAX_NUM_OF_TILE 108
 
 using std::string;
 

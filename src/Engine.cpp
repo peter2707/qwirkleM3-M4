@@ -34,8 +34,8 @@ void Engine::giveTiles()
 
 void Engine::initialiseBag()
 {
-    std::map<int, char> colorMap = {{0, RED}, {1, ORANGE}, {2, YELLOW}, {3, GREEN}};
-    std::map<int, int> shapeMap = {{0, CIRCLE}, {1, STAR_4}, {2, DIAMOND}, {3, SQUARE}};
+    std::map<int, char> colorMap = {{0, RED}, {1, ORANGE}, {2, YELLOW}, {3, GREEN}, {4, BLUE}, {5, PURPLE}};
+    std::map<int, int> shapeMap = {{0, CIRCLE}, {1, STAR_4}, {2, DIAMOND}, {3, SQUARE}, {4, STAR_6}, {5, CLOVER}};
 
     for (unsigned int x = 0; x < colorMap.size(); x++){
         for (unsigned int y = 0; y < shapeMap.size(); y++){
