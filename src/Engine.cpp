@@ -34,8 +34,8 @@ void Engine::giveTiles()
 
 void Engine::initialiseBag()
 {
-    std::map<int, char> colorMap = {{0, RED}, {1, ORANGE}, {2, YELLOW}, {3, GREEN}, {4, BLUE}, {5, PURPLE}};
-    std::map<int, int> shapeMap = {{0, CIRCLE}, {1, STAR_4}, {2, DIAMOND}, {3, SQUARE}, {4, STAR_6}, {5, CLOVER}};
+    std::map<int, char> colorMap = {{0, RED}, {1, ORANGE}, {2, YELLOW}, {3, GREEN}};
+    std::map<int, int> shapeMap = {{0, CIRCLE}, {1, STAR_4}, {2, DIAMOND}, {3, SQUARE}};
 
     for (unsigned int x = 0; x < colorMap.size(); x++){
         for (unsigned int y = 0; y < shapeMap.size(); y++){
@@ -230,8 +230,20 @@ bool Engine::endGame(Player* curPlayer){
 
     if(bag->size() == 0 && curPlayer->getHand()->size() == 0){
         success = true;
+        std::cout << "Game Over" <<std::endl;
+        std::cout << "Score for " << this->players[0]->getName() << ": " <<this->players[0]->getScore() << std::endl;
+        std::cout << "Score for " << this->players[1]->getName() << ": "<<this->players[1]->getScore() << std::endl;
+        if (this->players[0]->getScore() > this->players[1]->getScore()){
+            std::cout << "Player "<< this->players[0]->getName() << " won" << std::endl;
+        }
+        else if (this->players[0]->getScore() < this->players[1]->getScore()){
+            std::cout << "Player "<< this->players[1]->getName() << " won" << std::endl;
+        }
+        else{
+            std::cout << "Game Tied!" << std::endl;
+        }
+        std::cout << "\n" <<std::endl;
         std::cout << "Goodbye!" <<std::endl;
-        std::cout << "player score :" << curPlayer->getScore() << std::endl;
         exit(0);
     }
     return success;
