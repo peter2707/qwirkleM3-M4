@@ -80,16 +80,17 @@ void Engine::gameRun()
             if(!exit)
             {
                 std::cin.ignore();
-                // // Prints the board
-                this->board->printBoard();
-                
                 // Sets the current player name so when we save it will store the current player
                 this->currentPlayer = players[playerNo];
-                
+                std::cout << this->currentPlayer->getName() << ", it's your turn" << std::endl;
+                std::cout << "Score for " << this->players[0]->getName() + ": "<< this->players[0]->getScore() << std::endl;
+                std::cout <<  "Score for " << this->players[1]->getName() + ": " << this->players[1]->getScore() << std::endl;
+                // Prints the board
+                this->board->printBoard();
+                std::cout << "\n" << std::endl;               
                 
                 // Prints out the current player and their hand
-                std::cout << "Player " << this->currentPlayer->getName() << " Place tile on the board" << std::endl;
-                std::cout << "Your hand is: " << std::endl;
+                std::cout << "Your hand is" << std::endl;
                 std::cout << this->currentPlayer->getHandString() << std::endl;
 
                 //Waits for player to input their option
@@ -200,13 +201,11 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
                 // Adds tile to the player bag
                 if(bag->size() > 0){
                 curPlayer->getHand()->addBack(bag->removeFront());
-                std::cout << bag->size() << std::endl;
                 }
                 // Calculate Score
                 // this should only be called when the a tile is successfully placed.
                 int score = board->calculatePoints(row, col);
                 curPlayer->addScore(curPlayer->getScore() + score);
-                std::cout << "Score: " << curPlayer->getScore()<< std::endl;
             }
         }
         else{
