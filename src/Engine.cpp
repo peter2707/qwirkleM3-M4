@@ -79,9 +79,10 @@ void Engine::gameRun()
         {
             if(!exit)
             {
-                std::cin.ignore();
+                //std::cin.ignore();
                 // Sets the current player name so when we save it will store the current player
                 this->currentPlayer = players[playerNo];
+                std::cout << "\n" << std::endl;
                 std::cout << this->currentPlayer->getName() << ", it's your turn" << std::endl;
                 std::cout << "Score for " << this->players[0]->getName() + ": "<< this->players[0]->getScore() << std::endl;
                 std::cout <<  "Score for " << this->players[1]->getName() + ": " << this->players[1]->getScore() << std::endl;
