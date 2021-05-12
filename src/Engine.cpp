@@ -113,6 +113,17 @@ void Engine::gameRun()
                             endturn = placeTile(this->currentPlayer, tile, row, col);
                         }
                     }
+                    
+                    if(std::regex_match(option, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$"))){
+                        std::smatch match;
+                        if(std::regex_search(option, match, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$")))
+                        {                       
+                            string tile = match.str(REGEX_TILE); 
+                            endturn = replaceTile(this->currentPlayer, tile);
+                        }
+
+                    }
+
                     // Quits game when user types quit. Needs to be implimented
                     if(std::regex_match(option, std::regex("^(quit|exit)$")))
                     {
@@ -142,7 +153,24 @@ void Engine::gameRun()
         if(playerNo == (PLAYERS - 1))playerNo = 0;
         else playerNo++;
 
-    } while(!exit);
+    } while(!endGame(currentPlayer) || !exit);
+}
+
+bool Engine::replaceTile(Player* curPlayer, std::string tilePlaced){
+    bool success = false;
+    int index = curPlayer->getHand()->checkTile(tilePlaced);
+
+    if (index != -1){
+        bag->addBack(curPlayer->getHand()->get(index));
+        curPlayer->getHand()->removeIndex(index);
+        curPlayer->getHand()->addBack(bag->removeFront());
+        success = true;
+        std::cout << "Tile successfully replaced" << std::endl;
+    }
+    else{
+        std::cout << "You do not have that tile" << std::endl;
+    }
+    return success;
 }
 
 bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col col)
@@ -150,7 +178,6 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
     bool success = false;
     // Check if tile is in player bag
     int index = curPlayer->getHand()->checkTile(tilePlaced);
-
     int rowCheck = (row - 'A');
     // Checks if coordinates entered is not greater than the current board size
     if(!(col > this->board->boardCol) && !(rowCheck > this->board->boardRow))
@@ -171,9 +198,10 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
                 curPlayer->getHand()->removeIndex(index);
 
                 // Adds tile to the player bag
+                if(bag->size() > 0){
                 curPlayer->getHand()->addBack(bag->removeFront());
                 std::cout << bag->size() << std::endl;
-
+                }
                 // Calculate Score
                 // this should only be called when the a tile is successfully placed.
                 int score = board->calculatePoints(row, col);
@@ -194,6 +222,18 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
     if(!success)
     {
         std::cout << "Failed to place tile " << tilePlaced << " at " << row << col << "\n";
+    }
+    return success;
+}
+
+bool Engine::endGame(Player* curPlayer){
+    bool success = false;
+
+    if(bag->size() == 0 && curPlayer->getHand()->size() == 0){
+        success = true;
+        std::cout << "Goodbye!" <<std::endl;
+        std::cout << "player score :" << curPlayer->getScore() << std::endl;
+        exit(0);
     }
     return success;
 }

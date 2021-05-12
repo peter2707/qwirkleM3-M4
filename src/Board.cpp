@@ -70,6 +70,7 @@ bool Board::placeTile(shared_ptr<Tile> tile){
     }
     else
     {
+    std::cout << (exist(tile->row, tile->col)) << validMove(tile) << std::endl;
         if(!exist(tile->row, tile->col) && validMove(tile))
         {
             addTile(tile);
@@ -215,7 +216,8 @@ bool Board::validMove(shared_ptr<Tile> tile){
         validUp = true;
     }
 
-    
+    tileCol = tile->col;
+    tileRow = tile->row;
 
     if (!exist(tileRow - 1, tileCol) && !exist(tileRow + 1, tileCol) && !exist(tileRow, tileCol - 1) && !exist(tileRow, tileCol + 1)){
         validMove = false;
