@@ -93,7 +93,7 @@ void Engine::gameRun()
                 // Prints out the current player and their hand
                 std::cout << "Your hand is" << std::endl;
                 std::cout << this->currentPlayer->getHandString() << std::endl;
-
+                std::cout << "\n" << std::endl;
                 //Waits for player to input their option
                 string option;
                 std::cout << "> ";
