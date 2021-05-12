@@ -1,30 +1,21 @@
 #include "Board.h"
 
-Board::Board()
-{
+Board::Board(){
     boardCol = 6;
     boardRow = 6;
 }
 
-// Board::Board(std::vector<std::shared_ptr<Tile>> board, int boardRow, int boardCol)
-// {
-
-// }
-
 Board::~Board(){}
 
-void Board::addTile(shared_ptr<Tile> tile)
-{
+void Board::addTile(shared_ptr<Tile> tile){
     this->board.push_back(tile);
 }
 
-int Board::getLength()
-{
+int Board::getLength(){
     return this->board.size();
 }
 
-void Board::printBoard()
-{
+void Board::printBoard(){
     char row = 'A';
     printf("%2c", ' ');
     for(int j = 0; j < boardCol; j++)
@@ -64,11 +55,11 @@ string Board::tilePosition(char row, int col)
     {
         tilePos = "  ";
     }
+
     return tilePos;
 }
 
-bool Board::placeTile(shared_ptr<Tile> tile)
-{
+bool Board::placeTile(shared_ptr<Tile> tile){
     bool placed = false;
     if(this->board.empty())
     {
@@ -79,7 +70,7 @@ bool Board::placeTile(shared_ptr<Tile> tile)
     }
     else
     {
-        if(!exist(tile->row, tile->col))
+        if(!exist(tile->row, tile->col) && validMove(tile))
         {
             addTile(tile);
             expandBoard(tile->row, tile->col);
@@ -89,10 +80,10 @@ bool Board::placeTile(shared_ptr<Tile> tile)
     return placed;
 }
 
-void Board::expandBoard(Row rowTile, Col colTile)
-{
+void Board::expandBoard(Row rowTile, Col colTile){
     // Minus A from the current Row entered gives you an int that is useable
     int row = rowTile - 'A';
+    //std::cout << "this is the rowTile in expand: " << rowTile << std::endl;
     // Expands the Row of the board
     if(row == (this->boardRow -1))this->boardRow++;
 
@@ -108,8 +99,138 @@ int Board::getNewCol(){
     return boardCol;
 }
 
-bool Board::exist(Row tileRow, Col tileCol)
-{
+bool Board::validMove(shared_ptr<Tile> tile){
+    bool validMove = false;
+
+    // check sideways
+    Col tileCol = tile->col;
+    Row tileRow = tile->row;
+
+    bool validRight = false;
+    bool validLeft = false;
+    bool validUp = false;
+    bool validDown = false;
+
+    int colourMatch = 1;
+    int shapeMatch = 1;
+  
+    while(exist(tileRow, tileCol+1)){
+        tileCol++;
+        string tileAtPos = tilePosition(tileRow, tileCol);
+
+        if(tile->colour != tileAtPos[0]){
+            colourMatch = -1;
+        }
+        if(std::to_string(tile->shape) != std::string(1, tileAtPos[1])){
+            shapeMatch = -1;
+        } 
+        if (tile->colour == tileAtPos[0] && std::to_string(tile->shape) == std::string(1, tileAtPos[1])) {
+            colourMatch = -1;
+            shapeMatch = -1;
+        }
+    }
+    
+
+    if(colourMatch != -1 || shapeMatch != -1) {
+        validRight = true;
+    }
+    
+    tileCol = tile->col;
+    tileRow = tile->row;
+    colourMatch = 1;
+    shapeMatch = 1;
+
+    while(exist(tileRow, tileCol-1)){
+        tileCol--;
+        
+        string tileAtPos = tilePosition(tileRow, tileCol);
+        
+        if(tile->colour != tileAtPos[0]){
+            colourMatch = -1;
+        }
+        if(std::to_string(tile->shape) != std::string(1, tileAtPos[1])){
+            shapeMatch = -1;
+        } 
+        if (tile->colour == tileAtPos[0] && std::to_string(tile->shape) == std::string(1, tileAtPos[1])) {
+            colourMatch = -1;
+            shapeMatch = -1;
+        }
+    }
+
+    if(colourMatch != -1 || shapeMatch != -1) {
+        validLeft = true;
+    }
+
+
+    tileCol = tile->col;
+    tileRow = tile->row;
+    colourMatch = 1;
+    shapeMatch = 1;
+
+    while(exist(tileRow + 1, tileCol)){
+        tileRow++;
+        
+        string tileAtPos = tilePosition(tileRow, tileCol);
+        
+        if(tile->colour != tileAtPos[0]){
+            colourMatch = -1;
+        }
+        if(std::to_string(tile->shape) != std::string(1, tileAtPos[1])){
+            shapeMatch = -1;
+        } 
+        if (tile->colour == tileAtPos[0] && std::to_string(tile->shape) == std::string(1, tileAtPos[1])) {
+            colourMatch = -1;
+            shapeMatch = -1;
+        }
+    }
+
+    if(colourMatch != -1 || shapeMatch != -1) {
+        validDown = true;
+    }
+
+
+    tileCol = tile->col;
+    tileRow = tile->row;
+    colourMatch = 1;
+    shapeMatch = 1;
+
+    while(exist(tileRow - 1, tileCol)){
+        tileRow--;
+    
+        string tileAtPos = tilePosition(tileRow, tileCol);
+        
+        if(tile->colour != tileAtPos[0]){
+            colourMatch = -1;
+        }
+        if(std::to_string(tile->shape) != std::string(1, tileAtPos[1])){
+            shapeMatch = -1;
+        } 
+        if (tile->colour == tileAtPos[0] && std::to_string(tile->shape) == std::string(1, tileAtPos[1])) {
+            colourMatch = -1;
+            shapeMatch = -1;
+        }
+    }
+
+    if(colourMatch != -1 || shapeMatch != -1) {
+        validUp = true;
+    }
+
+    
+
+    if (!exist(tileRow - 1, tileCol) && !exist(tileRow + 1, tileCol) && !exist(tileRow, tileCol - 1) && !exist(tileRow, tileCol + 1)){
+        validMove = false;
+    }
+    else if (validLeft && validRight && validUp && validDown) {
+        validMove = true;
+    }
+    else {
+        std::cout << "This is not a valid move" << std::endl;
+    }
+
+    return validMove;
+}
+
+bool Board::exist(Row tileRow, Col tileCol){
     // Checks if the a tile is placed at the position the user has entered 
     bool exists = false;
     for(uint32_t k = 0; k < this->board.size(); k++)
@@ -125,8 +246,8 @@ bool Board::exist(Row tileRow, Col tileCol)
     return exists;
 }
 
-string Board::printBoardSave()
-{
+
+string Board::printBoardSave(){
     string board;
     for(uint32_t i = 0; i < this->board.size(); i++)
     {

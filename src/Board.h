@@ -9,6 +9,7 @@
 #include <string>
 #include "Player.h"
 #include "Type.h"
+#include <sstream>
 
 using std::vector;
 using std::shared_ptr;
@@ -36,6 +37,9 @@ class Board
         std::shared_ptr<Tile> array[BOARD_SIZE][BOARD_SIZE];
         vector< shared_ptr<Tile> > board;
         int getRow(Row row);
+
+        bool validMove(shared_ptr<Tile> tile);
+
         string tilePosition(char row, int col);
         bool exist(Row tileRow, Col tileCol);
         void expandBoard(Row rowTile, Col colTile);

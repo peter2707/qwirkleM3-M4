@@ -158,7 +158,6 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
         if (index != -1)
         {
             // Gets tile from players bag
-            std::cout << tilePlaced << "\n";
             shared_ptr<Tile> tilePtr = curPlayer->getHand()->get(index);
             // Sets the tile col and row
             tilePtr->row = row;
