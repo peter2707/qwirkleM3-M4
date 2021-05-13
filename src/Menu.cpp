@@ -114,6 +114,7 @@ void Menu::loadGame() {
         }
     }
     e->loadGame(filename);
+    quit();
 }
 
 
