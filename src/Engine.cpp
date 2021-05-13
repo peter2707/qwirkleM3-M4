@@ -68,16 +68,17 @@ void Engine::randomiseBag(){
 
 void Engine::gameRun()
 {
+    std::cout << "GameRun 1\n";
     bool exit = false;
     int playerNo = 0;
 
     // This is for loading the game, will check the current player and gets the playerno
     // of the current player
-    if(currentPlayer != nullptr)
+    if(this->currentPlayer != nullptr)
     {
         for(int i = 0; i < PLAYERS; i++) if(players[i]->getName() == currentPlayer->getName()) playerNo = i;
     }
-    
+    std::cout << "GameRun 2\n";
     do
     {
         bool endturn = false;
@@ -306,61 +307,154 @@ void Engine::loadGame(string fileName)
 
     if(file.is_open())
     {
-        Player* player1 = new Player();
-        //Player* player2 = new Player();
-        
+        // Sets up Engine variables
+        this->players[0] = new Player();
+        this->players[1] = new Player();
+        this->board = new Board();
+        bag = std::make_shared<LinkedList>();
+        // Helps determinee what line we are up to
         int lineCount = 0;
+
+        // Loops through all the lines in the save file
         while(std::getline(file, line))
         {
+            // Sets Player 1 Name
             if(lineCount == PLAYER1)
             {
-                player1->playerName = line;
+                this->players[0]->setName(line);
             }
+            // Sets Player 1 Score
             if(lineCount == PLAYER1_SCORE)
             {
                 std::stringstream stringScore(line);
-                stringScore >> player1->score;
+                stringScore >> this->players[0]->score;
             }
+            // Sets Player 1 hand
             if(lineCount == PLAYER1_HAND)
-            {
-                std::cout << "PLAYER 1 Hand" << std::endl;
-                std::cout << line << std::endl;
+            {   
+                playerHand(line, this->players[0]);
             }
+            // Sets Player 2 Name
             if(lineCount == PLAYER2)
             {
-                std::cout << "PLAYER 2" << std::endl;
-                std::cout << line << std::endl;
+                this->players[1]->setName(line);
             }
+            // Sets Player 2 Score
             if(lineCount == PLAYER2_SCORE)
             {
-                std::cout << "PLAYER 2 Score" << std::endl;
-                std::cout << line << std::endl;
+                std::stringstream stringScore(line);
+                stringScore >> this->players[1]->score;
             }
+            // Sets Player 2 hand
             if(lineCount == PLAYER2_HAND)
             {
-                std::cout << "PLAYER 2 Hand" << std::endl;
-                std::cout << line << std::endl;
+                playerHand(line, this->players[1]);
             }
+            // Sets Board Size
+            if(lineCount == BOARD_Size)
+            {
+                std::vector<std::string> size;
+                split(line, ',', size);
+                std::stringstream col(size.at(0));
+                std::stringstream wid(size.at(1));
+                col >> board->boardRow;
+                wid >> board->boardCol;
+            }
+            // Sets Board
             if(lineCount == BOARD)
             {
-                std::cout << "BOARD" << std::endl;
-                std::cout << line << std::endl;
+                // Checks if there are any pieces on the board
+                if(!(line == "[No board records.]"))
+                {
+                    // Splits all the tiles
+                    std::vector<std::string> tiles;
+                    split(line, ',', tiles);
+
+                    // Loops throught all the tiles in the Vector
+                    for(unsigned int i = 0; i < tiles.size(); i++)
+                    {
+                        // Regex Splits the tiles up
+                        std::smatch match;
+                        if(std::regex_search(line, match, std::regex("^([R|O|Y|G|B|P][1-6])@([A-Z][0-9]|1[0-9]|2[0-5])$")))
+                        {
+                            // Create tile to be placed in the board
+                            string tileCode = match.str(1);
+                            string tilePos  = match.str(2);
+                            std::shared_ptr<Tile> tile1 = std::make_shared<Tile>(tileCode[0], 
+                                                                                (tileCode[1] - '0'), 
+                                                                                tilePos[0], 
+                                                                                (tilePos[1] - '0'));
+                            this->board->addTile(tile1);
+                        }
+                    }
+                }
             }
+            // Sets the bag
             if(lineCount == BAG)
             {
-                std::cout << "BAG" << std::endl;
-                std::cout << line << std::endl;
+                // Splits all the tiles
+                std::vector<std::string> tiles;
+                split(line, ',', tiles);
+
+                // Loops throught all the tiles in the Vector
+                for(unsigned int i = 0; i < tiles.size(); i++)
+                {   
+                    // Creates a tile and puts it in the tile bag
+                    std::string tile = tiles.at(i);
+                    Colour colour = tile[0];
+                    Shape  shape = tile[1] - '0';
+                    std::shared_ptr<Tile> tile1 = std::make_shared<Tile>(colour, shape);]
+                    this->bag->addBack(tile1);
+                }
             }
             if(lineCount == CURRENT_PLAYER)
             {
-                std::cout << "CURRENT PLAYER" << std::endl;
-                std::cout << line << std::endl;
+                // Checks what player is up and sets the current player
+                for(int i = 0; i < PLAYERS; i++)
+                {
+                    if(this->players[i]->getName() == line)
+                    {
+                        this->currentPlayer = this->players[i];
+                    }
+                }
             }
             lineCount++;
         }
+        gameRun();
     }
     else
     {
         std::cout << "Failed to load " << fileName << std::endl;
     }
+}
+
+
+// Referenced from Stackoverflow, cuts the string into a vector
+// https://stackoverflow.com/questions/16749069/c-split-string-by-regex/16752826
+std::vector<std::string>& Engine::split(const std::string &s, char delim,std::vector<std::string> &elems) {
+    std::stringstream ss(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        if (item.length() > 0) {
+            elems.push_back(item);  
+        }
+    }
+    return elems;
+}
+
+// Set the player hand
+void Engine::playerHand(string playerHand, Player* player)
+{
+    shared_ptr<LinkedList> hand = std::make_shared<LinkedList>();
+    std::vector<std::string> tiles;
+    split(playerHand, ',', tiles);
+    for(unsigned int i = 0; i < tiles.size(); i++)
+    {
+        std::string tile = tiles.at(i);
+        Colour colour = tile[0];
+        Shape  shape = tile[1] - '0';
+        std::shared_ptr<Tile> tile1 = std::make_shared<Tile>(colour, shape);
+        hand->addBack(tile1);
+    }
+    player->setPlayerHand(hand);
 }

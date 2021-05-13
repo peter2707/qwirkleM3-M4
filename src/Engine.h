@@ -60,6 +60,10 @@ private:
 
     // Place tile to boards
     bool placeTile(Player* curPlayer, string tilePlaced, Row row, Col col);
+    
+    std::vector<std::string>& split(const std::string &s, char delim,std::vector<std::string> &elems);
+
+    void playerHand(string playerHand, Player* player);
 };
 
 #endif // ASSIGN2_ENGINE_H

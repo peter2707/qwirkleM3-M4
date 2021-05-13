@@ -9,6 +9,14 @@ Tile::Tile(const Tile &tile)
     this->shape = tile.shape;
 }
 
+Tile::Tile(Colour colour, Shape shape, Row row, Col col)
+{
+    this->col = col;
+    this->row = row;
+    this->colour = colour;
+    this->shape = shape;
+}
+
 Tile::Tile(Colour colour, Shape shape)
 {
     this->colour = colour;

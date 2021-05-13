@@ -8,7 +8,6 @@ Player::Player(string playerName)
 }
 
 Player::Player(){
-    this->playerName = nullptr;
     this->score = 0;
 }
 

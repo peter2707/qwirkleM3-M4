@@ -19,15 +19,17 @@ typedef int Col;
 
 // Define player size
 #define     PLAYERS         2
+
+// Define Colwidth
 #define     COLWID          3
 
-
+// Define Regex
 #define     REGEX_SAVE      2
 #define     REGEX_TILE      2
 #define     REGEX_ROW       4
 #define     REGEX_COL       5
 
-
+// Define each row in the save file
 #define     PLAYER1         0
 #define     PLAYER1_SCORE   1
 #define     PLAYER1_HAND    2
@@ -37,8 +39,10 @@ typedef int Col;
 #define     PLAYER2_SCORE   4
 #define     PLAYER2_HAND    5
 
-#define     BOARD           6
-#define     BAG             7
-#define     CURRENT_PLAYER  8
+#define     BOARD_Size      6
+
+#define     BOARD           7
+#define     BAG             8
+#define     CURRENT_PLAYER  9
 
 #endif // ASSIGN2_TYPE_H
