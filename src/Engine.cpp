@@ -79,7 +79,9 @@ void Engine::gameRun()
         {
             if(!exit)
             {
-                //std::cin.ignore();
+                // Provents double print of the board, Do not delete please
+                std::cin.ignore();
+                
                 // Sets the current player name so when we save it will store the current player
                 this->currentPlayer = players[playerNo];
                 std::cout << "\n" << std::endl;
@@ -98,7 +100,13 @@ void Engine::gameRun()
                 string option;
                 std::cout << "> ";
                 // Detects if ctrl + d is pressed
-                if(std::getline(std::cin, option))
+                std::getline(std::cin, option);
+                if(std::cin.eof() == 1)
+                {
+                    exit = true;
+                    endturn = true;
+                }
+                else
                 {
                     // Regex isn't fun, but it helps with checking user input and splitting the option
                     if(std::regex_match(option, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
@@ -143,19 +151,13 @@ void Engine::gameRun()
                         }
                     }
                 }
-                // If it is pressed will set endturn and exit
-                else
-                {
-                    exit = true;
-                    endturn = true;
-                }
             }
         } while(!endturn);
         
         if(playerNo == (PLAYERS - 1))playerNo = 0;
         else playerNo++;
 
-    } while(!endGame(currentPlayer) || !exit);
+    } while(!endGame(currentPlayer) && !exit);
 }
 
 bool Engine::replaceTile(Player* curPlayer, std::string tilePlaced){
