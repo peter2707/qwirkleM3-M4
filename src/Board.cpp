@@ -18,18 +18,22 @@ int Board::getLength(){
 void Board::printBoard(){
     char row = 'A';
     printf("%2c", ' ');
+    // Prints the column number
     for(int j = 0; j < boardCol; j++)
     {
         printf("%3d", j);
     }
     std::cout << "\n";
+    // Prints the line under the column numbers
     printf("%2c%s\n", ' ',std::string((boardCol*(boardCol/2)+1),'-').c_str());
 
+    // Prints the tiles and row letter on the board
     for(int i = 0; i < boardRow; i++)
     {
         std::cout << row << " |";
         for(int j = 0; j < boardCol; j++)
         {
+            // Gets the tile position
             std::cout << tilePosition(row, j) << "|"; 
         }
         std::cout << "\n";
@@ -37,20 +41,26 @@ void Board::printBoard(){
     }
 }
 
+// Checks the tile position and prints a tile it's on that position a space
 string Board::tilePosition(char row, int col)
 {
     string tilePos;
+    // Loops through the tile bag
     for(uint32_t k = 0; k < this->board.size(); k++)
     {
+        // Gets tile from the board
         shared_ptr<Tile> tile = this->board.at(k);
         Row tileRow = tile->row;
         Col tileCol = tile->col; 
 
+        // Checks if the tile is at the row col
         if(tileRow == row && tileCol == col)
         {
+            // Sets the string to the tile
             tilePos = tile->colour + std::to_string(tile->shape);
         }   
     }
+    // Prints a space if no tile exists in the current square
     if(tilePos.empty())
     {
         tilePos = "  ";
@@ -59,20 +69,26 @@ string Board::tilePosition(char row, int col)
     return tilePos;
 }
 
+// Places a tile on the board
 bool Board::placeTile(shared_ptr<Tile> tile){
     bool placed = false;
+    // Checks if the board is empty
     if(this->board.empty())
     {
+        // Places the tile on the board
         addTile(tile);
+        // Checks if the board needs to be expanded
         expandBoard(tile->row, tile->col);
-        //player->addScore(1);
         placed = true;
     }
     else
     {
+        // Checks if the tile exists on the board and if valid move
         if(!exist(tile->row, tile->col) && validMove(tile))
         {
+            // Places the tile on the board
             addTile(tile);
+            // Checks if the board needs to be expanded
             expandBoard(tile->row, tile->col);
             placed = true;
         }
@@ -227,11 +243,14 @@ bool Board::validMove(shared_ptr<Tile> tile){
 bool Board::exist(Row tileRow, Col tileCol){
     // Checks if the a tile is placed at the position the user has entered 
     bool exists = false;
+    // loops through all the tiles in the board
     for(uint32_t k = 0; k < this->board.size(); k++)
     {
+        
         Row row = this->board.at(k)->row;
         Col col = this->board.at(k)->col;
 
+        // Checks if the tile exists at the Col and Row
         if(tileCol == col && tileRow == row)
         {
             exists = true;
@@ -240,7 +259,7 @@ bool Board::exist(Row tileRow, Col tileCol){
     return exists;
 }
 
-
+// Creats a string for the current board state and returns it
 string Board::printBoardSave(){
     string board;
     for(uint32_t i = 0; i < this->board.size(); i++)

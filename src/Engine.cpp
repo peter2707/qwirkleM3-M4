@@ -68,15 +68,22 @@ void Engine::randomiseBag(){
 
 void Engine::gameRun()
 {
+    bool endturn = false;
     bool exit = false;
-    // Future will be until bag is empty or someone types in close or exit
     int playerNo = 0;
+
+    // This is for loading the game, will check the current player and gets the playerno
+    // of the current player
+    if(currentPlayer != nullptr)
+    {
+        for(int i = 0; i < PLAYERS; i++) if(players[i]->getName() == currentPlayer->getName()) playerNo = i;
+    }
+    
     do
     {
-        
-        bool endturn = false;
         do 
         {
+            // Checks if exit is set
             if(!exit)
             {
                 if(currentPlayer == nullptr)
@@ -231,7 +238,7 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
 
 bool Engine::endGame(Player* curPlayer){
     bool success = false;
-
+    // Checks if the bag size and the player bag is empty
     if(bag->size() == 0 && curPlayer->getHand()->size() == 0){
         success = true;
         std::cout << "Game Over" <<std::endl;
