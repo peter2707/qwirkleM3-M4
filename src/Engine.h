@@ -18,8 +18,8 @@
 #include <vector>
 #include <map>
 
-#define NUM_OF_EACH_TILE 3
-#define MAX_NUM_OF_TILE 108
+#define NUM_OF_EACH_TILE 2
+#define MAX_NUM_OF_TILE 72
 
 using std::string;
 
@@ -56,7 +56,6 @@ private:
     bool endGame(Player* curPlayer);
 
     // Runs the game until there is no more tiles in the bag or users quit the game
-    
     bool replaceTile(Player* curPlayer, std::string tilePlaced);
 
     // Place tile to boards
