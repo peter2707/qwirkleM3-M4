@@ -68,7 +68,6 @@ void Engine::randomiseBag(){
 
 void Engine::gameRun()
 {
-    std::cout << "GameRun 1\n";
     bool exit = false;
     int playerNo = 0;
 
@@ -78,7 +77,6 @@ void Engine::gameRun()
     {
         for(int i = 0; i < PLAYERS; i++) if(players[i]->getName() == currentPlayer->getName()) playerNo = i;
     }
-    std::cout << "GameRun 2\n";
     do
     {
         bool endturn = false;
