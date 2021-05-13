@@ -103,8 +103,11 @@ void Engine::gameRun()
                 //Waits for player to input their option
                 string option;
                 std::cout << "> ";
-                // Detects if ctrl + d is pressed
-                std::cin >> option;
+                std::getline(std::cin, option);
+                if(option == ""){
+                    std::getline(std::cin, option);
+                }
+                
                 if(std::cin.eof())
                 {
                     exit = true;
