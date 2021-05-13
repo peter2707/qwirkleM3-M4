@@ -1,0 +1,15 @@
+Welcome To Qwirkle!
+--------Menu--------
+1. New Game
+2. Load Game
+3. Show Credits
+4. Quit
+> 1
+Starting a new game...
+
+Enter a name for Player 1 (Uppercase characters only!)
+> jerry
+Sorry, Invalid Player's name
+> jerry01
+Sorry, Invalid Player's name
+> 

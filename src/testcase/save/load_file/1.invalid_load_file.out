@@ -1,0 +1,12 @@
+Welcome To Qwirkle!
+--------Menu--------
+1. New Game
+2. Load Game
+3. Show Credits
+4. Quit
+> 2
+Enter a file name to load from
+> random_file
+Please enter a correct file name...
+Enter a file name to load from
+> 
