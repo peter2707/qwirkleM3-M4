@@ -299,13 +299,14 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
         int tempRow = row;
         int tempCol = col;
         if(tileCol == col && tileRow == row){
+            bool endWhile = false;
             if(k==0){
                 score++;
             }
             // check right
             if(exist(row, col+1)){
                 tempScore++;
-                while(exist(row, col+1)){ 
+                while(exist(row, col+1) && endWhile == false){ 
                     col++;
                     tempScore++;
                     rightScore += tempScore;
@@ -313,14 +314,14 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                     tempScore = 0;
                     if(exist(row, col+1) == false){
                         col = tempCol;
-                        break;
+                        endWhile = true;
                     }
                 }
             }
             // check left
             if(exist(row, col-1)){
                 tempScore++;
-                while(exist(row, col-1)){ 
+                while(exist(row, col-1) && endWhile == false){ 
                     col--;
                     tempScore++;
                     leftScore += tempScore;
@@ -328,15 +329,14 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                     tempScore = 0;
                     if(exist(row, col-1) == false){
                         col = tempCol;
-                        tempScore = 0;
-                        break;
+                        endWhile = true;
                     }
                 }
             }
             // check up
             if(exist(row+1, col)){
                 tempScore++;
-                while(exist(row+1, col)){ 
+                while(exist(row+1, col) && endWhile == false){ 
                     row++;
                     tempScore++;
                     upScore += tempScore;
@@ -344,7 +344,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                     tempScore = 0;
                     if(exist(row+1, col) == false){
                         row = tempRow;
-                        break;
+                        endWhile = true;
                     }
                 }
                 
@@ -352,7 +352,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
             // check down
             if(exist(row-1, col)){
                 tempScore++;
-                while(exist(row-1, col)){ 
+                while(exist(row-1, col) && endWhile == false){ 
                     row--;
                     tempScore++;
                     downScore += tempScore;
@@ -360,7 +360,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                     tempScore = 0;
                     if(exist(row-1, col) == false){
                         row = tempRow;
-                        break;
+                        endWhile = true;
                     }
                 }
             }
