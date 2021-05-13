@@ -356,13 +356,13 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
             } else if(exist(row, col-1) && exist(row, col+1)){
                 tempScore = leftScore + rightScore;
                 tempScore--;
-                score = checkQwirkle(tempScore) + tempScore + upScore + downScore;
+                score += checkQwirkle(tempScore) + tempScore + upScore + downScore;
             } else if(exist(row-1, col) && exist(row+1, col)){
                 tempScore = upScore + downScore;
                 tempScore--;
-                score = checkQwirkle(tempScore) + tempScore + leftScore + rightScore;
+                score += checkQwirkle(tempScore) + tempScore + leftScore + rightScore;
             } else {
-                score = leftScore + rightScore + upScore + downScore;
+                score += leftScore + rightScore + upScore + downScore;
             }
 
         }
