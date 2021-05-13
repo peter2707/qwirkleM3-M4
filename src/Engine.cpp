@@ -403,7 +403,7 @@ void Engine::loadGame(string fileName)
                     std::string tile = tiles.at(i);
                     Colour colour = tile[0];
                     Shape  shape = tile[1] - '0';
-                    std::shared_ptr<Tile> tile1 = std::make_shared<Tile>(colour, shape);]
+                    std::shared_ptr<Tile> tile1 = std::make_shared<Tile>(colour, shape);
                     this->bag->addBack(tile1);
                 }
             }
