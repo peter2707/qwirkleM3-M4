@@ -1,0 +1,30 @@
+Welcome To Qwirkle!
+--------Menu--------
+1. New Game
+2. Load Game
+3. Show Credits
+4. Quit
+> Starting a new game...
+
+Enter a name for Player 1 (Uppercase characters only!)
+> Enter a name for Player 2 (Uppercase characters only!)
+> 
+
+ALICE, it's your turn
+Score for ALICE: 0
+Score for BOB: 0
+    0  1  2  3  4  5
+  -------------------
+A |  |  |  |  |  |  |
+B |  |  |  |  |  |  |
+C |  |  |  |  |  |  |
+D |  |  |  |  |  |  |
+E |  |  |  |  |  |  |
+F |  |  |  |  |  |  |
+
+
+Your hand is
+R2,G2,G2,R6,B5,P5
+
+
+> > Goodbye!

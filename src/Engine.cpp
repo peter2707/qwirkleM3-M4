@@ -68,7 +68,6 @@ void Engine::randomiseBag(){
 
 void Engine::gameRun()
 {
-    bool endturn = false;
     bool exit = false;
     int playerNo = 0;
 
@@ -81,6 +80,7 @@ void Engine::gameRun()
     
     do
     {
+        bool endturn = false;
         if(currentPlayer == nullptr)
             // Provents double print of the board, Do not delete please
             std::cin.ignore();
