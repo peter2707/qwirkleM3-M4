@@ -349,7 +349,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
             if(exist(row, col-1) && exist(row, col+1) && exist(row-1, col) && exist(row+1, col)){
                 tempScore = upScore + downScore;
                 tempScore--;
-                score = checkQwirkle(tempScore) + tempScore;
+                score += checkQwirkle(tempScore) + tempScore;
                 tempScore = leftScore + rightScore;
                 tempScore--;
                 score += checkQwirkle(tempScore) + tempScore;

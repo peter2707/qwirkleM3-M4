@@ -80,7 +80,7 @@ void Engine::gameRun()
             if(!exit)
             {
                 // Provents double print of the board, Do not delete please
-                std::cin.ignore();
+                //std::cin.ignore();
                 
                 // Sets the current player name so when we save it will store the current player
                 this->currentPlayer = players[playerNo];
