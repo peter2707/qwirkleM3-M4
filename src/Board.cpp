@@ -391,10 +391,9 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
 }
 
 int Board::checkQwirkle(int score){
-    if(score==6){
-        std::cout << "Qwirkle!!!" << std::endl;
-        return score;
-    } else {
-        return 0;
-    }
+    if(score==6) std::cout << "Qwirkle!!!" << std::endl;
+    else  score = 0;
+
+    return score;
+    
 }
