@@ -19,6 +19,8 @@ typedef int Col;
 
 // Define player size
 #define     PLAYERS         2
+#define     COLWID          3
+
 
 #define     REGEX_SAVE      2
 #define     REGEX_TILE      2
