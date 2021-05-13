@@ -79,8 +79,9 @@ void Engine::gameRun()
         {
             if(!exit)
             {
-                // Provents double print of the board, Do not delete please
-                //std::cin.ignore();
+                if(currentPlayer == nullptr)
+                    // Provents double print of the board, Do not delete please
+                    std::cin.ignore();
                 
                 // Sets the current player name so when we save it will store the current player
                 this->currentPlayer = players[playerNo];
@@ -101,7 +102,7 @@ void Engine::gameRun()
                 std::cout << "> ";
                 // Detects if ctrl + d is pressed
                 std::getline(std::cin, option);
-                if(std::cin.eof() == 1)
+                if(std::cin.eof())
                 {
                     exit = true;
                     endturn = true;
@@ -152,7 +153,7 @@ void Engine::gameRun()
                     }
                 }
             }
-        } while(!endturn);
+        } while(!endturn);  
         
         if(playerNo == (PLAYERS - 1))playerNo = 0;
         else playerNo++;
