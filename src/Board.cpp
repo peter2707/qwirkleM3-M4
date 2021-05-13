@@ -91,13 +91,6 @@ void Board::expandBoard(Row rowTile, Col colTile){
     if(colTile == (this->boardCol -1))this->boardCol++;
 }
 
-int Board::getNewRow(){
-    return boardRow;
-}
-
-int Board::getNewCol(){
-    return boardCol;
-}
 
 bool Board::validMove(shared_ptr<Tile> tile){
     bool validMove = false;
@@ -277,6 +270,10 @@ string Board::printBoardSave(){
 int Board::calculatePoints(Row tileRow, Col tileCol){
     int score = 0;
     int tempScore = 0;
+    int leftScore = 0;
+    int rightScore = 0;
+    int upScore = 0;
+    int downScore = 0;
     for(uint32_t k = 0; k < this->board.size(); k++){
         Row row = this->board.at(k)->row;
         Col col = this->board.at(k)->col;
@@ -292,17 +289,14 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 while(exist(row, col+1) != false){ 
                     col++;
                     tempScore++;
-                    if(tempScore>=6){
-                        tempScore += 6;
-                        std::cout << "QWIRKLE!!!"<< std::endl;
-                    }
-                    score = score + tempScore;
+                    rightScore += tempScore;
+                    score += checkQwirkle(rightScore) + tempScore;
+                    tempScore = 0;
                     if(exist(row, col+1) == false){
                         col = tempCol;
                         break;
                     }
                 }
-                tempScore = 0;
             }
             // check left
             if(exist(row, col-1) != false){
@@ -310,17 +304,15 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 while(exist(row, col-1) != false){ 
                     col--;
                     tempScore++;
-                    if(tempScore>=6){
-                        tempScore += 6;
-                        std::cout << "QWIRKLE!!!"<< std::endl;
-                    }
-                    score = score + tempScore;
+                    leftScore += tempScore;
+                    score += checkQwirkle(leftScore) + tempScore;
+                    tempScore = 0;
                     if(exist(row, col-1) == false){
                         col = tempCol;
+                        tempScore = 0;
                         break;
                     }
                 }
-                tempScore = 0;
             }
             // check up
             if(exist(row+1, col) != false){
@@ -328,17 +320,16 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 while(exist(row+1, col) != false ){ 
                     row++;
                     tempScore++;
-                    if(tempScore>=6){
-                        tempScore += 6;
-                        std::cout << "QWIRKLE!!!"<< std::endl;
-                    }
-                    score = score + tempScore;
+                    upScore += tempScore;
+                    score += checkQwirkle(upScore) + tempScore;
+                    tempScore = 0;
+                    
                     if(exist(row+1, col) == false){
                         row = tempRow;
                         break;
                     }
                 }
-                tempScore = 0;
+                
             }
             // check down
             if(exist(row-1, col) != false){
@@ -346,20 +337,26 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 while(exist(row-1, col)!= false ){ 
                     row--;
                     tempScore++;
-                    if(tempScore>=6){
-                        tempScore += 6;
-                        std::cout << "QWIRKLE!!!"<< std::endl;
-                    }
-                    score = score + tempScore;
+                    downScore += tempScore;
+                    score += checkQwirkle(downScore) + tempScore;
+                    tempScore = 0;
                     if(exist(row-1, col) == false){
                         row = tempRow;
                         break;
                     }
                 }
-                tempScore = 0;
             }
         }
     }
     
     return score;
+}
+
+int Board::checkQwirkle(int score){
+    if(score==6){
+        std::cout << "Qwirkle!!!" << std::endl;
+        return score;
+    } else {
+        return 0;
+    }
 }
