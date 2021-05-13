@@ -89,6 +89,7 @@ std::shared_ptr<Tile> LinkedList::removeFront(){
 
     return removedTile;
 }
+
 void LinkedList::removeBack(){
     
     if(head != nullptr){
@@ -161,4 +162,3 @@ int LinkedList::checkTile(string inputTile){
 void LinkedList::clear(){
   head = nullptr;
 }
-

@@ -7,7 +7,7 @@ Board::Board(){
 
 Board::~Board(){}
 
-void Board::addTile(shared_ptr<Tile> tile){
+void Board::addTile(std::shared_ptr<Tile> tile){
     this->board.push_back(tile);
 }
 
@@ -42,14 +42,14 @@ void Board::printBoard(){
 }
 
 // Checks the tile position and prints a tile it's on that position a space
-string Board::tilePosition(char row, int col)
+std::string Board::tilePosition(char row, int col)
 {
-    string tilePos;
+    std::string tilePos;
     // Loops through the tile bag
     for(uint32_t k = 0; k < this->board.size(); k++)
     {
         // Gets tile from the board
-        shared_ptr<Tile> tile = this->board.at(k);
+        std::shared_ptr<Tile> tile = this->board.at(k);
         Row tileRow = tile->row;
         Col tileCol = tile->col; 
 
@@ -70,7 +70,7 @@ string Board::tilePosition(char row, int col)
 }
 
 // Places a tile on the board
-bool Board::placeTile(shared_ptr<Tile> tile){
+bool Board::placeTile(std::shared_ptr<Tile> tile){
     bool placed = false;
     // Checks if the board is empty
     if(this->board.empty())
@@ -108,7 +108,7 @@ void Board::expandBoard(Row rowTile, Col colTile){
 }
 
 
-bool Board::validMove(shared_ptr<Tile> tile){
+bool Board::validMove(std::shared_ptr<Tile> tile){
     bool validMove = false;
 
     // check sideways
@@ -125,7 +125,7 @@ bool Board::validMove(shared_ptr<Tile> tile){
   
     while(exist(tileRow, tileCol+1)){
         tileCol++;
-        string tileAtPos = tilePosition(tileRow, tileCol);
+        std::string tileAtPos = tilePosition(tileRow, tileCol);
 
         if(tile->colour != tileAtPos[0]){
             colourMatch = -1;
@@ -152,7 +152,7 @@ bool Board::validMove(shared_ptr<Tile> tile){
     while(exist(tileRow, tileCol-1)){
         tileCol--;
         
-        string tileAtPos = tilePosition(tileRow, tileCol);
+        std::string tileAtPos = tilePosition(tileRow, tileCol);
         
         if(tile->colour != tileAtPos[0]){
             colourMatch = -1;
@@ -179,7 +179,7 @@ bool Board::validMove(shared_ptr<Tile> tile){
     while(exist(tileRow + 1, tileCol)){
         tileRow++;
         
-        string tileAtPos = tilePosition(tileRow, tileCol);
+        std::string tileAtPos = tilePosition(tileRow, tileCol);
         
         if(tile->colour != tileAtPos[0]){
             colourMatch = -1;
@@ -206,7 +206,7 @@ bool Board::validMove(shared_ptr<Tile> tile){
     while(exist(tileRow - 1, tileCol)){
         tileRow--;
     
-        string tileAtPos = tilePosition(tileRow, tileCol);
+        std::string tileAtPos = tilePosition(tileRow, tileCol);
         
         if(tile->colour != tileAtPos[0]){
             colourMatch = -1;
@@ -260,11 +260,11 @@ bool Board::exist(Row tileRow, Col tileCol){
 }
 
 // Creats a string for the current board state and returns it
-string Board::printBoardSave(){
-    string board;
+std::string Board::printBoardSave(){
+    std::string board;
     for(uint32_t i = 0; i < this->board.size(); i++)
     {
-        shared_ptr<Tile> tile = this->board.at(i);
+        std::shared_ptr<Tile> tile = this->board.at(i);
         if(i == (this->board.size() - 1))
         {
             board+= tile->colour;

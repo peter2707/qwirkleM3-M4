@@ -11,10 +11,6 @@
 #include "Type.h"
 #include <sstream>
 
-using std::vector;
-using std::shared_ptr;
-using std::string;
-
 class Board
 {
     public:
@@ -25,7 +21,7 @@ class Board
         void addTile(shared_ptr<Tile> tile);
         void printBoard();
         int getLength();
-        string printBoardSave();
+        std::string printBoardSave();
         bool placeTile(shared_ptr<Tile> tile);
         int calculatePoints(Row tileRow, Col tileCol);
         int boardRow;
@@ -33,16 +29,14 @@ class Board
 
     private:
         std::shared_ptr<Tile> array[BOARD_SIZE][BOARD_SIZE];
-        vector< shared_ptr<Tile> > board;
-        int getRow(Row row);
-
-        bool validMove(shared_ptr<Tile> tile);
-
-        string tilePosition(char row, int col);
-        bool exist(Row tileRow, Col tileCol);
+        std::vector< shared_ptr<Tile> > board;
+        
         void expandBoard(Row rowTile, Col colTile);
+        bool validMove(shared_ptr<Tile> tile);
+        bool exist(Row tileRow, Col tileCol);
+        std::string tilePosition(char row, int col);
         int checkQwirkle(int score);
-
+        int getRow(Row row);
 };
 
 

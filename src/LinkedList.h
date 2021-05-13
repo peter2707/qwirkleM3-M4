@@ -9,25 +9,23 @@ class LinkedList {
 public:
 
 
-   LinkedList();
-   ~LinkedList();
-   LinkedList(LinkedList& other);
-   
-   int size();
+    LinkedList();
+    ~LinkedList();
+    LinkedList(LinkedList& other);
+
+    int size();
 
     std::shared_ptr<Tile> get(int index);
 
-   void addFront(std::shared_ptr<Tile> data);
-   void addBack(std::shared_ptr<Tile> data);
+    void addFront(std::shared_ptr<Tile> data);
+    void addBack(std::shared_ptr<Tile> data);
 
+    std::shared_ptr<Tile> removeFront();
+    void removeBack();
+    void removeIndex(int index);
+    int checkTile(string inputTile);
 
-   std::shared_ptr<Tile> removeFront();
-   void removeBack();
-   void removeIndex(int index);
-   int checkTile(string inputTile);
-
-   void clear();
-
+    void clear();
 
 private:
     std::shared_ptr<Node> head;

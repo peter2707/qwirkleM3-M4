@@ -5,14 +5,9 @@
 #define SHOWCREDIT 3
 #define QUIT 4
 
-
-
 Menu::Menu(){}
 
 Menu::~Menu() {}
-
-
-
 
 void Menu::mainMenu() {
 
@@ -117,7 +112,6 @@ void Menu::loadGame() {
     quit();
 }
 
-
 void Menu::showCredits() {
     std::cout<<"------------------------------------\n"
              <<"-------------Team-MAST--------------\n"
@@ -162,7 +156,6 @@ bool Menu::checkPlayerName(std::string name){
     }
     return check;
 }
-
 
 bool Menu::isCapital(char x)
 {

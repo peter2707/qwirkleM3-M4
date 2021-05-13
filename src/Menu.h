@@ -30,10 +30,10 @@ private:
     void loadGame();
     void showCredits();
     void quit();
-    bool isCapital(char x);
 
-    /* Functions */
+    /* Extra Functions */
     bool checkPlayerName(std::string name);
+    bool isCapital(char x);
 
 };
 #endif // ASSIGN2_MENU_H

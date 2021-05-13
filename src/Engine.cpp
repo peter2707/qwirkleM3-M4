@@ -64,8 +64,6 @@ void Engine::randomiseBag(){
 
 }
 
-
-
 void Engine::gameRun()
 {
     bool exit = false;
@@ -86,30 +84,27 @@ void Engine::gameRun()
                 
         // Sets the current player name so when we save it will store the current player
         this->currentPlayer = players[playerNo];
-        std::cout << "\n" << std::endl;
-        std::cout << this->currentPlayer->getName() << ", it's your turn" << std::endl;
+        std::cout << "\n" << this->currentPlayer->getName() << ", it's your turn\n" << std::endl;
         std::cout << "Score for " << this->players[0]->getName() + ": "<< this->players[0]->getScore() << std::endl;
-        std::cout <<  "Score for " << this->players[1]->getName() + ": " << this->players[1]->getScore() << std::endl;
+        std::cout << "Score for " << this->players[1]->getName() + ": " << this->players[1]->getScore() << "\n" << std::endl;
+
         // Prints the board
         this->board->printBoard();
-        std::cout << "\n" << std::endl;               
         
         // Prints out the current player and their hand
-        std::cout << "Your hand is" << std::endl;
-        std::cout << this->currentPlayer->getHandString() << std::endl;
-        std::cout << "\n" << std::endl;
+        std::cout << "\nYour hand is" << std::endl;
+        std::cout << this->currentPlayer->getHandString() << "\n" << std::endl;
 
         do 
         {
             // Checks if exit is set
             if(!exit)
             {
-                
                 //Waits for player to input their option
                 string option;
                 std::cout << "> ";
                 // Detects if ctrl + d is pressed
-                std::getline(std::cin, option);
+                std::cin >> option;
                 if(std::cin.eof())
                 {
                     exit = true;
@@ -258,8 +253,7 @@ bool Engine::endGame(Player* curPlayer){
         else{
             std::cout << "Game Tied!" << std::endl;
         }
-        std::cout << "\n" <<std::endl;
-        std::cout << "Goodbye!" <<std::endl;
+        std::cout << "\n\nGoodbye!" <<std::endl;
         exit(0);
     }
     return success;
@@ -298,6 +292,7 @@ void Engine::saveGame(string fileName)
 
     write.close();
 }
+
 void Engine::loadGame(string fileName)
 {
     string line;
@@ -415,6 +410,7 @@ void Engine::loadGame(string fileName)
             }
             lineCount++;
         }
+        std::cout << "\n" << fileName << " has been loaded successfully" << std::endl;
         gameRun();
     }
     else
@@ -422,7 +418,6 @@ void Engine::loadGame(string fileName)
         std::cout << "Failed to load " << fileName << std::endl;
     }
 }
-
 
 // Referenced from Stackoverflow, cuts the string into a vector
 // https://stackoverflow.com/questions/16749069/c-split-string-by-regex/16752826
