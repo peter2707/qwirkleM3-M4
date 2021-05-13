@@ -25,7 +25,7 @@ void Board::printBoard(){
     }
     std::cout << "\n";
     // Prints the line under the column numbers
-    printf("%2c%s\n", ' ',std::string((boardCol*(boardCol/2)+1),'-').c_str());
+    printf("%2c%s\n", ' ',std::string((boardCol*COLWID) + 1,'-').c_str());
 
     // Prints the tiles and row letter on the board
     for(int i = 0; i < boardRow; i++)
@@ -101,7 +101,7 @@ void Board::expandBoard(Row rowTile, Col colTile){
     int row = rowTile - 'A';
     //std::cout << "this is the rowTile in expand: " << rowTile << std::endl;
     // Expands the Row of the board
-    if(row == (this->boardRow -1))this->boardRow+=2;
+    if(row == (this->boardRow -1))this->boardRow+=2 ;
 
     // Expands the Col of the board
     if(colTile == (this->boardCol -1))this->boardCol+=2;
