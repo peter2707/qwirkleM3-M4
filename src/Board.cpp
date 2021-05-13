@@ -317,6 +317,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                         endWhile = true;
                     }
                 }
+                endWhile = false;
             }
             // check left
             if(exist(row, col-1)){
@@ -332,6 +333,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                         endWhile = true;
                     }
                 }
+                endWhile = false;
             }
             // check up
             if(exist(row+1, col)){
@@ -347,6 +349,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                         endWhile = true;
                     }
                 }
+                endWhile = false;
                 
             }
             // check down
@@ -363,6 +366,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                         endWhile = true;
                     }
                 }
+                endWhile = false;
             }
             
             if(exist(row, col-1) && exist(row, col+1) && exist(row-1, col) && exist(row+1, col)){
