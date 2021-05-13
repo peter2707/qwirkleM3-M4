@@ -91,13 +91,6 @@ void Board::expandBoard(Row rowTile, Col colTile){
     if(colTile == (this->boardCol -1))this->boardCol++;
 }
 
-int Board::getNewRow(){
-    return boardRow;
-}
-
-int Board::getNewCol(){
-    return boardCol;
-}
 
 bool Board::validMove(shared_ptr<Tile> tile){
     bool validMove = false;
@@ -276,6 +269,11 @@ string Board::printBoardSave(){
 
 int Board::calculatePoints(Row tileRow, Col tileCol){
     int score = 0;
+    int tempScore = 0;
+    int leftScore = 0;
+    int rightScore = 0;
+    int upScore = 0;
+    int downScore = 0;
     for(uint32_t k = 0; k < this->board.size(); k++){
         Row row = this->board.at(k)->row;
         Col col = this->board.at(k)->col;
@@ -286,15 +284,14 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 score++;
             }
             // check right
-            if(exist(row, col+1) != false){
-                score++;
-                while(exist(row, col+1) != false){ 
+            if(exist(row, col+1)){
+                tempScore++;
+                while(exist(row, col+1)){ 
                     col++;
-                    score = score + 1;
-                    if(score==6){
-                        score += 6;
-                        std::cout << "QWIRKLE!!!"<< std::endl;
-                    }
+                    tempScore++;
+                    rightScore += tempScore;
+                    rightScore += checkQwirkle(rightScore);
+                    tempScore = 0;
                     if(exist(row, col+1) == false){
                         col = tempCol;
                         break;
@@ -302,55 +299,83 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 }
             }
             // check left
-            if(exist(row, col-1) != false){
-                score++;
-                while(exist(row, col-1) != false){ 
+            if(exist(row, col-1)){
+                tempScore++;
+                while(exist(row, col-1)){ 
                     col--;
-                    score = score + 1;
-                    if(score==6){
-                        score += 6;
-                        std::cout << "QWIRKLE!!!"<< std::endl;
-                    }
+                    tempScore++;
+                    leftScore += tempScore;
+                    leftScore += checkQwirkle(leftScore);
+                    tempScore = 0;
                     if(exist(row, col-1) == false){
                         col = tempCol;
+                        tempScore = 0;
                         break;
                     }
                 }
             }
             // check up
-            if(exist(row+1, col) != false){
-                score++;
-                while(exist(row+1, col) != false ){ 
+            if(exist(row+1, col)){
+                tempScore++;
+                while(exist(row+1, col)){ 
                     row++;
-                    score = score + 1;
-                    if(score==6){
-                        score += 6;
-                        std::cout << "QWIRKLE!!!"<< std::endl;
-                    }
+                    tempScore++;
+                    upScore += tempScore;
+                    upScore += checkQwirkle(upScore);
+                    tempScore = 0;
                     if(exist(row+1, col) == false){
                         row = tempRow;
                         break;
                     }
                 }
+                
             }
             // check down
-            if(exist(row-1, col) != false){
-                score++;
-                while(exist(row-1, col)!= false ){ 
+            if(exist(row-1, col)){
+                tempScore++;
+                while(exist(row-1, col)){ 
                     row--;
-                    score = score + 1;
-                    if(score==6){
-                        score += 6;
-                        std::cout << "QWIRKLE!!!"<< std::endl;
-                    }
+                    tempScore++;
+                    downScore += tempScore;
+                    downScore += checkQwirkle(downScore);
+                    tempScore = 0;
                     if(exist(row-1, col) == false){
                         row = tempRow;
                         break;
                     }
                 }
             }
+            
+            if(exist(row, col-1) && exist(row, col+1) && exist(row-1, col) && exist(row+1, col)){
+                tempScore = upScore + downScore;
+                tempScore--;
+                score = checkQwirkle(tempScore) + tempScore;
+                tempScore = leftScore + rightScore;
+                tempScore--;
+                score += checkQwirkle(tempScore) + tempScore;
+            } else if(exist(row, col-1) && exist(row, col+1)){
+                tempScore = leftScore + rightScore;
+                tempScore--;
+                score = checkQwirkle(tempScore) + tempScore + upScore + downScore;
+            } else if(exist(row-1, col) && exist(row+1, col)){
+                tempScore = upScore + downScore;
+                tempScore--;
+                score = checkQwirkle(tempScore) + tempScore + leftScore + rightScore;
+            } else {
+                score = leftScore + rightScore + upScore + downScore;
+            }
+
         }
     }
     
     return score;
+}
+
+int Board::checkQwirkle(int score){
+    if(score==6){
+        std::cout << "Qwirkle!!!" << std::endl;
+        return score;
+    } else {
+        return 0;
+    }
 }
