@@ -81,29 +81,31 @@ void Engine::gameRun()
     
     do
     {
+        if(currentPlayer == nullptr)
+            // Provents double print of the board, Do not delete please
+            std::cin.ignore();
+                
+        // Sets the current player name so when we save it will store the current player
+        this->currentPlayer = players[playerNo];
+        std::cout << "\n" << std::endl;
+        std::cout << this->currentPlayer->getName() << ", it's your turn" << std::endl;
+        std::cout << "Score for " << this->players[0]->getName() + ": "<< this->players[0]->getScore() << std::endl;
+        std::cout <<  "Score for " << this->players[1]->getName() + ": " << this->players[1]->getScore() << std::endl;
+        // Prints the board
+        this->board->printBoard();
+        std::cout << "\n" << std::endl;               
+        
+        // Prints out the current player and their hand
+        std::cout << "Your hand is" << std::endl;
+        std::cout << this->currentPlayer->getHandString() << std::endl;
+        std::cout << "\n" << std::endl;
+
         do 
         {
             // Checks if exit is set
             if(!exit)
             {
-                if(currentPlayer == nullptr)
-                    // Provents double print of the board, Do not delete please
-                    std::cin.ignore();
                 
-                // Sets the current player name so when we save it will store the current player
-                this->currentPlayer = players[playerNo];
-                std::cout << "\n" << std::endl;
-                std::cout << this->currentPlayer->getName() << ", it's your turn" << std::endl;
-                std::cout << "Score for " << this->players[0]->getName() + ": "<< this->players[0]->getScore() << std::endl;
-                std::cout <<  "Score for " << this->players[1]->getName() + ": " << this->players[1]->getScore() << std::endl;
-                // Prints the board
-                this->board->printBoard();
-                std::cout << "\n" << std::endl;               
-                
-                // Prints out the current player and their hand
-                std::cout << "Your hand is" << std::endl;
-                std::cout << this->currentPlayer->getHandString() << std::endl;
-                std::cout << "\n" << std::endl;
                 //Waits for player to input their option
                 string option;
                 std::cout << "> ";

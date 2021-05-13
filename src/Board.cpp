@@ -101,10 +101,10 @@ void Board::expandBoard(Row rowTile, Col colTile){
     int row = rowTile - 'A';
     //std::cout << "this is the rowTile in expand: " << rowTile << std::endl;
     // Expands the Row of the board
-    if(row == (this->boardRow -1))this->boardRow++;
+    if(row == (this->boardRow -1))this->boardRow+=2;
 
     // Expands the Col of the board
-    if(colTile == (this->boardCol -1))this->boardCol++;
+    if(colTile == (this->boardCol -1))this->boardCol+=2;
 }
 
 
