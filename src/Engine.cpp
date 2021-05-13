@@ -195,7 +195,7 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
     bool success = false;
     // Check if tile is in player bag
     int index = curPlayer->getHand()->checkTile(tilePlaced);
-    int rowCheck = (row - 'A');
+    int rowCheck = (row - A_CHAR);
     // Checks if coordinates entered is not greater than the current board size
     if(!(col >= this->board->boardCol) && !(rowCheck >= this->board->boardRow))
     {
@@ -372,18 +372,14 @@ void Engine::loadGame(string fileName)
                     for(unsigned int i = 0; i < tiles.size(); i++)
                     {
                         // Regex Splits the tiles up
-                        std::smatch match;
-                        if(std::regex_search(line, match, std::regex("^([R|O|Y|G|B|P][1-6])@([A-Z][0-9]|1[0-9]|2[0-5])$")))
-                        {
-                            // Create tile to be placed in the board
-                            string tileCode = match.str(1);
-                            string tilePos  = match.str(2);
-                            std::shared_ptr<Tile> tile1 = std::make_shared<Tile>(tileCode[0], 
-                                                                                (tileCode[1] - '0'), 
-                                                                                tilePos[0], 
-                                                                                (tilePos[1] - '0'));
-                            this->board->addTile(tile1);
-                        }
+                        std::string tileCode = tiles.at(i);
+                        std::remove_if(tileCode.begin(), tileCode.end(), isspace);
+                        // Create tile to be placed in the board
+                        std::shared_ptr<Tile> tile1 = std::make_shared<Tile>(tileCode[COLOUR], 
+                                                                            (tileCode[SHAPE] - ZERO_CHAR), 
+                                                                            tileCode[ROW], 
+                                                                            (tileCode[COL] - ZERO_CHAR));
+                        this->board->addTile(tile1);
                     }
                 }
             }
@@ -399,8 +395,9 @@ void Engine::loadGame(string fileName)
                 {   
                     // Creates a tile and puts it in the tile bag
                     std::string tile = tiles.at(i);
+                    std::remove_if(tile.begin(), tile.end(), isspace);
                     Colour colour = tile[0];
-                    Shape  shape = tile[1] - '0';
+                    Shape  shape = tile[1] - ZERO_CHAR;
                     std::shared_ptr<Tile> tile1 = std::make_shared<Tile>(colour, shape);
                     this->bag->addBack(tile1);
                 }
@@ -449,8 +446,9 @@ void Engine::playerHand(string playerHand, Player* player)
     for(unsigned int i = 0; i < tiles.size(); i++)
     {
         std::string tile = tiles.at(i);
+        std::remove_if(tile.begin(), tile.end(), isspace);
         Colour colour = tile[0];
-        Shape  shape = tile[1] - '0';
+        Shape  shape = tile[1] - ZERO_CHAR;
         std::shared_ptr<Tile> tile1 = std::make_shared<Tile>(colour, shape);
         hand->addBack(tile1);
     }

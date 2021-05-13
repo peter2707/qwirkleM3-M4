@@ -16,7 +16,7 @@ int Board::getLength(){
 }
 
 void Board::printBoard(){
-    char row = 'A';
+    char row = A_CHAR;
     printf("%2c", ' ');
     // Prints the column number
     for(int j = 0; j < boardCol; j++)
@@ -98,7 +98,7 @@ bool Board::placeTile(shared_ptr<Tile> tile){
 
 void Board::expandBoard(Row rowTile, Col colTile){
     // Minus A from the current Row entered gives you an int that is useable
-    int row = rowTile - 'A';
+    int row = rowTile - A_CHAR;
     //std::cout << "this is the rowTile in expand: " << rowTile << std::endl;
     // Expands the Row of the board
     if(row == (this->boardRow -1))this->boardRow+=2 ;

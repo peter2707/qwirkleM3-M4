@@ -29,6 +29,12 @@ typedef int Col;
 #define     REGEX_ROW       4
 #define     REGEX_COL       5
 
+// Define for loading board tile
+#define     COLOUR          0
+#define     SHAPE           1
+#define     ROW             3
+#define     COL             4
+
 // Define each row in the save file
 #define     PLAYER1         0
 #define     PLAYER1_SCORE   1
@@ -44,5 +50,8 @@ typedef int Col;
 #define     BOARD           7
 #define     BAG             8
 #define     CURRENT_PLAYER  9
+
+#define     ZERO_CHAR      '0'
+#define     A_CHAR         'A'
 
 #endif // ASSIGN2_TYPE_H
