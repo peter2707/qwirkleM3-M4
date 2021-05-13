@@ -140,10 +140,6 @@ void Engine::gameRun()
                         }
 
                     }
-                    else{
-                        std::cout << "Invalid move, please try again" << std::endl;
-
-                    }
 
                     // Quits game when user types quit. Needs to be implimented
                     if(std::regex_match(option, std::regex("^(quit|exit)$")))
