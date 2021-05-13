@@ -284,9 +284,9 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 score++;
             }
             // check right
-            if(exist(row, col+1) != false){
+            if(exist(row, col+1)){
                 tempScore++;
-                while(exist(row, col+1) != false){ 
+                while(exist(row, col+1)){ 
                     col++;
                     tempScore++;
                     rightScore += tempScore;
@@ -299,9 +299,9 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 }
             }
             // check left
-            if(exist(row, col-1) != false){
+            if(exist(row, col-1)){
                 tempScore++;
-                while(exist(row, col-1) != false){ 
+                while(exist(row, col-1)){ 
                     col--;
                     tempScore++;
                     leftScore += tempScore;
@@ -315,9 +315,9 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 }
             }
             // check up
-            if(exist(row+1, col) != false){
+            if(exist(row+1, col)){
                 tempScore++;
-                while(exist(row+1, col) != false ){ 
+                while(exist(row+1, col)){ 
                     row++;
                     tempScore++;
                     upScore += tempScore;
@@ -332,9 +332,9 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 
             }
             // check down
-            if(exist(row-1, col) != false){
+            if(exist(row-1, col)){
                 tempScore++;
-                while(exist(row-1, col)!= false ){ 
+                while(exist(row-1, col)){ 
                     row--;
                     tempScore++;
                     downScore += tempScore;
@@ -346,6 +346,10 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                     }
                 }
             }
+            if(exist(row, col-1) && exist(row, col+1))
+                score--;
+            if(exist(row-1, col) && exist(row+1, col))
+                score--;
         }
     }
     
