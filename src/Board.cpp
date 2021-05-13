@@ -290,7 +290,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                     col++;
                     tempScore++;
                     rightScore += tempScore;
-                    score += checkQwirkle(rightScore) + tempScore;
+                    rightScore += checkQwirkle(rightScore);
                     tempScore = 0;
                     if(exist(row, col+1) == false){
                         col = tempCol;
@@ -305,7 +305,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                     col--;
                     tempScore++;
                     leftScore += tempScore;
-                    score += checkQwirkle(leftScore) + tempScore;
+                    leftScore += checkQwirkle(leftScore);
                     tempScore = 0;
                     if(exist(row, col-1) == false){
                         col = tempCol;
@@ -321,9 +321,8 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                     row++;
                     tempScore++;
                     upScore += tempScore;
-                    score += checkQwirkle(upScore) + tempScore;
+                    upScore += checkQwirkle(upScore);
                     tempScore = 0;
-                    
                     if(exist(row+1, col) == false){
                         row = tempRow;
                         break;
@@ -338,7 +337,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                     row--;
                     tempScore++;
                     downScore += tempScore;
-                    score += checkQwirkle(downScore) + tempScore;
+                    downScore += checkQwirkle(downScore);
                     tempScore = 0;
                     if(exist(row-1, col) == false){
                         row = tempRow;
@@ -346,10 +345,26 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                     }
                 }
             }
-            if(exist(row, col-1) && exist(row, col+1))
-                score--;
-            if(exist(row-1, col) && exist(row+1, col))
-                score--;
+            
+            if(exist(row, col-1) && exist(row, col+1) && exist(row-1, col) && exist(row+1, col)){
+                tempScore = upScore + downScore;
+                tempScore--;
+                score = checkQwirkle(tempScore) + tempScore;
+                tempScore = leftScore + rightScore;
+                tempScore--;
+                score += checkQwirkle(tempScore) + tempScore;
+            } else if(exist(row, col-1) && exist(row, col+1)){
+                tempScore = leftScore + rightScore;
+                tempScore--;
+                score = checkQwirkle(tempScore) + tempScore + upScore + downScore;
+            } else if(exist(row-1, col) && exist(row+1, col)){
+                tempScore = upScore + downScore;
+                tempScore--;
+                score = checkQwirkle(tempScore) + tempScore + leftScore + rightScore;
+            } else {
+                score = leftScore + rightScore + upScore + downScore;
+            }
+
         }
     }
     
