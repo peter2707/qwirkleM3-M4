@@ -54,10 +54,10 @@ typedef int Col;
 #define     ZERO_CHAR      '0'
 #define     A_CHAR         'A'
 
-#define     REGTILEPLACE   "^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$"
-#define     REGTILEREPLA   "^(replace) ([R|O|Y|G|B|P][1-6])$"
-#define     REGEXIT        "^(quit|exit)$"
-#define     REGSAVE        "^(save) ([a-z0-9]+)$"
+#define     REGTILEPLACE   "^\t*\\s*(place)\t*\\s*([R|O|Y|G|B|P][1-6])\t*\\s*(at)\t*\\s*([A-Z])([0-9]|1[0-9]|2[0-5])$"
+#define     REGTILEREPLA   "^\t*\\s*(replace)\t*\\s*([R|O|Y|G|B|P][1-6])$"
+#define     REGEXIT        "^\t*\\s*(quit|exit)$"
+#define     REGSAVE        "^\t*\\s*(save)\t*\\s*([a-z0-9]+)$"
 
 #define     SAVEFOLDER     "save_game/"
 
