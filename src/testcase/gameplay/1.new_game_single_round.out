@@ -4,51 +4,47 @@ Welcome To Qwirkle!
 2. Load Game
 3. Show Credits
 4. Quit
-> 1
-Starting a new game...
+> 2
+Enter a file name to load from
+> test1
 
-Enter a name for Player 1 (Uppercase characters only!)
-> BOB
-Enter a name for Player 2 (Uppercase characters only!)
-> ALICE
-
-
-BOB, it's your turn
-Score for BOB: 0
-Score for ALICE: 0
-    0  1  2  3  4  5
-  -------------------
-A |  |  |  |  |  |  |
-B |  |  |  |  |  |  |
-C |  |  |  |  |  |  |
-D |  |  |  |  |  |  |
-E |  |  |  |  |  |  |
-F |  |  |  |  |  |  |
-
-
-Your hand is
-O3,O4,G4,G5,P5,P6
-
-
-> place O3 at D3
-Invalid move, please try again
-
+test1 has been loaded successfully
 
 ALICE, it's your turn
+
 Score for BOB: 1
 Score for ALICE: 0
+
     0  1  2  3  4  5
   -------------------
 A |  |  |  |  |  |  |
 B |  |  |  |  |  |  |
 C |  |  |  |  |  |  |
-D |  |  |  |O3|  |  |
+D |  |P1|  |  |  |  |
 E |  |  |  |  |  |  |
 F |  |  |  |  |  |  |
 
+Your hand is
+P2,P6,R4,O3,R4,O5
+
+> place P2 at E1
+
+BOB, it's your turn
+
+Score for BOB: 1
+Score for ALICE: 2
+
+    0  1  2  3  4  5
+  -------------------
+A |  |  |  |  |  |  |
+B |  |  |  |  |  |  |
+C |  |  |  |  |  |  |
+D |  |P1|  |  |  |  |
+E |  |P2|  |  |  |  |
+F |  |  |  |  |  |  |
 
 Your hand is
-Y6,O1,B2,B6,G6,Y4
+P3,O2,P3,O4,R5,R2
 
-
-> Goodbye!
+> quit
+Goodbye!

@@ -5,11 +5,28 @@ Welcome To Qwirkle!
 3. Show Credits
 4. Quit
 > 1
-
 Starting a new game...
 
 Enter a name for Player 1 (Uppercase characters only!)
 > BERT
 Enter a name for Player 2 (Uppercase characters only!)
 > ERNIE
-Let's Play...
+
+BERT, it's your turn
+
+Score for BERT: 0
+Score for ERNIE: 0
+
+    0  1  2  3  4  5
+  -------------------
+A |  |  |  |  |  |  |
+B |  |  |  |  |  |  |
+C |  |  |  |  |  |  |
+D |  |  |  |  |  |  |
+E |  |  |  |  |  |  |
+F |  |  |  |  |  |  |
+
+Your hand is
+O2,B2,B1,B6,P2,R4
+
+> 

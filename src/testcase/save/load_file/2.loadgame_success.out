@@ -7,22 +7,27 @@ Welcome To Qwirkle!
 > 2
 Enter a file name to load from
 > savegame1
+
 savegame1 has been loaded successfully
 
-Let's Play...
+ALICE, it's your turn
 
-BOB, it's your turn
-Score for BOB: 4
+Score for BOB: 6
 Score for ALICE: 4
 
-   0  1  2  3  4  5  
----------------------
+    0  1  2  3  4  5
+  -------------------
 A |  |  |  |  |  |  |
-B |  |  |Y1|  |  |  |
-C |  |  |Y4|B4|  |  |
-D |  |  |Y3|  |  |  |
-E |  |  |  |  |  |  |
-F |  |  |  |  |  |  |
+B |  |  |  |  |  |  |
+C |  |  |  |  |  |  |
+D |  |  |  |G1|P1|  |
+E |  |  |R2|G2|  |  |
+F |  |  |  |G4|  |  |
+G |  |  |  |  |  |  |
+H |  |  |  |  |  |  |
 
-Your hand is: R1,O2,R2,G5,B3,P2
-> 
+Your hand is
+Y6,O2,Y3,B5,P2,Y4
+
+> quit
+Goodbye!

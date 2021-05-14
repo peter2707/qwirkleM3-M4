@@ -159,7 +159,7 @@ void Engine::gameRun()
                     }
                     else
                     {
-                        std::cout << "Invalide Command" << std::endl;
+                        std::cout << "Invalid Command" << std::endl;
                     }
                 }
             }
