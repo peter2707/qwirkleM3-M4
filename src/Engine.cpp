@@ -265,7 +265,7 @@ bool Engine::endGame(Player* curPlayer){
 void Engine::saveGame(string fileName)
 {
     std::ofstream write;
-    write.open("save_game/"+fileName);
+    write.open(SAVEFOLDER+fileName);
 
     // save player name, score and hand
     for(int i = 0; i < PLAYERS; i++)
