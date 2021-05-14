@@ -131,7 +131,7 @@ void Engine::gameRun()
                         }
                     }
                     
-                    if(std::regex_match(option, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$"))){
+                    else if(std::regex_match(option, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$"))){
                         std::smatch match;
                         if(std::regex_search(option, match, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$")))
                         {                       
@@ -142,13 +142,13 @@ void Engine::gameRun()
                     }
 
                     // Quits game when user types quit. Needs to be implimented
-                    if(std::regex_match(option, std::regex("^(quit|exit)$")))
+                    else if(std::regex_match(option, std::regex("^(quit|exit)$")))
                     {
                         exit = true;
                         endturn = true;
                     }
                     // Saves the game based on the save file user puts in
-                    if(std::regex_match(option, std::regex("^(save) ([a-z0-9]+)$")))
+                    else if(std::regex_match(option, std::regex("^(save) ([a-z0-9]+)$")))
                     {
                         std::smatch match;
                         if(std::regex_search(option, match, std::regex("^(save) ([a-z0-9]+)$")))
@@ -156,6 +156,10 @@ void Engine::gameRun()
                             string filename = match.str(REGEX_SAVE);
                             saveGame(filename);
                         }
+                    }
+                    else
+                    {
+                        std::cout << "Invalide Command" << std::endl;
                     }
                 }
             }
