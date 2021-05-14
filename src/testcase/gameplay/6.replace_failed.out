@@ -4,10 +4,8 @@ Welcome To Qwirkle!
 2. Load Game
 3. Show Credits
 4. Quit
-> 2
-Enter a file name to load from
-> test1
-
+> Enter a file name to load from
+> 
 test1 has been loaded successfully
 
 ALICE, it's your turn
@@ -20,14 +18,12 @@ Score for ALICE: 0
 A |  |  |  |  |  |  |
 B |  |  |  |  |  |  |
 C |  |  |  |  |  |  |
-D |  |P1|  |  |  |  |
+D |  |  |P2|  |  |  |
 E |  |  |  |  |  |  |
 F |  |  |  |  |  |  |
 
 Your hand is
-P2,P6,R4,O3,R4,O5
+B6,P6,B4,G6,O2,P5
 
-> replace R1
-You do not have that tile
-> quit
-Goodbye!
+> You do not have that tile
+> Goodbye!

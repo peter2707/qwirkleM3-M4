@@ -4,12 +4,9 @@ Welcome To Qwirkle!
 2. Load Game
 3. Show Credits
 4. Quit
-> 1
-Starting a new game...
+> Starting a new game...
 
 Enter a name for Player 1 (Uppercase characters only!)
-> LEWIS
-Enter a name for Player 2 (Uppercase characters only!)
-> LEWIS
-Sorry, this name is already taken...
+> Enter a name for Player 2 (Uppercase characters only!)
+> Sorry, this name is already taken...
 > 

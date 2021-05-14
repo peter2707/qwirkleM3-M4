@@ -4,10 +4,8 @@ Welcome To Qwirkle!
 2. Load Game
 3. Show Credits
 4. Quit
-> 2
-Enter a file name to load from
-> test1
-
+> Enter a file name to load from
+> 
 test1 has been loaded successfully
 
 ALICE, it's your turn
@@ -20,15 +18,14 @@ Score for ALICE: 0
 A |  |  |  |  |  |  |
 B |  |  |  |  |  |  |
 C |  |  |  |  |  |  |
-D |  |P1|  |  |  |  |
+D |  |  |P2|  |  |  |
 E |  |  |  |  |  |  |
 F |  |  |  |  |  |  |
 
 Your hand is
-P2,P6,R4,O3,R4,O5
+B6,P6,B4,G6,O2,P5
 
-> place P2 at E1
-
+> 
 BOB, it's your turn
 
 Score for BOB: 1
@@ -39,12 +36,11 @@ Score for ALICE: 2
 A |  |  |  |  |  |  |
 B |  |  |  |  |  |  |
 C |  |  |  |  |  |  |
-D |  |P1|  |  |  |  |
-E |  |P2|  |  |  |  |
+D |  |  |P2|  |  |  |
+E |  |  |O2|  |  |  |
 F |  |  |  |  |  |  |
 
 Your hand is
-P3,O2,P3,O4,R5,R2
+G4,B1,P6,P1,O4,R5
 
-> quit
-Goodbye!
+> Goodbye!
