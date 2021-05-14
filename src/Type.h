@@ -54,4 +54,11 @@ typedef int Col;
 #define     ZERO_CHAR      '0'
 #define     A_CHAR         'A'
 
+#define     REGTILEPLACE   "^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$"
+#define     REGTILEREPLA   "^(replace) ([R|O|Y|G|B|P][1-6])$"
+#define     REGEXIT        "^(quit|exit)$"
+#define     REGSAVE        "^(save) ([a-z0-9]+)$"
+
+#define     SAVEFOLDER     "save_game/"
+
 #endif // ASSIGN2_TYPE_H

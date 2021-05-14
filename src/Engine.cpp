@@ -116,10 +116,10 @@ void Engine::gameRun()
                 else
                 {
                     // Regex isn't fun, but it helps with checking user input and splitting the option
-                    if(std::regex_match(option, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
+                    if(std::regex_match(option, std::regex(REGTILEPLACE)))
                     {
                         std::smatch match;
-                        if(std::regex_search(option, match, std::regex("^(place) ([R|O|Y|G|B|P][1-6]) (at) ([A-Z])([0-9]|1[0-9]|2[0-5])$")))
+                        if(std::regex_search(option, match, std::regex(REGTILEPLACE)))
                         {
                             
                             string tile = match.str(REGEX_TILE); 
@@ -131,9 +131,9 @@ void Engine::gameRun()
                         }
                     }
                     
-                    else if(std::regex_match(option, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$"))){
+                    else if(std::regex_match(option, std::regex(REGTILEREPLA))){
                         std::smatch match;
-                        if(std::regex_search(option, match, std::regex("^(replace) ([R|O|Y|G|B|P][1-6])$")))
+                        if(std::regex_search(option, match, std::regex(REGTILEREPLA)))
                         {                       
                             string tile = match.str(REGEX_TILE); 
                             endturn = replaceTile(this->currentPlayer, tile);
@@ -142,16 +142,16 @@ void Engine::gameRun()
                     }
 
                     // Quits game when user types quit. Needs to be implimented
-                    else if(std::regex_match(option, std::regex("^(quit|exit)$")))
+                    else if(std::regex_match(option, std::regex(REGEXIT)))
                     {
                         exit = true;
                         endturn = true;
                     }
                     // Saves the game based on the save file user puts in
-                    else if(std::regex_match(option, std::regex("^(save) ([a-z0-9]+)$")))
+                    else if(std::regex_match(option, std::regex(REGSAVE)))
                     {
                         std::smatch match;
-                        if(std::regex_search(option, match, std::regex("^(save) ([a-z0-9]+)$")))
+                        if(std::regex_search(option, match, std::regex(REGSAVE)))
                         {
                             string filename = match.str(REGEX_SAVE);
                             saveGame(filename);
@@ -294,12 +294,13 @@ void Engine::saveGame(string fileName)
     write << this->currentPlayer->getName();
 
     write.close();
+    std::cout << "Save Complete\n";
 }
 
 void Engine::loadGame(string fileName)
 {
     string line;
-    std::ifstream file("save_game/"+fileName);
+    std::ifstream file(SAVEFOLDER+fileName);
 
     if(file.is_open())
     {
