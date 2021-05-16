@@ -1,13 +1,16 @@
 # Qwirkle
 
 ### To compile the code:
-g++ -Wall -Werror -std=c++14 -g -O -o qwirkle Tile.cpp Board.cpp Engine.cpp Player.cpp Node.cpp LinkedList.cpp Menu.cpp qwirkle.cpp
+```g++ -Wall -Werror -std=c++14 -g -O -o qwirkle Tile.cpp Board.cpp Engine.cpp Player.cpp Node.cpp LinkedList.cpp Menu.cpp qwirkle.cpp```
 
 ### To compile using Makefile:
-  make
+  ```make```
   
 ### To run the code:
-  ./qwirkle
+  ```./qwirkle```
+  
+### To clean up
+```make clean```
   
 ### Credits:
 -------------Team-MAST--------------<br/>
