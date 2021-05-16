@@ -10,18 +10,21 @@ Menu::Menu(){}
 Menu::~Menu() {}
 
 void Menu::mainMenu() {
-
     int menuOption;
+    //print menu
     std::cout   << "--------Menu--------\n"
                 << "1. New Game\n"
                 << "2. Load Game\n"
                 << "3. Show Credits\n"
                 << "4. Quit\n> ";
     do {
+        //get user input
         std::cin >> menuOption;
+        //check if user input ctrl+d
         if (std::cin.eof()) {
             quit();
         }else {
+            //if user input anything else than number, this will run
             while (std::cin.fail()) {
                 std::cin.clear(); 
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -49,6 +52,7 @@ void Menu::mainMenu() {
 
 void Menu::newGame() {
     std::cout << "Starting a new game...\n" << std::endl;
+    //get both player names via std::cin
     for(int i=0; i < PLAYERS; i++){
         bool check = false;
         std::cout << "Enter a name for Player "<<i+1<<" (Uppercase characters only!)\n> ";
@@ -57,6 +61,7 @@ void Menu::newGame() {
             quit();
         }else{
             while(check != true){
+                //check if player name is valid
                 if(checkPlayerName(playerName) != true){
                     std::cout<<"Sorry, Invalid Player's name\n> ";
                     std::cin >> playerName;
@@ -65,6 +70,8 @@ void Menu::newGame() {
                     }
                 }else{
                     this->players[i] = new Player(playerName);
+                    //if i > 0, it means current input is player 2 name
+                    //so it will check if the name matches player one's
                     if(i>0){
                         if(this->players[i]->getName() == this->players[i-1]->getName()){
                             std::cout<<"Sorry, this name is already taken...\n> ";
@@ -92,6 +99,7 @@ void Menu::loadGame() {
     std::string filename;
     bool validFile = false;
 
+    //get file name via std::cin
     while(!validFile){
         std::ifstream in;
         std::cout << "Enter a file name to load from\n> ";
@@ -99,7 +107,8 @@ void Menu::loadGame() {
         if (std::cin.eof()) {
             quit();
         }else{
-            in.open("save_game/" +filename);
+            //open file from save_game folder
+            in.open("save_game/" + filename);
             if(in.fail()){
                 std::cout << "Please enter a correct file name..." << std::endl;
             } else{
@@ -140,10 +149,12 @@ void Menu::quit(){
   exit(0);
 }
 
+//check player name function
 bool Menu::checkPlayerName(std::string name){
     bool check = false;
+    //check if name is not empty and if it's all capital characters by counting the length of capital characters
+    //in the name and compare it with the name's length
     if (!name.empty()){
-        
         uint64_t count = 0;
         for(uint64_t i = 0; i < name.length(); i++){
             if(isCapital(name[i]) == true){
@@ -157,6 +168,7 @@ bool Menu::checkPlayerName(std::string name){
     return check;
 }
 
+//check if a character is capital
 bool Menu::isCapital(char x)
 {
     bool cap = false;

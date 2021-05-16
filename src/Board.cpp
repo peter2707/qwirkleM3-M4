@@ -123,6 +123,7 @@ bool Board::validMove(std::shared_ptr<Tile> tile){
     int colourMatch = 1;
     int shapeMatch = 1;
   
+    //check for valid tile on the right side, if exist, it will keep checking
     while(exist(tileRow, tileCol+1)){
         tileCol++;
         std::string tileAtPos = tilePosition(tileRow, tileCol);
@@ -138,12 +139,12 @@ bool Board::validMove(std::shared_ptr<Tile> tile){
             shapeMatch = -1;
         }
     }
-    
 
     if(colourMatch != -1 || shapeMatch != -1) {
         validRight = true;
     }
-    
+
+    //check for valid tile on the left side, if exist, it will keep checking
     tileCol = tile->col;
     tileRow = tile->row;
     colourMatch = 1;
@@ -170,7 +171,7 @@ bool Board::validMove(std::shared_ptr<Tile> tile){
         validLeft = true;
     }
 
-
+    //check for valid tile down direction, if exist, it will keep checking
     tileCol = tile->col;
     tileRow = tile->row;
     colourMatch = 1;
@@ -197,7 +198,7 @@ bool Board::validMove(std::shared_ptr<Tile> tile){
         validDown = true;
     }
 
-
+    //check for valid tile up direction, if exist, it will keep checking
     tileCol = tile->col;
     tileRow = tile->row;
     colourMatch = 1;
@@ -224,6 +225,7 @@ bool Board::validMove(std::shared_ptr<Tile> tile){
         validUp = true;
     }
 
+    //if no match, validMove will return false and print an error message
     tileCol = tile->col;
     tileRow = tile->row;
 
@@ -286,6 +288,7 @@ std::string Board::printBoardSave(){
     return board;
 }   
 
+//calculation of players' scores
 int Board::calculatePoints(Row tileRow, Col tileCol){
     int score = 0;
     int tempScore = 0;
@@ -293,6 +296,8 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
     int rightScore = 0;
     int upScore = 0;
     int downScore = 0;
+
+    //check the board for current tile
     for(uint32_t k = 0; k < this->board.size(); k++){
         Row row = this->board.at(k)->row;
         Col col = this->board.at(k)->col;
@@ -369,6 +374,7 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
                 endWhile = false;
             }
             
+            //check if all direction exists or just up and down or just left and right
             if(exist(row, col-1) && exist(row, col+1) && exist(row-1, col) && exist(row+1, col)){
                 tempScore = upScore + downScore;
                 tempScore--;
@@ -390,10 +396,11 @@ int Board::calculatePoints(Row tileRow, Col tileCol){
 
         }
     }
-    
+    //return score after calculation
     return score;
 }
 
+//check if it is a qwirkle
 int Board::checkQwirkle(int score){
     if(score==6) std::cout << "Qwirkle!!!" << std::endl;
     else  score = 0;

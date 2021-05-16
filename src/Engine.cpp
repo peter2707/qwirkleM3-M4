@@ -34,6 +34,7 @@ void Engine::giveTiles()
 
 void Engine::initialiseBag()
 {
+    //map of initial bag and add it to bag
     std::map<int, char> colorMap = {{0, RED}, {1, ORANGE}, {2, YELLOW}, {3, GREEN}, {4, BLUE}, {5, PURPLE}};
     std::map<int, int> shapeMap = {{0, CIRCLE}, {1, STAR_4}, {2, DIAMOND}, {3, SQUARE}, {4, STAR_6}, {5, CLOVER}};
 
@@ -47,8 +48,8 @@ void Engine::initialiseBag()
     }
 }
 
+//declare a random engine, randomise the tile, add it to the back, and remove initial tiles
 void Engine::randomiseBag(){
-    
     std::random_device engine;
 
     for (int i = 0; i < MAX_NUM_OF_TILE * 2; i++)
@@ -171,10 +172,12 @@ void Engine::gameRun()
     } while(!endGame(currentPlayer) && !exit);
 }
 
+
 bool Engine::replaceTile(Player* curPlayer, std::string tilePlaced){
     bool success = false;
     int index = curPlayer->getHand()->checkTile(tilePlaced);
 
+    //check for placed tile and add it to the back of the bag, remove it from hand, and replace
     if (index != -1){
         bag->addBack(curPlayer->getHand()->get(index));
         curPlayer->getHand()->removeIndex(index);
