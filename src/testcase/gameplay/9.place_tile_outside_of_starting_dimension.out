@@ -6,11 +6,11 @@ Welcome To Qwirkle!
 4. Quit
 > Enter a file name to load from
 > 
-test1 has been loaded successfully
+test0 has been loaded successfully
 
-ALICE, it's your turn
+BOB, it's your turn
 
-Score for BOB: 1
+Score for BOB: 0
 Score for ALICE: 0
 
     0  1  2  3  4  5
@@ -18,11 +18,13 @@ Score for ALICE: 0
 A |  |  |  |  |  |  |
 B |  |  |  |  |  |  |
 C |  |  |  |  |  |  |
-D |  |  |P2|  |  |  |
+D |  |  |  |  |  |  |
 E |  |  |  |  |  |  |
 F |  |  |  |  |  |  |
 
 Your hand is
-B6,P6,B4,G6,O2,P5
+R4,Y1,Y1,B5,B6,P5
 
+> Coordinates entered is out of the board size
+Failed to place tile R4 at D6
 > Goodbye!
