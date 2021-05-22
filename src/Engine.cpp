@@ -92,7 +92,7 @@ void Engine::gameRun()
         
         // Prints out the current player and their hand
         std::cout << "\nYour hand is" << std::endl;
-        std::cout << this->currentPlayer->getHandString() << "\n" << std::endl;
+        std::cout << this->currentPlayer->getHandColor() << "\n" << std::endl;
 
         do {
             // Checks if exit is set

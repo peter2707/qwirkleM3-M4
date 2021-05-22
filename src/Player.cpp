@@ -1,8 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(string playerName)
-{
+Player::Player(string playerName){
     this->playerName = playerName;
     this->score = 0;
 }
@@ -12,26 +11,22 @@ Player::Player(){
 }
 
 
-Player::~Player()
-{
+Player::~Player(){
 }
 
-void Player::setPlayerHand(shared_ptr<LinkedList> playerHand)
-{
+void Player::setPlayerHand(shared_ptr<LinkedList> playerHand){
     this->hand = playerHand;
 }
 
-string Player::printHandSave()
-{
+string Player::printHandSave(){
     return "";
 }
 
 std::shared_ptr<LinkedList> Player::getHand(){
-
     return hand;
 }
 
-string Player::getHandString(){
+string Player::getHandColor(){
     std::string printHand;
     std::string colorCode = "\033[30m";
     std::string shapeCode;
@@ -57,6 +52,21 @@ string Player::getHandString(){
             printHand += colorCode + hand->get(i)->colour + shapeCode + COLOR_RESET + ",";
         }
     }
+    return printHand;
+}
+
+string Player::getHandString(){
+    string printHand;
+
+    for(int i = 0; i < hand->size(); i++) {
+        if(i == (hand->size() - 1)){
+            printHand += hand->get(i)->colour + std::to_string(hand->get(i)->shape);
+        }
+        else{
+            printHand += hand->get(i)->colour + std::to_string(hand->get(i)->shape) + ",";
+        }
+    }
+
     return printHand;
 }
 

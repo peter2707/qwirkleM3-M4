@@ -30,6 +30,7 @@ public:
     void setName(string playerName);
 
     string getHandString();
+    string getHandColor();
     string printHandSave();
     string getName();
     
