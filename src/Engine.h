@@ -35,6 +35,7 @@ public:
     void loadGame(string fileName);
     void gameRun();
     void randomiseBag();
+    void help();
     
 private:
     // Board

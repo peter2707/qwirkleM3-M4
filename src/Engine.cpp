@@ -72,12 +72,10 @@ void Engine::gameRun()
 
     // This is for loading the game, will check the current player and gets the playerno
     // of the current player
-    if(this->currentPlayer != nullptr)
-    {
+    if(this->currentPlayer != nullptr){
         for(int i = 0; i < PLAYERS; i++) if(players[i]->getName() == currentPlayer->getName()) playerNo = i;
     }
-    do
-    {
+    do{
         bool endturn = false;
         if(currentPlayer == nullptr)
             // Provents double print of the board, Do not delete please
@@ -96,11 +94,9 @@ void Engine::gameRun()
         std::cout << "\nYour hand is" << std::endl;
         std::cout << this->currentPlayer->getHandString() << "\n" << std::endl;
 
-        do 
-        {
+        do {
             // Checks if exit is set
-            if(!exit)
-            {
+            if(!exit){
                 //Waits for player to input their option
                 string option;
                 std::cout << "> ";
@@ -109,20 +105,14 @@ void Engine::gameRun()
                     std::getline(std::cin, option);
                 }
                 
-                if(std::cin.eof())
-                {
+                if(std::cin.eof()){
                     exit = true;
                     endturn = true;
-                }
-                else
-                {
+                }else{
                     // Regex isn't fun, but it helps with checking user input and splitting the option
-                    if(std::regex_match(option, std::regex(REGTILEPLACE)))
-                    {
+                    if(std::regex_match(option, std::regex(REGTILEPLACE))){
                         std::smatch match;
-                        if(std::regex_search(option, match, std::regex(REGTILEPLACE)))
-                        {
-                            
+                        if(std::regex_search(option, match, std::regex(REGTILEPLACE))){
                             string tile = match.str(REGEX_TILE); 
                             Row row = match.str(REGEX_ROW)[0];
                             std::stringstream temp(match.str(REGEX_COL));
@@ -130,30 +120,24 @@ void Engine::gameRun()
                             temp >> col;
                             endturn = placeTile(this->currentPlayer, tile, row, col);
                         }
-                    }
-                    
-                    else if(std::regex_match(option, std::regex(REGTILEREPLA))){
+                    }else if(std::regex_match(option, std::regex(REGTILEREPLA))){
                         std::smatch match;
                         if(std::regex_search(option, match, std::regex(REGTILEREPLA)))
                         {                       
                             string tile = match.str(REGEX_TILE); 
                             endturn = replaceTile(this->currentPlayer, tile);
                         }
-
-                    }
-
-                    // Quits game when user types quit. Needs to be implimented
-                    else if(std::regex_match(option, std::regex(REGEXIT)))
-                    {
+                    }else if(std::regex_match(option, std::regex(REGEXIT))){
+                        // Quits game when user types 'quit'
                         exit = true;
                         endturn = true;
-                    }
-                    // Saves the game based on the save file user puts in
-                    else if(std::regex_match(option, std::regex(REGSAVE)))
-                    {
+                    }else if(std::regex_match(option, std::regex(REGHELP))){
+                        // Trigger help or guide when user type 'help'
+                        help();
+                    }else if(std::regex_match(option, std::regex(REGSAVE))){
+                        // Saves the game based on the save file user puts in
                         std::smatch match;
-                        if(std::regex_search(option, match, std::regex(REGSAVE)))
-                        {
+                        if(std::regex_search(option, match, std::regex(REGSAVE))){
                             string filename = match.str(REGEX_SAVE);
                             saveGame(filename);
                         }
@@ -300,13 +284,11 @@ void Engine::saveGame(string fileName)
     std::cout << "Save Complete\n";
 }
 
-void Engine::loadGame(string fileName)
-{
+void Engine::loadGame(string fileName){
     string line;
     std::ifstream file(SAVEFOLDER+fileName);
 
-    if(file.is_open())
-    {
+    if(file.is_open()){
         // Sets up Engine variables
         this->players[0] = new Player();
         this->players[1] = new Player();
@@ -316,43 +298,35 @@ void Engine::loadGame(string fileName)
         int lineCount = 0;
 
         // Loops through all the lines in the save file
-        while(std::getline(file, line))
-        {
+        while(std::getline(file, line)){
             // Sets Player 1 Name
-            if(lineCount == PLAYER1)
-            {
+            if(lineCount == PLAYER1){
                 this->players[0]->setName(line);
             }
             // Sets Player 1 Score
-            if(lineCount == PLAYER1_SCORE)
-            {
+            if(lineCount == PLAYER1_SCORE){
                 std::stringstream stringScore(line);
                 stringScore >> this->players[0]->score;
             }
             // Sets Player 1 hand
-            if(lineCount == PLAYER1_HAND)
-            {   
+            if(lineCount == PLAYER1_HAND){   
                 playerHand(line, this->players[0]);
             }
             // Sets Player 2 Name
-            if(lineCount == PLAYER2)
-            {
+            if(lineCount == PLAYER2){
                 this->players[1]->setName(line);
             }
             // Sets Player 2 Score
-            if(lineCount == PLAYER2_SCORE)
-            {
+            if(lineCount == PLAYER2_SCORE){
                 std::stringstream stringScore(line);
                 stringScore >> this->players[1]->score;
             }
             // Sets Player 2 hand
-            if(lineCount == PLAYER2_HAND)
-            {
+            if(lineCount == PLAYER2_HAND){
                 playerHand(line, this->players[1]);
             }
             // Sets Board Size
-            if(lineCount == BOARD_Size)
-            {
+            if(lineCount == BOARD_Size){
                 std::vector<std::string> size;
                 split(line, ',', size);
                 std::stringstream col(size.at(0));
@@ -361,18 +335,15 @@ void Engine::loadGame(string fileName)
                 wid >> board->boardCol;
             }
             // Sets Board
-            if(lineCount == BOARD)
-            {
+            if(lineCount == BOARD){
                 // Checks if there are any pieces on the board
-                if(!(line == "[No board records.]"))
-                {
+                if(!(line == "[No board records.]")){
                     // Splits all the tiles
                     std::vector<std::string> tiles;
                     split(line, ',', tiles);
 
                     // Loops throught all the tiles in the Vector
-                    for(unsigned int i = 0; i < tiles.size(); i++)
-                    {
+                    for(unsigned int i = 0; i < tiles.size(); i++){
                         // Regex Splits the tiles up
                         std::string tileCode = tiles.at(i);
                         std::remove_if(tileCode.begin(), tileCode.end(), isspace);
@@ -386,15 +357,13 @@ void Engine::loadGame(string fileName)
                 }
             }
             // Sets the bag
-            if(lineCount == BAG)
-            {
+            if(lineCount == BAG){
                 // Splits all the tiles
                 std::vector<std::string> tiles;
                 split(line, ',', tiles);
 
                 // Loops throught all the tiles in the Vector
-                for(unsigned int i = 0; i < tiles.size(); i++)
-                {   
+                for(unsigned int i = 0; i < tiles.size(); i++){   
                     // Creates a tile and puts it in the tile bag
                     std::string tile = tiles.at(i);
                     std::remove_if(tile.begin(), tile.end(), isspace);
@@ -404,13 +373,10 @@ void Engine::loadGame(string fileName)
                     this->bag->addBack(tile1);
                 }
             }
-            if(lineCount == CURRENT_PLAYER)
-            {
+            if(lineCount == CURRENT_PLAYER){
                 // Checks what player is up and sets the current player
-                for(int i = 0; i < PLAYERS; i++)
-                {
-                    if(this->players[i]->getName() == line)
-                    {
+                for(int i = 0; i < PLAYERS; i++){
+                    if(this->players[i]->getName() == line){
                         this->currentPlayer = this->players[i];
                     }
                 }
@@ -420,8 +386,7 @@ void Engine::loadGame(string fileName)
         std::cout << "\n" << fileName << " has been loaded successfully" << std::endl;
         gameRun();
     }
-    else
-    {
+    else{
         std::cout << "Failed to load " << fileName << std::endl;
     }
 }
@@ -455,4 +420,25 @@ void Engine::playerHand(string playerHand, Player* player)
         hand->addBack(tile1);
     }
     player->setPlayerHand(hand);
+}
+
+void Engine::help(){
+    std::cout   << "[----Guide-to-play-Qwirkle-Game----]\n\n"
+                << "Placing Tile:\n"
+                << "To place a tile, use command 'place <tile> at <board location>'\n\n"
+                << "Replace Tile:\n"
+                << "To replace a tile, use command 'replace <tile>'\n"
+                << "This command will replace the tile with a random tile from the bag\n\n"
+                << "The syntax of placing a tile correctly is Color + Shape, Color and shape codes are defined below:\n"
+                << "\033[31mRED 'R'\033[0m, \033[91mORANGE 'O'\033[0m, \033[33mYELLOW 'Y'\033[0m, \033[32mGREEN  'G'\033[0m, \033[34mBLUE   'B'\033[0m, \033[35mPURPLE 'P'\033[0m\n"
+                << "CIRCLE(\U000025CB) '1', STAR_4(\U00002B51) '2', DIAMOND(\U000025CA) '3', SQUARE(\U000025A1) '4', STAR_6(\U00002734) '5', CLOVER(\U00002663) '6'\n\n"
+                << "Saving the game:\n"
+                << "To save the current state of the game, use command 'save <filename>' \n\n"
+                << "Loading a game:\n"
+                << "To load the game from a file, use command 'load <filename>' \n\n"
+                << "Quitting the game:\n"
+                << "To quit the game, use command 'quit' or 'exit' \n\n"
+                << "To see this guide again, simply type 'help' or 'guide' \n\n"
+                << "Enjoy Qwirkling! ;)"
+                << std::endl;
 }

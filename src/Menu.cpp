@@ -1,10 +1,5 @@
 #include "Menu.h"
 
-#define NEWGAME 1
-#define LOADGAME 2
-#define SHOWCREDIT 3
-#define QUIT 4
-
 Menu::Menu(){}
 
 Menu::~Menu() {}
@@ -16,7 +11,8 @@ void Menu::mainMenu() {
                 << "1. New Game\n"
                 << "2. Load Game\n"
                 << "3. Show Credits\n"
-                << "4. Quit\n> ";
+                << "4. Help\n"
+                << "5. Quit\n> ";
     do {
         //get user input
         std::cin >> menuOption;
@@ -40,6 +36,12 @@ void Menu::mainMenu() {
                 loadGame();
             } else if (menuOption == SHOWCREDIT) {
                 showCredits();
+                std::cout << "> ";
+                continue;
+            } else if (menuOption == HELP) {
+                e->help();
+                std::cout << "> ";
+                continue;
             } else if (menuOption == QUIT) {
                 quit();
             } else {
@@ -141,7 +143,6 @@ void Menu::showCredits() {
              <<"Student ID: s3622250\n" 
              <<"Email: s3622250@student.rmit.edu.au\n" 
              <<"------------------------------------\n"<<std::endl;
-    mainMenu();
 }
 
 void Menu::quit(){

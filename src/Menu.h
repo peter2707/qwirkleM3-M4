@@ -6,6 +6,12 @@
 #include "Engine.h"
 #include "Board.h"
 
+#define NEWGAME 1
+#define LOADGAME 2
+#define SHOWCREDIT 3
+#define HELP 4
+#define QUIT 5
+
 class Menu {
 
 public:

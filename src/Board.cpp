@@ -31,10 +31,32 @@ void Board::printBoard(){
     for(int i = 0; i < boardRow; i++)
     {
         std::cout << row << " |";
-        for(int j = 0; j < boardCol; j++)
-        {
+        for(int j = 0; j < boardCol; j++){
             // Gets the tile position
-            std::cout << tilePosition(row, j) << "|"; 
+            std::string tile = tilePosition(row, j);
+            char color;
+            std::string shape;
+            std::string colorCode = "\033[30m";
+            std::string shapeCode;
+            if (tile != "  " && tile.length() > 1){
+                color = tile[0];
+                shape = tile[1];
+                if (color == RED) colorCode = COLOR_RED;
+                else if (color == ORANGE) colorCode = COLOR_ORANGE;
+                else if (color == YELLOW) colorCode = COLOR_YELLOW;
+                else if (color == GREEN) colorCode = COLOR_GREEN;
+                else if (color == BLUE) colorCode = COLOR_BLUE;
+                else if (color == PURPLE) colorCode = COLOR_PURPLE;
+
+                if (std::stoi(shape) == CIRCLE) shapeCode = SHAPE_CIRCLE;
+                else if (std::stoi(shape) == STAR_4) shapeCode = SHAPE_STAR_4;
+                else if (std::stoi(shape) == DIAMOND) shapeCode = SHAPE_DIAMOND;
+                else if (std::stoi(shape) == SQUARE) shapeCode = SHAPE_SQUARE;
+                else if (std::stoi(shape) == STAR_6) shapeCode = SHAPE_STAR_6;
+                else if (std::stoi(shape) == CLOVER) shapeCode = SHAPE_CLOVER;
+                tile = colorCode + color + shapeCode + COLOR_RESET;
+            }
+            std::cout << tile << "|"; 
         }
         std::cout << "\n";
         row++;

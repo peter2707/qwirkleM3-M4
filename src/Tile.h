@@ -2,6 +2,8 @@
 #define ASSIGN2_TILE_H
 
 #include "Type.h"
+#include "TileCodes.h"
+#include <string>
 
 class Tile {
 public:

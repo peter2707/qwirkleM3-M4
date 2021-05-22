@@ -58,6 +58,7 @@ typedef int Col;
 #define     REGTILEREPLA   "^\t*\\s*(replace)\t*\\s*([R|O|Y|G|B|P][1-6])$"
 #define     REGEXIT        "^\t*\\s*(quit|exit)$"
 #define     REGSAVE        "^\t*\\s*(save)\t*\\s*([a-z0-9]+)$"
+#define     REGHELP        "^\t*\\s*(help|guide)$"
 
 #define     SAVEFOLDER     "save_game/"
 
