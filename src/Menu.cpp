@@ -74,7 +74,7 @@ void Menu::newGame() {
                     this->players[i] = new Player(playerName);
                     //if i > 0, it means current input is player 2 name
                     //so it will check if the name matches player one's
-                    if(i>0){
+                    if(i > 0){
                         if(this->players[i]->getName() == this->players[i-1]->getName()){
                             std::cout<<"Sorry, this name is already taken...\n> ";
                             std::cin >> playerName;
@@ -170,8 +170,7 @@ bool Menu::checkPlayerName(std::string name){
 }
 
 //check if a character is capital
-bool Menu::isCapital(char x)
-{
+bool Menu::isCapital(char x){
     bool cap = false;
     if (x >='A' && x <= 'Z')    cap = true;
     return cap;

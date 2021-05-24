@@ -32,7 +32,7 @@ int LinkedList::size(){
 }
 
 std::shared_ptr<Tile> LinkedList::get(int index){
-    std::shared_ptr<Tile> retTile = nullptr;
+  std::shared_ptr<Tile> retTile = nullptr;
 
   if(index >= 0 && index < size()){
 
@@ -91,7 +91,6 @@ std::shared_ptr<Tile> LinkedList::removeFront(){
 }
 
 void LinkedList::removeBack(){
-    
     if(head != nullptr){
         std::shared_ptr<Node> current = head;
 
@@ -113,27 +112,25 @@ void LinkedList::removeBack(){
 }
 
 void LinkedList::removeIndex(int index){
-    if(index >= 0 && index < size()){
-        if(head != nullptr){
-            int counter = 0;
-            std::shared_ptr<Node> current = head;
-            std::shared_ptr<Node> prev = nullptr;
+  if(index >= 0 && index < size()){
+    if(head != nullptr){
+      int counter = 0;
+      std::shared_ptr<Node> current = head;
+      std::shared_ptr<Node> prev = nullptr;
 
-            while(counter != index){
-                ++counter;
-                prev = current;
-                current = current->next;
-            }
+      while(counter != index){
+          ++counter;
+          prev = current;
+          current = current->next;
+      }
 
-            if(prev == nullptr){
-                head = current->next;
-            }else{
-                prev->next = current->next;
-            }
-
-
-        }
+      if(prev == nullptr){
+          head = current->next;
+      }else{
+          prev->next = current->next;
+      }
     }
+  }
 }
 
 

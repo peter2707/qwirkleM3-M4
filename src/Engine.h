@@ -18,13 +18,7 @@
 #include <vector>
 #include <map>
 
-#define NUM_OF_EACH_TILE 2
-#define MAX_NUM_OF_TILE 72
-
-using std::string;
-
-class Engine
-{
+class Engine{
 public:
     Engine();
     ~Engine();
@@ -43,7 +37,7 @@ private:
     // Players
     Player* players[PLAYERS];
     // Bag
-    shared_ptr<LinkedList> bag;
+    std::shared_ptr<LinkedList> bag;
     // Current Player
     Player* currentPlayer;
 

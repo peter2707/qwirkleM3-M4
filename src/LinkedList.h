@@ -6,9 +6,8 @@
 using std::string; 
 
 class LinkedList {
+    
 public:
-
-
     LinkedList();
     ~LinkedList();
     LinkedList(LinkedList& other);

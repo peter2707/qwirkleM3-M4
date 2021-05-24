@@ -29,10 +29,10 @@
 
 //Shape Codes
 #define SHAPE_CIRCLE    "\U000025CB"
-#define SHAPE_STAR_4    "\U00002B51"
+#define SHAPE_STAR_4    "\U00002727"
 #define SHAPE_DIAMOND   "\U000025CA"
-#define SHAPE_SQUARE    "\U000025A1"
-#define SHAPE_STAR_6    "\U00002734"
+#define SHAPE_SQUARE    "\U000025FB"
+#define SHAPE_STAR_6    "\U00002736"
 #define SHAPE_CLOVER    "\U00002663"
 
 #endif // ASSIGN1_TILECODES_H

@@ -13,9 +13,18 @@ typedef char Row;
 // Define Col
 typedef int Col;
 
+// Define Menu options
+#define     NEWGAME         1
+#define     LOADGAME        2
+#define     SHOWCREDIT      3
+#define     HELP            4
+#define     QUIT            5
+
 // Define Board Max Size
-#define     BOARD_SIZE      26
-#define     START_SIZE      6
+#define     BOARD_SIZE          26
+#define     START_SIZE          6
+#define     NUM_OF_EACH_TILE    2
+#define     MAX_NUM_OF_TILE     72
 
 // Define player size
 #define     PLAYERS         2
@@ -40,7 +49,6 @@ typedef int Col;
 #define     PLAYER1_SCORE   1
 #define     PLAYER1_HAND    2
 
-
 #define     PLAYER2         3
 #define     PLAYER2_SCORE   4
 #define     PLAYER2_HAND    5
@@ -54,6 +62,7 @@ typedef int Col;
 #define     ZERO_CHAR      '0'
 #define     A_CHAR         'A'
 
+// Define regex for user's commands
 #define     REGTILEPLACE   "^\t*\\s*(place)\t*\\s*([R|O|Y|G|B|P][1-6])\t*\\s*(at)\t*\\s*([A-Z])([0-9]|1[0-9]|2[0-5])$"
 #define     REGTILEREPLA   "^\t*\\s*(replace)\t*\\s*([R|O|Y|G|B|P][1-6])$"
 #define     REGEXIT        "^\t*\\s*(quit|exit)$"

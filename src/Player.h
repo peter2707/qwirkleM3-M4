@@ -7,25 +7,22 @@
 #include <memory>
 #include <string>
 
-using std::shared_ptr;
-using std::string;  
 
 class Player
 {
 private:
-    shared_ptr<LinkedList> hand;
+    std::shared_ptr<LinkedList> hand;
     
 public:
     Player();
     Player(string playerName);
     ~Player();
 
-    string playerName;
+    std::string playerName;
     int score;
 
     std::shared_ptr<LinkedList> getHand();
-
-    void setPlayerHand(shared_ptr<LinkedList> playerHand);
+    void setPlayerHand(std::shared_ptr<LinkedList> playerHand);
     void addScore(int score);
     void setName(string playerName);
 

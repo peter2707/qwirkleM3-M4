@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(string playerName){
+Player::Player(std::string playerName){
     this->playerName = playerName;
     this->score = 0;
 }
@@ -14,11 +14,11 @@ Player::Player(){
 Player::~Player(){
 }
 
-void Player::setPlayerHand(shared_ptr<LinkedList> playerHand){
+void Player::setPlayerHand(std::shared_ptr<LinkedList> playerHand){
     this->hand = playerHand;
 }
 
-string Player::printHandSave(){
+std::string Player::printHandSave(){
     return "";
 }
 
@@ -26,7 +26,7 @@ std::shared_ptr<LinkedList> Player::getHand(){
     return hand;
 }
 
-string Player::getHandColor(){
+std::string Player::getHandColor(){
     std::string printHand;
     std::string colorCode = "\033[30m";
     std::string shapeCode;
@@ -55,27 +55,23 @@ string Player::getHandColor(){
     return printHand;
 }
 
-string Player::getHandString(){
-    string printHand;
-
+std::string Player::getHandString(){
+    std::string printHand;
     for(int i = 0; i < hand->size(); i++) {
         if(i == (hand->size() - 1)){
             printHand += hand->get(i)->colour + std::to_string(hand->get(i)->shape);
-        }
-        else{
+        }else{
             printHand += hand->get(i)->colour + std::to_string(hand->get(i)->shape) + ",";
         }
     }
-
     return printHand;
 }
 
-string Player::getName()
-{
+std::string Player::getName(){
     return playerName;
 }
 
-void Player::setName(string name){
+void Player::setName(std::string name){
     this->playerName = name;
 }
 

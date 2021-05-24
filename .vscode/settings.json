@@ -87,6 +87,11 @@
         "map": "cpp",
         "numeric": "cpp",
         "random": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "climits": "cpp",
+        "*.tcc": "cpp",
+        "condition_variable": "cpp",
+        "memory_resource": "cpp",
+        "shared_mutex": "cpp"
     }
 }

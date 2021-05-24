@@ -8,8 +8,7 @@ Engine::~Engine(){
 
 }
 
-void Engine::startGame(Player* playerList[], int numPlayer)
-{
+void Engine::startGame(Player* playerList[], int numPlayer) {
     bag = std::make_shared<LinkedList>();
     this->players[0] = playerList[0];
     this->players[1] = playerList[1];
@@ -19,13 +18,12 @@ void Engine::startGame(Player* playerList[], int numPlayer)
     gameRun();
 }
 
-void Engine::giveTiles()
-{
+void Engine::giveTiles() {
     // Loop to give tiles to all players
     for(int i = 0; i < PLAYERS; i++){
-        shared_ptr<LinkedList> giveTiles = std::make_shared<LinkedList>();
+        std::shared_ptr<LinkedList> giveTiles = std::make_shared<LinkedList>();
         for(int i=0; i < START_SIZE; i++){
-            shared_ptr<Tile> t = bag->removeFront();
+            std::shared_ptr<Tile> t = bag->removeFront();
             giveTiles->addBack(t);
         }
         players[i]->setPlayerHand(giveTiles);
@@ -49,11 +47,9 @@ void Engine::initialiseBag()
 }
 
 //declare a random engine, randomise the tile, add it to the back, and remove initial tiles
-void Engine::randomiseBag(){
+void Engine::randomiseBag() {
     std::random_device engine;
-
-    for (int i = 0; i < MAX_NUM_OF_TILE * 2; i++)
-    {
+    for (int i = 0; i < MAX_NUM_OF_TILE * 2; i++) {
         srand(time(NULL));
         int ran = rand() % MAX_NUM_OF_TILE;
         std::uniform_int_distribution<int> uniform_dist(0, ran - 1);
@@ -65,14 +61,13 @@ void Engine::randomiseBag(){
 
 }
 
-void Engine::gameRun()
-{
+void Engine::gameRun() {
     bool exit = false;
     int playerNo = 0;
 
     // This is for loading the game, will check the current player and gets the playerno
     // of the current player
-    if(this->currentPlayer != nullptr){
+    if(this->currentPlayer != nullptr) {
         for(int i = 0; i < PLAYERS; i++) if(players[i]->getName() == currentPlayer->getName()) playerNo = i;
     }
     do{
@@ -108,11 +103,11 @@ void Engine::gameRun()
                 if(std::cin.eof()){
                     exit = true;
                     endturn = true;
-                }else{
+                }else {
                     // Regex isn't fun, but it helps with checking user input and splitting the option
-                    if(std::regex_match(option, std::regex(REGTILEPLACE))){
+                    if(std::regex_match(option, std::regex(REGTILEPLACE))) {
                         std::smatch match;
-                        if(std::regex_search(option, match, std::regex(REGTILEPLACE))){
+                        if(std::regex_search(option, match, std::regex(REGTILEPLACE))) {
                             string tile = match.str(REGEX_TILE); 
                             Row row = match.str(REGEX_ROW)[0];
                             std::stringstream temp(match.str(REGEX_COL));
@@ -120,30 +115,27 @@ void Engine::gameRun()
                             temp >> col;
                             endturn = placeTile(this->currentPlayer, tile, row, col);
                         }
-                    }else if(std::regex_match(option, std::regex(REGTILEREPLA))){
+                    }else if(std::regex_match(option, std::regex(REGTILEREPLA))) {
                         std::smatch match;
-                        if(std::regex_search(option, match, std::regex(REGTILEREPLA)))
-                        {                       
+                        if(std::regex_search(option, match, std::regex(REGTILEREPLA))) {                       
                             string tile = match.str(REGEX_TILE); 
                             endturn = replaceTile(this->currentPlayer, tile);
                         }
-                    }else if(std::regex_match(option, std::regex(REGEXIT))){
+                    }else if(std::regex_match(option, std::regex(REGEXIT))) {
                         // Quits game when user types 'quit'
                         exit = true;
                         endturn = true;
-                    }else if(std::regex_match(option, std::regex(REGHELP))){
+                    }else if(std::regex_match(option, std::regex(REGHELP))) {
                         // Trigger help or guide when user type 'help'
                         help();
-                    }else if(std::regex_match(option, std::regex(REGSAVE))){
+                    }else if(std::regex_match(option, std::regex(REGSAVE))) {
                         // Saves the game based on the save file user puts in
                         std::smatch match;
-                        if(std::regex_search(option, match, std::regex(REGSAVE))){
+                        if(std::regex_search(option, match, std::regex(REGSAVE))) {
                             string filename = match.str(REGEX_SAVE);
                             saveGame(filename);
                         }
-                    }
-                    else
-                    {
+                    }else {
                         std::cout << "Invalid Command" << std::endl;
                     }
                 }
@@ -168,34 +160,29 @@ bool Engine::replaceTile(Player* curPlayer, std::string tilePlaced){
         curPlayer->getHand()->addBack(bag->removeFront());
         success = true;
         std::cout << "Tile successfully replaced" << std::endl;
-    }
-    else{
+    } else{
         std::cout << "You do not have that tile" << std::endl;
     }
     return success;
 }
 
-bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col col)
-{
+bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col col) {
     bool success = false;
     // Check if tile is in player bag
     int index = curPlayer->getHand()->checkTile(tilePlaced);
     int rowCheck = (row - A_CHAR);
     // Checks if coordinates entered is not greater than the current board size
-    if(!(col >= this->board->boardCol) && !(rowCheck >= this->board->boardRow))
-    {
-        if (index != -1)
-        {
+    if(!(col >= this->board->boardCol) && !(rowCheck >= this->board->boardRow)) {
+        if (index != -1) {
             // Gets tile from players bag
-            shared_ptr<Tile> tilePtr = curPlayer->getHand()->get(index);
+            std::shared_ptr<Tile> tilePtr = curPlayer->getHand()->get(index);
             // Sets the tile col and row
             tilePtr->row = row;
             tilePtr->col = col;
             // Places it on the board
             success = board->placeTile(tilePtr);
 
-            if(success)
-            {
+            if(success) {
                 // Removes tile from players hand
                 curPlayer->getHand()->removeIndex(index);
 
@@ -208,25 +195,21 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
                 int score = board->calculatePoints(row, col);
                 curPlayer->addScore(curPlayer->getScore() + score);
             }
-        }
-        else{
+        }else {
             std::cout << "You do not have that tile" << std::endl;
         }
-    }
-    else
-    {
+    }else {
         std::cout << "Coordinates entered is out of the board size\n";
     }
     // If tile failed to place
     
-    if(!success)
-    {
+    if(!success) {
         std::cout << "Failed to place tile " << tilePlaced << " at " << row << col << "\n";
     }
     return success;
 }
 
-bool Engine::endGame(Player* curPlayer){
+bool Engine::endGame(Player* curPlayer) {
     bool success = false;
     // Checks if the bag size and the player bag is empty
     if(bag->size() == 0 && curPlayer->getHand()->size() == 0){
@@ -234,13 +217,11 @@ bool Engine::endGame(Player* curPlayer){
         std::cout << "Game Over" <<std::endl;
         std::cout << "Score for " << this->players[0]->getName() << ": " <<this->players[0]->getScore() << std::endl;
         std::cout << "Score for " << this->players[1]->getName() << ": "<<this->players[1]->getScore() << std::endl;
-        if (this->players[0]->getScore() > this->players[1]->getScore()){
+        if (this->players[0]->getScore() > this->players[1]->getScore()) {
             std::cout << "Player "<< this->players[0]->getName() << " won" << std::endl;
-        }
-        else if (this->players[0]->getScore() < this->players[1]->getScore()){
+        }else if (this->players[0]->getScore() < this->players[1]->getScore()) {
             std::cout << "Player "<< this->players[1]->getName() << " won" << std::endl;
-        }
-        else{
+        }else {
             std::cout << "Game Tied!" << std::endl;
         }
         std::cout << "\n\nGoodbye!" <<std::endl;
@@ -255,8 +236,7 @@ void Engine::saveGame(string fileName)
     write.open(SAVEFOLDER+fileName);
 
     // save player name, score and hand
-    for(int i = 0; i < PLAYERS; i++)
-    {
+    for(int i = 0; i < PLAYERS; i++) {
         write << this->players[i]->getName() << std::endl;
         write << this->players[i]->getScore() << std::endl;
         write << this->players[i]->getHandString() << std::endl;
@@ -279,16 +259,15 @@ void Engine::saveGame(string fileName)
 
     // save currentPlayer turn
     write << this->currentPlayer->getName();
-
     write.close();
     std::cout << "Save Complete\n";
 }
 
-void Engine::loadGame(string fileName){
+void Engine::loadGame(string fileName) {
     string line;
     std::ifstream file(SAVEFOLDER+fileName);
 
-    if(file.is_open()){
+    if(file.is_open()) {
         // Sets up Engine variables
         this->players[0] = new Player();
         this->players[1] = new Player();
@@ -298,35 +277,35 @@ void Engine::loadGame(string fileName){
         int lineCount = 0;
 
         // Loops through all the lines in the save file
-        while(std::getline(file, line)){
+        while(std::getline(file, line)) {
             // Sets Player 1 Name
-            if(lineCount == PLAYER1){
+            if(lineCount == PLAYER1) {
                 this->players[0]->setName(line);
             }
             // Sets Player 1 Score
-            if(lineCount == PLAYER1_SCORE){
+            if(lineCount == PLAYER1_SCORE) {
                 std::stringstream stringScore(line);
                 stringScore >> this->players[0]->score;
             }
             // Sets Player 1 hand
-            if(lineCount == PLAYER1_HAND){   
+            if(lineCount == PLAYER1_HAND) {   
                 playerHand(line, this->players[0]);
             }
             // Sets Player 2 Name
-            if(lineCount == PLAYER2){
+            if(lineCount == PLAYER2) {
                 this->players[1]->setName(line);
             }
             // Sets Player 2 Score
-            if(lineCount == PLAYER2_SCORE){
+            if(lineCount == PLAYER2_SCORE) {
                 std::stringstream stringScore(line);
                 stringScore >> this->players[1]->score;
             }
             // Sets Player 2 hand
-            if(lineCount == PLAYER2_HAND){
+            if(lineCount == PLAYER2_HAND) {
                 playerHand(line, this->players[1]);
             }
             // Sets Board Size
-            if(lineCount == BOARD_Size){
+            if(lineCount == BOARD_Size) {
                 std::vector<std::string> size;
                 split(line, ',', size);
                 std::stringstream col(size.at(0));
@@ -335,15 +314,15 @@ void Engine::loadGame(string fileName){
                 wid >> board->boardCol;
             }
             // Sets Board
-            if(lineCount == BOARD){
+            if(lineCount == BOARD) {
                 // Checks if there are any pieces on the board
-                if(!(line == "[No board records.]")){
+                if(!(line == "[No board records.]")) {
                     // Splits all the tiles
                     std::vector<std::string> tiles;
                     split(line, ',', tiles);
 
                     // Loops throught all the tiles in the Vector
-                    for(unsigned int i = 0; i < tiles.size(); i++){
+                    for(unsigned int i = 0; i < tiles.size(); i++) {
                         // Regex Splits the tiles up
                         std::string tileCode = tiles.at(i);
                         std::remove_if(tileCode.begin(), tileCode.end(), isspace);
@@ -357,13 +336,13 @@ void Engine::loadGame(string fileName){
                 }
             }
             // Sets the bag
-            if(lineCount == BAG){
+            if(lineCount == BAG) {
                 // Splits all the tiles
                 std::vector<std::string> tiles;
                 split(line, ',', tiles);
 
                 // Loops throught all the tiles in the Vector
-                for(unsigned int i = 0; i < tiles.size(); i++){   
+                for(unsigned int i = 0; i < tiles.size(); i++) {   
                     // Creates a tile and puts it in the tile bag
                     std::string tile = tiles.at(i);
                     std::remove_if(tile.begin(), tile.end(), isspace);
@@ -373,10 +352,10 @@ void Engine::loadGame(string fileName){
                     this->bag->addBack(tile1);
                 }
             }
-            if(lineCount == CURRENT_PLAYER){
+            if(lineCount == CURRENT_PLAYER) {
                 // Checks what player is up and sets the current player
-                for(int i = 0; i < PLAYERS; i++){
-                    if(this->players[i]->getName() == line){
+                for(int i = 0; i < PLAYERS; i++) {
+                    if(this->players[i]->getName() == line) {
                         this->currentPlayer = this->players[i];
                     }
                 }
@@ -385,8 +364,7 @@ void Engine::loadGame(string fileName){
         }
         std::cout << "\n" << fileName << " has been loaded successfully" << std::endl;
         gameRun();
-    }
-    else{
+    }else {
         std::cout << "Failed to load " << fileName << std::endl;
     }
 }
@@ -405,9 +383,8 @@ std::vector<std::string>& Engine::split(const std::string &s, char delim,std::ve
 }
 
 // Set the player hand
-void Engine::playerHand(string playerHand, Player* player)
-{
-    shared_ptr<LinkedList> hand = std::make_shared<LinkedList>();
+void Engine::playerHand(string playerHand, Player* player) {
+    std::shared_ptr<LinkedList> hand = std::make_shared<LinkedList>();
     std::vector<std::string> tiles;
     split(playerHand, ',', tiles);
     for(unsigned int i = 0; i < tiles.size(); i++)
@@ -422,21 +399,22 @@ void Engine::playerHand(string playerHand, Player* player)
     player->setPlayerHand(hand);
 }
 
-void Engine::help(){
+void Engine::help() {
     std::cout   << "[----Guide-to-play-Qwirkle-Game----]\n\n"
-                << "Placing Tile:\n"
+                << "[Placing Tile]\n"
                 << "To place a tile, use command 'place <tile> at <board location>'\n\n"
-                << "Replace Tile:\n"
+                << "[Replace Tile]\n"
                 << "To replace a tile, use command 'replace <tile>'\n"
                 << "This command will replace the tile with a random tile from the bag\n\n"
+                << "[Tile Syntax]\n"
                 << "The syntax of placing a tile correctly is Color + Shape, Color and shape codes are defined below:\n"
                 << "\033[31mRED 'R'\033[0m, \033[91mORANGE 'O'\033[0m, \033[33mYELLOW 'Y'\033[0m, \033[32mGREEN  'G'\033[0m, \033[34mBLUE   'B'\033[0m, \033[35mPURPLE 'P'\033[0m\n"
-                << "CIRCLE(\U000025CB) '1', STAR_4(\U00002B51) '2', DIAMOND(\U000025CA) '3', SQUARE(\U000025A1) '4', STAR_6(\U00002734) '5', CLOVER(\U00002663) '6'\n\n"
-                << "Saving the game:\n"
+                << "CIRCLE( \U000025CB ) '1', STAR_4( \U00002727 ) '2', DIAMOND( \U000025CA ) '3', SQUARE( \U000025FB ) '4', STAR_6( \U00002736 ) '5', CLOVER( \U00002663 ) '6'\n\n"
+                << "[Saving the game]\n"
                 << "To save the current state of the game, use command 'save <filename>' \n\n"
-                << "Loading a game:\n"
+                << "[Loading a game]\n"
                 << "To load the game from a file, use command 'load <filename>' \n\n"
-                << "Quitting the game:\n"
+                << "[Quitting the game]\n"
                 << "To quit the game, use command 'quit' or 'exit' \n\n"
                 << "To see this guide again, simply type 'help' or 'guide' \n\n"
                 << "Enjoy Qwirkling! ;)"
