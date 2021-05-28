@@ -9,6 +9,7 @@ Engine::~Engine(){
 }
 
 void Engine::startGame(Player* playerList[], int playerAmount) {
+    // start game function with parameter to configure player amount
     bag = std::make_shared<LinkedList>();
     for (int i = 0; i < playerAmount; i++){
         this->players[i] = playerList[i];
@@ -63,6 +64,7 @@ void Engine::randomiseBag() {
 }
 
 void Engine::gameRun(int playerAmount) {
+    bool colorful = false;
     bool exit = false;
     int playerNo = 0;
 
@@ -89,12 +91,15 @@ void Engine::gameRun(int playerAmount) {
         }
 
         // Prints the board
-        this->board->printBoard();
+        this->board->printBoard(colorful);
         
         // Prints out the current player and their hand
         std::cout << "\nYour hand is" << std::endl;
-        std::cout << this->currentPlayer->getHandColor() << "\n" << std::endl;
-
+        if(colorful){
+            std::cout << this->currentPlayer->getHandColor() << "\n" << std::endl;
+        }else{
+            std::cout << this->currentPlayer->getHandString() << "\n" << std::endl;
+        }
         do {
             // Checks if exit is set
             if(!exit){
@@ -105,7 +110,6 @@ void Engine::gameRun(int playerAmount) {
                 if(option == ""){
                     std::getline(std::cin, option);
                 }
-                
                 if(std::cin.eof()){
                     exit = true;
                     endturn = true;
@@ -134,6 +138,14 @@ void Engine::gameRun(int playerAmount) {
                     }else if(std::regex_match(option, std::regex(REGHELP))) {
                         // Trigger help or guide when user type 'help'
                         help();
+                    }else if(std::regex_match(option, std::regex(REGCOLORFUL))) {
+                        // Trigger help or guide when user type 'help'
+                        colorful = true;
+                        std::cout << "[Color Theme]: enabled" << std::endl;
+                    }else if(std::regex_match(option, std::regex(REGCOLORLESS))) {
+                        // Trigger help or guide when user type 'help'
+                        colorful = false;
+                        std::cout << "[Color Theme]: disabled" << std::endl;
                     }else if(std::regex_match(option, std::regex(REGSAVE))) {
                         // Saves the game based on the save file user puts in
                         std::smatch match;
@@ -490,6 +502,9 @@ void Engine::help() {
                 << "To save the current state of the game, use command 'save <filename>' \n\n"
                 << "[Loading a game]\n"
                 << "To load the game from a file, use command 'load <filename>' \n\n"
+                << "[Color Theme]\n"
+                << "When in game, to enable colorful theme, use command 'enable colorful'\n"
+                << "To disable, use command 'disable colorful'\n\n"
                 << "[Quitting the game]\n"
                 << "To quit the game, use command 'quit' or 'exit' \n\n"
                 << "To see this guide again, simply type 'help' or 'guide' \n\n"

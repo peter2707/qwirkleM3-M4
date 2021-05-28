@@ -14,50 +14,49 @@ void Menu::mainMenu() {
                 << "3. Show Credits\n"
                 << "4. Help\n"
                 << "5. Quit\n> ";
-    do {
-        while(showMenu){
-            //get user input
-            std::cin >> menuOption;
-            //check if user input ctrl+d
-            if (std::cin.eof()) {
+    while(showMenu){
+        //get user input
+        std::cin >> menuOption;
+        //check if user input ctrl+d
+        if (std::cin.eof()) {
+            quit();
+        }else {
+            //if user input anything else than number, this will run
+            while (std::cin.fail()) {
+                std::cin.clear(); 
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Please enter a number...\n> ";
+                showMenu = true;
+            }
+            if (menuOption == NEWGAME) {
+                newGame();
+                showMenu = false;
+            } else if (menuOption == LOADGAME) {
+                loadGame();
+                showMenu = false;
+            } else if (menuOption == SHOWCREDIT) {
+                showCredits();
+                std::cout << "> ";
+                showMenu = true;
+            } else if (menuOption == HELP) {
+                e->help();
+                std::cout << "> ";
+                showMenu = true;
+            } else if (menuOption == QUIT) {
                 quit();
-            }else {
-                //if user input anything else than number, this will run
-                while (std::cin.fail()) {
-                    std::cin.clear(); 
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    std::cout << "Please enter a number...\n> ";
-                    showMenu = true;
-                }
-                if (menuOption == NEWGAME) {
-                    newGame();
-                    showMenu = false;
-                } else if (menuOption == LOADGAME) {
-                    loadGame();
-                    showMenu = false;
-                } else if (menuOption == SHOWCREDIT) {
-                    showCredits();
-                    std::cout << "> ";
-                    showMenu = true;
-                } else if (menuOption == HELP) {
-                    e->help();
-                    std::cout << "> ";
-                    showMenu = true;
-                } else if (menuOption == QUIT) {
-                    quit();
-                } else {
-                    std::cout<<"Sorry, invalid option...\n> ";
-                    showMenu = true;
-                }
+            } else {
+                std::cout<<"Sorry, invalid option...\n> ";
+                showMenu = true;
             }
         }
-    }while(menuOption != NEWGAME || menuOption != LOADGAME || menuOption != SHOWCREDIT || menuOption != QUIT);
+    }
 }
 
 void Menu::newGame() {
     bool success = false;
     std::cout << "Starting a new game...\n" << std::endl;
     std::cout << "Enter amount of players (2-4)\n> ";
+    // asking for player amount
     while (!success) {
         std::cin >> playerAmount;
         if (std::cin.eof()) {
@@ -68,11 +67,10 @@ void Menu::newGame() {
             std::cout << "Please enter a number...\n> ";
             success = false;
         }else if(playerAmount < 2 || playerAmount > 4) {
-            std::cin.clear(); 
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Player amount must be between 2 and 4\n> ";
             success = false;
         }else {
+            //create players based on number provided
             Player *players[playerAmount];
             for(int i=0; i < playerAmount; i++){
                 bool check = false;
@@ -89,6 +87,7 @@ void Menu::newGame() {
                         }else{
                             players[i] = new Player(playerName);
                             if(i == 1){
+                                // check if player name match with previous one
                                if(players[i]->getName() == players[i-1]->getName()){
                                    std::cout<<"Sorry, this name is already taken...\n> ";
                                    check = false;
@@ -113,7 +112,6 @@ void Menu::newGame() {
                                 check = true;
                             }
                         }
-                        
                     }
                 }
             }

@@ -81,6 +81,8 @@ typedef int Col;
 #define     REGEXIT        "^\t*\\s*(quit|exit)$"
 #define     REGSAVE        "^\t*\\s*(save)\t*\\s*([a-z0-9]+)$"
 #define     REGHELP        "^\t*\\s*(help|guide)$"
+#define     REGCOLORFUL    "^\t*\\s*(enable)\t*\\s*(colorful)$"
+#define     REGCOLORLESS    "^\t*\\s*(disable)\t*\\s*(colorful)$"
 
 #define     SAVEFOLDER     "save_game/"
 
