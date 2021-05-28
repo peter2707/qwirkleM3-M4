@@ -3,10 +3,12 @@ Welcome To Qwirkle!
 1. New Game
 2. Load Game
 3. Show Credits
-4. Quit
+4. Help
+5. Quit
 > Starting a new game...
 
-Enter a name for Player 1 (Uppercase characters only!)
+Enter amount of players (2-4)
+> Enter a name for Player 1 (Uppercase characters only!)
 > Enter a name for Player 2 (Uppercase characters only!)
 > Sorry, this name is already taken...
 > Goodbye!

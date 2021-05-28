@@ -6,42 +6,43 @@ Welcome To Qwirkle!
 4. Help
 5. Quit
 > Enter a file name to load from
-> test1 has been loaded successfully
+> test5 has been loaded successfully
 
-ALICE, it's your turn
+W, it's your turn
 
-Score for BOB: 1
-Score for ALICE: 0
-
-    0  1  2  3  4  5
-  -------------------
-A |  |  |  |  |  |  |
-B |  |  |  |  |  |  |
-C |  |  |  |  |  |  |
-D |  |  |P2|  |  |  |
-E |  |  |  |  |  |  |
-F |  |  |  |  |  |  |
-
-Your hand is
-B6,P6,B4,G6,O2,P5
-
-> Tile successfully replaced
-
-BOB, it's your turn
-
-Score for BOB: 1
-Score for ALICE: 0
+Score for Q: 1
+Score for W: 0
+Score for E: 0
 
     0  1  2  3  4  5
   -------------------
 A |  |  |  |  |  |  |
 B |  |  |  |  |  |  |
 C |  |  |  |  |  |  |
-D |  |  |P2|  |  |  |
+D |  |  |  |O6|  |  |
 E |  |  |  |  |  |  |
 F |  |  |  |  |  |  |
 
 Your hand is
-G4,B1,P6,P1,O4,R5
+B6,O2,G3,G3,R3,O6
+
+> 
+E, it's your turn
+
+Score for Q: 1
+Score for W: 2
+Score for E: 0
+
+    0  1  2  3  4  5
+  -------------------
+A |  |  |  |  |  |  |
+B |  |  |  |  |  |  |
+C |  |  |  |  |  |  |
+D |  |  |  |O6|B6|  |
+E |  |  |  |  |  |  |
+F |  |  |  |  |  |  |
+
+Your hand is
+B1,G2,R5,Y4,G6,G4
 
 > Goodbye!

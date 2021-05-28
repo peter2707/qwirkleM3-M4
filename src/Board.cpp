@@ -32,6 +32,7 @@ void Board::printBoard(bool colorful){
         for(int j = 0; j < boardCol; j++){
             // Gets the tile position
             std::string tile = tilePosition(row, j);
+            //if color mode is true, tile will add escape code for colors and symbol
             if (colorful){
                 char color;
                 std::string shape;
@@ -57,6 +58,7 @@ void Board::printBoard(bool colorful){
                 }
                 std::cout << tile << "|"; 
             }else{
+                //otherwise, this will run 
                 std::cout << tile << "|"; 
             }
         }

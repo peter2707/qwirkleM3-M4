@@ -25,7 +25,7 @@ void Menu::mainMenu() {
             while (std::cin.fail()) {
                 std::cin.clear(); 
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Please enter a number...\n> ";
+                std::cout << "Please enter a number..." << std::endl;
                 showMenu = true;
             }
             if (menuOption == NEWGAME) {

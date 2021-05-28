@@ -1,0 +1,38 @@
+Welcome To Qwirkle!
+--------Menu--------
+1. New Game
+2. Load Game
+3. Show Credits
+4. Help
+5. Quit
+> [----Guide-to-play-Qwirkle-Game----]
+
+[Placing Tile]
+To place a tile, use command 'place <tile> at <board location>'
+
+[Replace Tile]
+To replace a tile, use command 'replace <tile>'
+This command will replace the tile with a random tile from the bag
+
+[Tile Syntax]
+The syntax of placing a tile correctly is Color + Shape, Color and shape codes are defined below:
+RED 'R', ORANGE 'O', YELLOW 'Y', GREEN  'G', BLUE   'B', PURPLE 'P'
+CIRCLE( ○ ) '1', STAR_4( ✧ ) '2', DIAMOND( ◊ ) '3', SQUARE( ◻ ) '4', STAR_6( ✶ ) '5', CLOVER( ♣ ) '6'
+
+[Saving the game]
+To save the current state of the game, use command 'save <filename>' 
+
+[Loading a game]
+To load the game from a file, use command 'load <filename>' 
+
+[Color Theme]
+When in game, to enable colorful theme, use command 'enable colorful'
+To disable, use command 'disable colorful'
+
+[Quitting the game]
+To quit the game, use command 'quit' or 'exit' 
+
+To see this guide again, simply type 'help' or 'guide' 
+
+Enjoy Qwirkling! ;)
+> Goodbye!

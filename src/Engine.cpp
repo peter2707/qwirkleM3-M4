@@ -89,7 +89,7 @@ void Engine::gameRun(int playerAmount) {
         for (int i = 0; i < playerAmount; i++){
             std::cout << "Score for " << this->players[i]->getName() + ": " << this->players[i]->getScore() << std::endl;
         }
-
+        std::cout << std::endl;
         // Prints the board
         this->board->printBoard(colorful);
         

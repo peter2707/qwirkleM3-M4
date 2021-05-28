@@ -26,11 +26,13 @@ std::shared_ptr<LinkedList> Player::getHand(){
     return hand;
 }
 
+//when user enable color mode, engine will use this instead
 std::string Player::getHandColor(){
     std::string printHand;
     std::string colorCode = COLOR_BLACK;
     std::string shapeCode;
     
+    //compare character and add escape code for colors and symbol
     for(int i = 0; i < hand->size(); i++) {
         if (hand->get(i)->colour == RED) colorCode = COLOR_RED;
         else if (hand->get(i)->colour == ORANGE) colorCode = COLOR_ORANGE;
@@ -55,6 +57,7 @@ std::string Player::getHandColor(){
     return printHand;
 }
 
+//engine will use this by default to get normal tiles
 std::string Player::getHandString(){
     std::string printHand;
     for(int i = 0; i < hand->size(); i++) {
