@@ -55,10 +55,10 @@ void Menu::mainMenu() {
 }
 
 void Menu::newGame() {
-    bool sucess = false;
+    bool success = false;
     std::cout << "Starting a new game...\n" << std::endl;
     std::cout << "Enter amount of players (2-4)\n> ";
-    while (!sucess){
+    while (!success) {
         std::cin >> playerAmount;
         if (std::cin.eof()) {
             quit();
@@ -66,18 +66,18 @@ void Menu::newGame() {
             std::cin.clear(); 
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Please enter a number...\n> ";
-            sucess = false;
+            success = false;
         }else if(playerAmount < 2 || playerAmount > 4) {
             std::cin.clear(); 
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Player amount must be between 2 and 4\n> ";
-            sucess = false;
+            success = false;
         }else {
             Player *players[playerAmount];
             for(int i=0; i < playerAmount; i++){
                 bool check = false;
                 std::cout << "Enter a name for Player "<< i + 1 <<" (Uppercase characters only!)\n> ";
-                while(!check){
+                while(check!=true){
                     std::cin >> playerName;
                     if (std::cin.eof()) {
                         quit();
@@ -88,18 +88,27 @@ void Menu::newGame() {
                             check = false;
                         }else{
                             players[i] = new Player(playerName);
-                            //if i > 0, it means current input is player 2 name
-                            //so it will check if the name matches player one's
-                            if(i > 0){
-                                for (int k = i - 1; k >= 0; k--){
-                                    if (players[i]->getName() == players[k]->getName()){
-                                        std::cout << "Sorry, this name is already taken...\n> ";
-                                        check = false;
-                                    }else {
-                                        players[i]->setName(playerName);
-                                        check = true;
-                                    }
-                                }
+                            if(i == 1){
+                               if(players[i]->getName() == players[i-1]->getName()){
+                                   std::cout<<"Sorry, this name is already taken...\n> ";
+                                   check = false;
+                                }else
+                                    check = true;
+                            }else if(i == 2){
+                                if(players[i]->getName() == players[i-1]->getName()||
+                                   players[i]->getName() == players[i-2]->getName()){
+                                   std::cout<<"Sorry, this name is already taken...\n> ";
+                                   check = false;
+                                }else
+                                    check = true;
+                            }else if(i == 3){
+                                if(players[i]->getName() == players[i-1]->getName()||
+                                   players[i]->getName() == players[i-2]->getName()||
+                                   players[i]->getName() == players[i-3]->getName()){
+                                   std::cout<<"Sorry, this name is already taken...\n> ";
+                                   check = false;
+                                }else
+                                    check = true;
                             }else {
                                 check = true;
                             }

@@ -17,12 +17,14 @@ class Board{
         Board(std::vector< std::shared_ptr<Tile> > board, int boardRow, int boardCol);
         ~Board();
 
+        void setColorAndShape(bool colorAndShape);
         void addTile(std::shared_ptr<Tile> tile);
         void printBoard();
+        int calculatePoints(Row tileRow, Col tileCol);
         int getLength();
         std::string printBoardSave();
         bool placeTile(std::shared_ptr<Tile> tile);
-        int calculatePoints(Row tileRow, Col tileCol);
+        
         int boardRow;
         int boardCol;
 

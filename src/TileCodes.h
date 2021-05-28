@@ -19,6 +19,7 @@
 #define CLOVER    6
 
 // ANSI COLORS
+#define COLOR_BLACK   "\x1b[30m"
 #define COLOR_RED     "\x1b[31m"
 #define COLOR_GREEN   "\x1b[32m"
 #define COLOR_YELLOW  "\x1b[33m"

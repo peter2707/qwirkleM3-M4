@@ -150,8 +150,7 @@ void Engine::gameRun(int playerAmount) {
         
         if(playerNo == (playerAmount - 1)){
             playerNo = 0;
-        }
-        else {
+        }else {
             playerNo++;
         }
     } while(!endGame(currentPlayer, playerAmount) && !exit);
@@ -211,7 +210,6 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
         std::cout << "Coordinates entered is out of the board size\n";
     }
     // If tile failed to place
-    
     if(!success) {
         std::cout << "Failed to place tile " << tilePlaced << " at " << row << col << "\n";
     }
@@ -222,22 +220,20 @@ bool Engine::endGame(Player* curPlayer, int playerAmount) {
     bool success = false;
     // Checks if the bag size and the player bag is empty
     if(bag->size() == 0 && curPlayer->getHand()->size() == 0){
+        curPlayer->addScore(curPlayer->getScore() + WIN_BONUS);
         success = true;
         std::cout << "Game Over" <<std::endl;
         for (int i = 0; i < playerAmount; i++){
             std::cout << "Score for " << this->players[i]->getName() << ": " << this->players[i]->getScore() << std::endl;
         }
-        int tempIndex = 0;
-        for (int i = 0; i < playerAmount; i++)
-        {
-            if (i > 0)
-            {
+        int winner = 0;
+        for (int i = 0; i < playerAmount; i++){
+            if (i > 0){
                 if (this->players[i]->getScore() == this->players[i - 1]->getScore()){
                     std::cout << "Game Tied!" << std::endl;
-                }
-                else if (this->players[i]->getScore() > this->players[i - 1]->getScore()){
-                    std::cout << "Player " << this->players[tempIndex]->getName() << " won" << std::endl;
-                    tempIndex = i;
+                }else if (this->players[i]->getScore() > this->players[i - 1]->getScore()){
+                    std::cout << "Player " << this->players[winner]->getName() << " won" << std::endl;
+                    winner = i;
                 }
             }
         }
@@ -247,8 +243,7 @@ bool Engine::endGame(Player* curPlayer, int playerAmount) {
     return success;
 }
 
-void Engine::saveGame(string fileName)
-{
+void Engine::saveGame(string fileName){
     std::ofstream write;
     write.open(SAVEFOLDER+fileName);
 
@@ -337,7 +332,7 @@ void Engine::loadGame(string fileName) {
                 }
             }
             // Sets Player 3 Score
-            if (lineCount == PLAYER3_SCORE){
+            if (lineCount == PLAYER3_SCORE && this->players[2] != nullptr){
                 if (line == ""){
                     this->players[2] = nullptr;
                 }else{
@@ -346,9 +341,9 @@ void Engine::loadGame(string fileName) {
                 }
             }
             // Sets Player 3 hand
-            if (lineCount == PLAYER3_HAND){
+            if (lineCount == PLAYER3_HAND && this->players[2] != nullptr){
                 if (line == ""){
-                    this->players[3] = nullptr;
+                    this->players[2] = nullptr;
                 }else{
                     playerHand(line, this->players[2]);
                 }
@@ -362,7 +357,7 @@ void Engine::loadGame(string fileName) {
                 }
             }
             // Sets Player 4 Score
-            if (lineCount == PLAYER4_SCORE){
+            if (lineCount == PLAYER4_SCORE && this->players[3] != nullptr){
                 if (line == ""){
                     this->players[3] = nullptr;
                 }else{
@@ -371,7 +366,7 @@ void Engine::loadGame(string fileName) {
                 }
             }
             // Sets Player 4 hand
-            if (lineCount == PLAYER4_HAND){
+            if (lineCount == PLAYER4_HAND && this->players[3] != nullptr){
                 if (line == ""){
                     this->players[3] = nullptr;
                 }else{

@@ -72,6 +72,9 @@ typedef int Col;
 #define     ZERO_CHAR      '0'
 #define     A_CHAR         'A'
 
+// Define Game Rules
+#define     WIN_BONUS       6
+
 // Define regex for user's commands
 #define     REGTILEPLACE   "^\t*\\s*(place)\t*\\s*([R|O|Y|G|B|P][1-6])\t*\\s*(at)\t*\\s*([A-Z])([0-9]|1[0-9]|2[0-5])$"
 #define     REGTILEREPLA   "^\t*\\s*(replace)\t*\\s*([R|O|Y|G|B|P][1-6])$"

@@ -34,7 +34,7 @@ void Board::printBoard(){
             std::string tile = tilePosition(row, j);
             char color;
             std::string shape;
-            std::string colorCode = "\033[30m";
+            std::string colorCode = COLOR_BLACK;
             std::string shapeCode;
             if (tile != "  " && tile.length() > 1){
                 color = tile[0];

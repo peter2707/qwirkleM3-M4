@@ -29,6 +29,7 @@ private:
     void newGame();
     void loadGame();
     void showCredits();
+    void enhancements();
     void quit();
 
     /* Extra Functions */

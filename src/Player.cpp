@@ -28,7 +28,7 @@ std::shared_ptr<LinkedList> Player::getHand(){
 
 std::string Player::getHandColor(){
     std::string printHand;
-    std::string colorCode = "\033[30m";
+    std::string colorCode = COLOR_BLACK;
     std::string shapeCode;
     
     for(int i = 0; i < hand->size(); i++) {
