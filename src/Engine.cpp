@@ -8,19 +8,20 @@ Engine::~Engine(){
 
 }
 
-void Engine::startGame(Player* playerList[], int numPlayer) {
+void Engine::startGame(Player* playerList[], int playerAmount) {
     bag = std::make_shared<LinkedList>();
-    this->players[0] = playerList[0];
-    this->players[1] = playerList[1];
+    for (int i = 0; i < playerAmount; i++){
+        this->players[i] = playerList[i];
+    }
     initialiseBag();
     randomiseBag();
-    giveTiles();
-    gameRun();
+    giveTiles(playerAmount);
+    gameRun(playerAmount);
 }
 
-void Engine::giveTiles() {
+void Engine::giveTiles(int playerAmount) {
     // Loop to give tiles to all players
-    for(int i = 0; i < PLAYERS; i++){
+    for(int i = 0; i < playerAmount; i++){
         std::shared_ptr<LinkedList> giveTiles = std::make_shared<LinkedList>();
         for(int i=0; i < START_SIZE; i++){
             std::shared_ptr<Tile> t = bag->removeFront();
@@ -61,14 +62,18 @@ void Engine::randomiseBag() {
 
 }
 
-void Engine::gameRun() {
+void Engine::gameRun(int playerAmount) {
     bool exit = false;
     int playerNo = 0;
 
     // This is for loading the game, will check the current player and gets the playerno
     // of the current player
     if(this->currentPlayer != nullptr) {
-        for(int i = 0; i < PLAYERS; i++) if(players[i]->getName() == currentPlayer->getName()) playerNo = i;
+        for(int i = 0; i < playerAmount; i++){
+            if(players[i]->getName() == currentPlayer->getName()){
+                playerNo = i;
+            }
+        }
     }
     do{
         bool endturn = false;
@@ -79,8 +84,9 @@ void Engine::gameRun() {
         // Sets the current player name so when we save it will store the current player
         this->currentPlayer = players[playerNo];
         std::cout << "\n" << this->currentPlayer->getName() << ", it's your turn\n" << std::endl;
-        std::cout << "Score for " << this->players[0]->getName() + ": "<< this->players[0]->getScore() << std::endl;
-        std::cout << "Score for " << this->players[1]->getName() + ": " << this->players[1]->getScore() << "\n" << std::endl;
+        for (int i = 0; i < playerAmount; i++){
+            std::cout << "Score for " << this->players[i]->getName() + ": " << this->players[i]->getScore() << std::endl;
+        }
 
         // Prints the board
         this->board->printBoard();
@@ -142,10 +148,13 @@ void Engine::gameRun() {
             }
         } while(!endturn);  
         
-        if(playerNo == (PLAYERS - 1))playerNo = 0;
-        else playerNo++;
-
-    } while(!endGame(currentPlayer) && !exit);
+        if(playerNo == (playerAmount - 1)){
+            playerNo = 0;
+        }
+        else {
+            playerNo++;
+        }
+    } while(!endGame(currentPlayer, playerAmount) && !exit);
 }
 
 
@@ -209,20 +218,28 @@ bool Engine::placeTile(Player* curPlayer, std::string tilePlaced, Row row, Col c
     return success;
 }
 
-bool Engine::endGame(Player* curPlayer) {
+bool Engine::endGame(Player* curPlayer, int playerAmount) {
     bool success = false;
     // Checks if the bag size and the player bag is empty
     if(bag->size() == 0 && curPlayer->getHand()->size() == 0){
         success = true;
         std::cout << "Game Over" <<std::endl;
-        std::cout << "Score for " << this->players[0]->getName() << ": " <<this->players[0]->getScore() << std::endl;
-        std::cout << "Score for " << this->players[1]->getName() << ": "<<this->players[1]->getScore() << std::endl;
-        if (this->players[0]->getScore() > this->players[1]->getScore()) {
-            std::cout << "Player "<< this->players[0]->getName() << " won" << std::endl;
-        }else if (this->players[0]->getScore() < this->players[1]->getScore()) {
-            std::cout << "Player "<< this->players[1]->getName() << " won" << std::endl;
-        }else {
-            std::cout << "Game Tied!" << std::endl;
+        for (int i = 0; i < playerAmount; i++){
+            std::cout << "Score for " << this->players[i]->getName() << ": " << this->players[i]->getScore() << std::endl;
+        }
+        int tempIndex = 0;
+        for (int i = 0; i < playerAmount; i++)
+        {
+            if (i > 0)
+            {
+                if (this->players[i]->getScore() == this->players[i - 1]->getScore()){
+                    std::cout << "Game Tied!" << std::endl;
+                }
+                else if (this->players[i]->getScore() > this->players[i - 1]->getScore()){
+                    std::cout << "Player " << this->players[tempIndex]->getName() << " won" << std::endl;
+                    tempIndex = i;
+                }
+            }
         }
         std::cout << "\n\nGoodbye!" <<std::endl;
         exit(0);
@@ -236,17 +253,23 @@ void Engine::saveGame(string fileName)
     write.open(SAVEFOLDER+fileName);
 
     // save player name, score and hand
-    for(int i = 0; i < PLAYERS; i++) {
-        write << this->players[i]->getName() << std::endl;
-        write << this->players[i]->getScore() << std::endl;
-        write << this->players[i]->getHandString() << std::endl;
+    for (int i = 0; i < MAX_PLAYERS; i++){
+        if (this->players[i] == nullptr){
+            write << "" << std::endl;
+            write << "" << std::endl;
+            write << "" << std::endl;
+        }else{
+            write << this->players[i]->getName() << std::endl;
+            write << this->players[i]->getScore() << std::endl;
+            write << this->players[i]->getHandString() << std::endl;
+        }
     }
 
     // save board size
     write << board->boardRow << "," << board->boardCol <<std::endl;
     // save board state
     if(board->printBoardSave().empty())
-        write << "[No board records.]" << std::endl;
+        write << "[No board records]" << std::endl;
     else 
         write << board->printBoardSave() << std::endl;
     // save tiles in bag
@@ -265,12 +288,13 @@ void Engine::saveGame(string fileName)
 
 void Engine::loadGame(string fileName) {
     string line;
-    std::ifstream file(SAVEFOLDER+fileName);
+    std::ifstream file(SAVEFOLDER + fileName);
 
     if(file.is_open()) {
         // Sets up Engine variables
-        this->players[0] = new Player();
-        this->players[1] = new Player();
+        for (int i = 0; i < MAX_PLAYERS; i++){
+            this->players[i] = new Player();
+        }
         this->board = new Board();
         bag = std::make_shared<LinkedList>();
         // Helps determinee what line we are up to
@@ -304,6 +328,56 @@ void Engine::loadGame(string fileName) {
             if(lineCount == PLAYER2_HAND) {
                 playerHand(line, this->players[1]);
             }
+            // Sets Player 3 Name
+            if (lineCount == PLAYER3){
+                if (line == ""){
+                    this->players[2] = nullptr;
+                }else{
+                    this->players[2]->setName(line);
+                }
+            }
+            // Sets Player 3 Score
+            if (lineCount == PLAYER3_SCORE){
+                if (line == ""){
+                    this->players[2] = nullptr;
+                }else{
+                    std::stringstream stringScore(line);
+                    stringScore >> this->players[2]->score;
+                }
+            }
+            // Sets Player 3 hand
+            if (lineCount == PLAYER3_HAND){
+                if (line == ""){
+                    this->players[3] = nullptr;
+                }else{
+                    playerHand(line, this->players[2]);
+                }
+            }
+            // Sets Player 4 Name
+            if (lineCount == PLAYER4){
+                if (line == ""){
+                    this->players[3] = nullptr;
+                }else{
+                    this->players[3]->setName(line);
+                }
+            }
+            // Sets Player 4 Score
+            if (lineCount == PLAYER4_SCORE){
+                if (line == ""){
+                    this->players[3] = nullptr;
+                }else{
+                    std::stringstream stringScore(line);
+                    stringScore >> this->players[3]->score;
+                }
+            }
+            // Sets Player 4 hand
+            if (lineCount == PLAYER4_HAND){
+                if (line == ""){
+                    this->players[3] = nullptr;
+                }else{
+                    playerHand(line, this->players[3]);
+                }
+            }
             // Sets Board Size
             if(lineCount == BOARD_Size) {
                 std::vector<std::string> size;
@@ -316,7 +390,7 @@ void Engine::loadGame(string fileName) {
             // Sets Board
             if(lineCount == BOARD) {
                 // Checks if there are any pieces on the board
-                if(!(line == "[No board records.]")) {
+                if(!(line == "[No board records]")) {
                     // Splits all the tiles
                     std::vector<std::string> tiles;
                     split(line, ',', tiles);
@@ -354,16 +428,23 @@ void Engine::loadGame(string fileName) {
             }
             if(lineCount == CURRENT_PLAYER) {
                 // Checks what player is up and sets the current player
-                for(int i = 0; i < PLAYERS; i++) {
-                    if(this->players[i]->getName() == line) {
-                        this->currentPlayer = this->players[i];
+                for (int i = 0; i < MAX_PLAYERS; i++){
+                    if (this->players[i] != nullptr){
+                        if (this->players[i]->getName() == line){
+                            this->currentPlayer = this->players[i];
+                        }
                     }
                 }
             }
             lineCount++;
         }
-        std::cout << "\n" << fileName << " has been loaded successfully" << std::endl;
-        gameRun();
+        std::cout << fileName << " has been loaded successfully" << std::endl;
+        if (this->players[3] != nullptr)
+            gameRun(MAX_PLAYERS);
+        else if (this->players[2] != nullptr)
+            gameRun(THREE_PLAYERS);
+        else
+            gameRun(MIN_PLAYERS);
     }else {
         std::cout << "Failed to load " << fileName << std::endl;
     }

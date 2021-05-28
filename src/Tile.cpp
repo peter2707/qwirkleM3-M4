@@ -23,6 +23,10 @@ Tile::Tile(Colour colour, Shape shape){
 Tile::~Tile(){
 }
 
+std::string Tile::getTile(){
+    return this->colour + std::to_string(this->shape);
+}
+
 void Tile::setPosition(Row row, Col col){
     this->col = col;
     this->row = row;

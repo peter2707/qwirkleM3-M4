@@ -6,6 +6,7 @@ Menu::~Menu() {}
 
 void Menu::mainMenu() {
     int menuOption;
+    bool showMenu = true;
     //print menu
     std::cout   << "--------Menu--------\n"
                 << "1. New Game\n"
@@ -14,93 +15,109 @@ void Menu::mainMenu() {
                 << "4. Help\n"
                 << "5. Quit\n> ";
     do {
-        //get user input
-        std::cin >> menuOption;
-        //check if user input ctrl+d
-        if (std::cin.eof()) {
-            quit();
-        }else {
-            //if user input anything else than number, this will run
-            while (std::cin.fail()) {
-                std::cin.clear(); 
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Please enter a number...\n> ";
-                std::cin >> menuOption;
-                if (std::cin.eof()) {
-                    quit();
-                }
-            }
-            if (menuOption == NEWGAME) {
-                newGame();
-            } else if (menuOption == LOADGAME) {
-                loadGame();
-            } else if (menuOption == SHOWCREDIT) {
-                showCredits();
-                std::cout << "> ";
-                continue;
-            } else if (menuOption == HELP) {
-                e->help();
-                std::cout << "> ";
-                continue;
-            } else if (menuOption == QUIT) {
+        while(showMenu){
+            //get user input
+            std::cin >> menuOption;
+            //check if user input ctrl+d
+            if (std::cin.eof()) {
                 quit();
-            } else {
-                std::cout<<"Sorry, invalid option...\n> ";
-                continue;
+            }else {
+                //if user input anything else than number, this will run
+                while (std::cin.fail()) {
+                    std::cin.clear(); 
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Please enter a number...\n> ";
+                    showMenu = true;
+                }
+                if (menuOption == NEWGAME) {
+                    newGame();
+                    showMenu = false;
+                } else if (menuOption == LOADGAME) {
+                    loadGame();
+                    showMenu = false;
+                } else if (menuOption == SHOWCREDIT) {
+                    showCredits();
+                    std::cout << "> ";
+                    showMenu = true;
+                } else if (menuOption == HELP) {
+                    e->help();
+                    std::cout << "> ";
+                    showMenu = true;
+                } else if (menuOption == QUIT) {
+                    quit();
+                } else {
+                    std::cout<<"Sorry, invalid option...\n> ";
+                    showMenu = true;
+                }
             }
         }
     }while(menuOption != NEWGAME || menuOption != LOADGAME || menuOption != SHOWCREDIT || menuOption != QUIT);
 }
 
 void Menu::newGame() {
+    bool sucess = false;
     std::cout << "Starting a new game...\n" << std::endl;
-    //get both player names via std::cin
-    for(int i=0; i < PLAYERS; i++){
-        bool check = false;
-        std::cout << "Enter a name for Player "<<i+1<<" (Uppercase characters only!)\n> ";
-        std::cin >> playerName;
+    std::cout << "Enter amount of players (2-4)\n> ";
+    while (!sucess){
+        std::cin >> playerAmount;
         if (std::cin.eof()) {
             quit();
-        }else{
-            while(check != true){
-                //check if player name is valid
-                if(checkPlayerName(playerName) != true){
-                    std::cout<<"Sorry, Invalid Player's name\n> ";
+        }else if(std::cin.fail()) {
+            std::cin.clear(); 
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Please enter a number...\n> ";
+            sucess = false;
+        }else if(playerAmount < 2 || playerAmount > 4) {
+            std::cin.clear(); 
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Player amount must be between 2 and 4\n> ";
+            sucess = false;
+        }else {
+            Player *players[playerAmount];
+            for(int i=0; i < playerAmount; i++){
+                bool check = false;
+                std::cout << "Enter a name for Player "<< i + 1 <<" (Uppercase characters only!)\n> ";
+                while(!check){
                     std::cin >> playerName;
                     if (std::cin.eof()) {
                         quit();
-                    }
-                }else{
-                    this->players[i] = new Player(playerName);
-                    //if i > 0, it means current input is player 2 name
-                    //so it will check if the name matches player one's
-                    if(i > 0){
-                        if(this->players[i]->getName() == this->players[i-1]->getName()){
-                            std::cout<<"Sorry, this name is already taken...\n> ";
-                            std::cin >> playerName;
-                            if (std::cin.eof()) {
-                                quit();
+                    }else{
+                        //check if player name is valid
+                        if(checkPlayerName(playerName) != true){
+                            std::cout<<"Sorry, Invalid Player's name\n> ";
+                            check = false;
+                        }else{
+                            players[i] = new Player(playerName);
+                            //if i > 0, it means current input is player 2 name
+                            //so it will check if the name matches player one's
+                            if(i > 0){
+                                for (int k = i - 1; k >= 0; k--){
+                                    if (players[i]->getName() == players[k]->getName()){
+                                        std::cout << "Sorry, this name is already taken...\n> ";
+                                        check = false;
+                                    }else {
+                                        players[i]->setName(playerName);
+                                        check = true;
+                                    }
+                                }
+                            }else {
+                                check = true;
                             }
-                            this->players[i]->setName(playerName);
-                        } else {
-                            check = true;
                         }
-                    } else {
-                        check = true;
+                        
                     }
                 }
             }
+            e->startGame(players, playerAmount);
+            delete e;
+            quit();
         }
     }
-    e->startGame(players, PLAYERS);
-    delete e;
-    quit();
 }
 
 void Menu::loadGame() {
     std::string filename;
     bool validFile = false;
-
     //get file name via std::cin
     while(!validFile){
         std::ifstream in;
@@ -142,7 +159,8 @@ void Menu::showCredits() {
              <<"Name: Tony Peter Baker\n" 
              <<"Student ID: s3622250\n" 
              <<"Email: s3622250@student.rmit.edu.au\n" 
-             <<"------------------------------------\n"<<std::endl;
+             <<"------------------------------------\n"
+             <<std::endl;
 }
 
 void Menu::quit(){
@@ -172,6 +190,8 @@ bool Menu::checkPlayerName(std::string name){
 //check if a character is capital
 bool Menu::isCapital(char x){
     bool cap = false;
-    if (x >='A' && x <= 'Z')    cap = true;
+    if (x >='A' && x <= 'Z'){
+        cap = true;
+    }
     return cap;
 }

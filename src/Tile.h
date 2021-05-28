@@ -19,6 +19,7 @@ public:
    Row row;
    Col col;
 
+   std::string getTile();
    void setPosition(Row row, Col col);
    bool empty();
 };

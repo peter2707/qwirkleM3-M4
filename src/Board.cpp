@@ -75,7 +75,7 @@ std::string Board::tilePosition(char row, int col){
         if(tileRow == row && tileCol == col)
         {
             // Sets the string to the tile
-            tilePos = tile->colour + std::to_string(tile->shape);
+            tilePos = tile->getTile();
         }   
     }
     // Prints a space if no tile exists in the current square

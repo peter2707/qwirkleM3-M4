@@ -22,12 +22,12 @@ class Engine{
 public:
     Engine();
     ~Engine();
-    void startGame(Player* playerList[], int numPlayer);
+    void startGame(Player* playerList[], int playerAmount);
     // void loadGame(Board board, Player playerList[]);
     void playTile(Tile tile);
     void saveGame(string fileName);
     void loadGame(string fileName);
-    void gameRun();
+    void gameRun(int playerAmount);
     void randomiseBag();
     void help();
     
@@ -35,7 +35,7 @@ private:
     // Board
     Board* board;
     // Players
-    Player* players[PLAYERS];
+    Player* players[MAX_PLAYERS];
     // Bag
     std::shared_ptr<LinkedList> bag;
     // Current Player
@@ -45,10 +45,10 @@ private:
     void initialiseBag();
 
     // Gives tiles to players until their bag is full
-    void giveTiles();
+    void giveTiles(int playerAmount);
 
     // End Game
-    bool endGame(Player* curPlayer);
+    bool endGame(Player* curPlayer, int playerAmount);
 
     // Runs the game until there is no more tiles in the bag or users quit the game
     bool replaceTile(Player* curPlayer, std::string tilePlaced);

@@ -27,7 +27,9 @@ typedef int Col;
 #define     MAX_NUM_OF_TILE     72
 
 // Define player size
-#define     PLAYERS         2
+#define     MIN_PLAYERS     2
+#define     THREE_PLAYERS   3
+#define     MAX_PLAYERS     4
 
 // Define Colwidth
 #define     COLWID          3
@@ -53,11 +55,19 @@ typedef int Col;
 #define     PLAYER2_SCORE   4
 #define     PLAYER2_HAND    5
 
-#define     BOARD_Size      6
+#define     PLAYER3         6
+#define     PLAYER3_SCORE   7
+#define     PLAYER3_HAND    8
 
-#define     BOARD           7
-#define     BAG             8
-#define     CURRENT_PLAYER  9
+#define     PLAYER4         9
+#define     PLAYER4_SCORE   10
+#define     PLAYER4_HAND    11
+
+#define     BOARD_Size      12
+
+#define     BOARD           13
+#define     BAG             14
+#define     CURRENT_PLAYER  15
 
 #define     ZERO_CHAR      '0'
 #define     A_CHAR         'A'
