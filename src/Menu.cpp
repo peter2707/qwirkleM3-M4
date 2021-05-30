@@ -2,7 +2,7 @@
 
 Menu::Menu(){}
 
-Menu::~Menu() {}
+Menu::~Menu(){}
 
 void Menu::mainMenu() {
     int menuOption;
@@ -22,13 +22,12 @@ void Menu::mainMenu() {
             quit();
         }else {
             //if user input anything else than number, this will run
-            while (std::cin.fail()) {
+            if (std::cin.fail()) {
                 std::cin.clear(); 
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "Please enter a number..." << std::endl;
+                std::cout << "Please enter a number...\n> ";
                 showMenu = true;
-            }
-            if (menuOption == NEWGAME) {
+            } else if (menuOption == NEWGAME) {
                 newGame();
                 showMenu = false;
             } else if (menuOption == LOADGAME) {
